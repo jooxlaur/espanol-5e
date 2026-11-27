@@ -360,7 +360,7 @@ input[type=text],select{padding:11px 14px;border:1px solid var(--line2);border-r
    2. Outils de langue       5. Écrans
    3. Données de l’appareil  6. Exercices
    ====================================================================== */
-const VERSION = '1.1 — 27/11/2026';
+const VERSION = '1.2 — 27/11/2026';
 
 /* ---------------------------------------------------------------- 1. COURS */
 const UNIDADES = [
@@ -386,7 +386,7 @@ const LECCIONES = [
   P('No {V:comprendo}.', 'Je ne comprends pas.'),
  ]},
 {id:'lista', u:'u1', icon:'📋', es:'Pasar lista', fr:'Faire l’appel',
- intro:'Le professeur fait l’appel. Si l’élève est là, il répond… S’il n’est pas là, les autres disent…',
+ intro:'Le professeur fait l’appel. Si l’élève est là, il répond <b>¡Presente!</b>, <b>¡Aquí!</b> ou <b>¡Estoy!</b> S’il n’est pas là, les autres disent <b>¡No está!</b> ou <b>¡Falta!</b>',
  items:[
   W('¡Presente!', 'Présent !', '🙋'),
   W('¡Aquí!', 'Ici !', '👇'),
@@ -798,10 +798,10 @@ function glossFor(tok) {
 }
 /* Mot à mot : un sens court sous chaque mot espagnol (la personne du verbe entre parenthèses) */
 const MAM = {
- 'soy':'(je) suis','eres':'(tu) es','es':'(il) est','son':'(ils) sont','estoy':'(je) suis','estás':'(tu) es','está':'(il) est',
- 'llamo':'appelle','llamas':'appelles','llama':'appelle','tengo':'(j’)ai','tienes':'(tu) as','tiene':'(il) a',
- 'estudio':'(j’)étudie','estudias':'(tu) étudies','estudia':'(il) étudie','vengo':'(je) viens','vienes':'(tu) viens','viene':'(il) vient',
- 'veo':'(je) vois','ves':'(tu) vois','ve':'(il) voit','puedo':'(je) peux','puedes':'(tu) peux','puede':'(vous) pouvez',
+ 'soy':'(je) suis','eres':'(tu) es','es':'(il/elle) est','son':'(ils/elles) sont','estoy':'(je) suis','estás':'(tu) es','está':'(il/elle) est',
+ 'llamo':'appelle','llamas':'appelles','llama':'appelle','tengo':'(j’)ai','tienes':'(tu) as','tiene':'(il/elle) a',
+ 'estudio':'(j’)étudie','estudias':'(tu) étudies','estudia':'(il/elle) étudie','vengo':'(je) viens','vienes':'(tu) viens','viene':'(il/elle) vient',
+ 'veo':'(je) vois','ves':'(tu) vois','ve':'(il/elle) voit','puedo':'(je) peux','puedes':'(tu) peux','puede':'(vous) pouvez',
  'dice':'dit','significa':'signifie','escribe':'écrit','sé':'(je) sais','comprendo':'(je) comprends','falta':'manque',
  'empieza':'commence','vemos':'(nous) voyons','repetir':'répéter',
  'me':'me','te':'te','se':'se','mi':'mon, ma','tu':'ton, ta','su':'son, sa','mis':'mes','yo':'je','tú':'toi',
@@ -822,8 +822,8 @@ const MAM = {
 function mamWord(toks, i) {
   const k = toks[i], w = low(k.t).replace(/[^a-záéíóúüñ\s-]/g, '').trim();
   const words = toks.filter(isWord), j = words.indexOf(k), pv = words[j - 1], nx = words[j + 1];
-  if (w === 'qué' && nx && low(nx.t) === 'tal') return 'ça';
-  if (w === 'tal' && pv && low(pv.t) === 'qué') return 'va';
+  if (w === 'qué' && nx && low(nx.t) === 'tal') return 'comment';
+  if (w === 'tal' && pv && low(pv.t) === 'qué') return '';
   if (w === 'mañana') return pv && low(pv.t) === 'la' ? 'matin' : 'demain';
   if (w === 'clase' && pv && pv.r === 'Q') return 'classe';
   if (w in MAM) return MAM[w];
@@ -1145,16 +1145,17 @@ function vLeccion(id) {
   if (L.intro) h += `<p class="intro">${L.intro}</p>`;
   const btns = [];
   if (tr.length) btns.push(`<button class="btn" data-act="start" data-k="${L.id}">${I.target} S’entraîner sur cette leçon</button>`);
-  if (L.kind === 'veo') btns.push(`<button class="btn ghost" data-act="start" data-k="_veo">${I.play} Jouer à « Veo, veo »</button>`);
+  if (L.kind === 'veo' && veoPool().length >= 4) btns.push(`<button class="btn ghost" data-act="start" data-k="_veo">${I.play} Jouer à « Veo, veo »</button>`);
   if (btns.length) h += `<div class="btn-row">${btns.join('')}</div>`;
   if (L.kind === 'alfabeto') h += `<h3 class="sec-t">Les lettres</h3>` + alfaBlock();
   if (L.kind === 'fecha') h += `<h3 class="sec-t">La date du jour</h3><button class="dcard" data-go="fecha"><span class="ic">${I.cal}</span><span><b>${fechaTxt(new Date())}</b><small>Voir la date en grand pour la recopier</small></span>${I.next}</button>`;
   if (dl.length) h += `<h3 class="sec-t">Dialogues</h3><div class="stack">${dl.map(([it, i]) => `<button class="dcard" data-go="d/${L.id}/${i}"><span class="ic">${I.chat}</span><span><b>${esc(it.titre)}</b><small>${it.lines.length} répliques · lire ou jouer</small></span>${I.next}</button>`).join('')}</div>`;
-  if (qa.length) h += `<h3 class="sec-t">Questions et réponses</h3><div class="stack">${qa.map(([it, i]) => `<button class="srow" data-go="f/${L.id}/${i}">${sHTML(it.q.es)}<small>${esc(it.q.fr)}</small><span class="ans">${sHTML(it.a.es)}</span></button>`).join('')}</div>`;
-  if (ph.length) h += `<h3 class="sec-t">Phrases</h3><div class="stack">${ph.map(([it, i]) => `<button class="srow" data-go="f/${L.id}/${i}">${sHTML(it.es)}<small>${esc(it.fr)}</small></button>`).join('')}</div>`;
+  const noFr = isEleve() && !S.eleve.fr, sm = s => noFr ? '' : `<small>${esc(s)}</small>`;
+  if (qa.length) h += `<h3 class="sec-t">Questions et réponses</h3><div class="stack">${qa.map(([it, i]) => `<button class="srow" data-go="f/${L.id}/${i}">${sHTML(it.q.es)}${sm(it.q.fr)}<span class="ans">${sHTML(it.a.es)}</span></button>`).join('')}</div>`;
+  if (ph.length) h += `<h3 class="sec-t">Phrases</h3><div class="stack">${ph.map(([it, i]) => `<button class="srow" data-go="f/${L.id}/${i}">${sHTML(it.es)}${sm(it.fr)}</button>`).join('')}</div>`;
   if (wd.length) {
     const compact = L.kind === 'numeros' || L.kind === 'fecha';
-    h += `<h3 class="sec-t">${L.kind === 'numeros' ? 'Les nombres' : 'Les mots'}</h3><div class="wgrid${compact ? ' compact' : ''}">${wd.map(([it, i]) => `<button class="wcard" data-go="f/${L.id}/${i}">${it.img ? `<span class="pic">${pic(it.img)}</span>` : ''}<b>${esc(it.es)}</b><small>${esc(it.fr)}</small></button>`).join('')}</div>`;
+    h += `<h3 class="sec-t">${L.kind === 'numeros' ? 'Les nombres' : 'Les mots'}</h3><div class="wgrid${compact ? ' compact' : ''}">${wd.map(([it, i]) => `<button class="wcard" data-go="f/${L.id}/${i}">${it.img ? `<span class="pic">${pic(it.img)}</span>` : ''}<b>${esc(it.es)}</b>${sm(it.fr)}</button>`).join('')}</div>`;
   }
   return h;
 }
@@ -1169,6 +1170,8 @@ function vFocus(lid, idx) {
   const nav = L.items.map((x, j) => j).filter(j => ['w', 'p', 'qa'].includes(L.items[j].t));
   const pos = nav.indexOf(idx), prev = nav[pos - 1], next = nav[pos + 1];
   const key = lid + ':' + idx;
+  // nouvelle phrase : la traduction se referme (l’élève essaie d’abord, puis on vérifie)
+  if (UI.fkey !== key) { UI.fkey = key; UI.fr = false; UI.es = false; }
   const frFirst = S.set.sens === 'fr' && it.t !== 'qa';
   const frOk = !isEleve() || S.eleve.fr;
   const vue = it.t === 'w' ? 'phrase' : UI.vue;
@@ -1250,7 +1253,7 @@ function vDialogo(lid, idx) {
     const isNew = st.mode === 'paso' && i === st.n - 1;
     const showFr = frOk && (UI.fr || st.fr[i]);
     return `<button class="bub${right ? ' r' : ''}${hidden ? ' hid' : ''}${isNew ? ' new' : ''}" data-act="dline" data-k="${key}" data-i="${i}">
-      <div class="who">${esc(l.w)}</div>${hidden ? '<div class="s">… à toi ! <small class="muted">(touche pour vérifier)</small></div>' : sHTML(l.es)}
+      <div class="who">${esc(l.w)}${hidden ? ' · à toi !' : ''}</div>${hidden ? `<div class="s">${renderS(parse(l.es), {cases:true})}</div>${frOk ? `<div class="fr">Dis en espagnol : « ${esc(l.fr)} »</div>` : ''}<small class="muted">Touche la bulle pour vérifier.</small>` : sHTML(l.es)}
       ${!hidden && showFr ? `<div class="fr">${esc(l.fr)}</div>` : ''}</button>`;
   }).join('') + `</div>`;
   if (st.mode === 'paso') h += `<nav class="fbar">${st.n < N ? `<button class="btn" data-act="dnext" data-k="${key}">Réplique suivante · ${st.n} / ${N}</button>`
@@ -1277,9 +1280,9 @@ function vFecha(q) {
     <div class="fr">${fechaFr(d)}</div>
     ${sayBtn(`${f.dia}, ${f.num} de ${f.mes}`, 'Écouter')}
     <div class="btn-row" style="width:100%;max-width:520px">
-      <button class="btn ghost" data-go="${nav(off - 1)}">${I.back} Hier</button>
+      <button class="btn ghost" data-go="${nav(off - 1)}">${I.back} ${off === 0 ? 'Hier' : 'Jour d’avant'}</button>
       ${off !== 0 ? `<button class="btn ghost" data-go="${nav(0)}">Aujourd’hui</button>` : ''}
-      <button class="btn ghost" data-go="${nav(off + 1)}">Demain ${I.next}</button>
+      <button class="btn ghost" data-go="${nav(off + 1)}">${off === 0 ? 'Demain' : 'Jour d’après'} ${I.next}</button>
     </div>
     <div class="note">💡 En espagnol, <b>pas de majuscule</b> aux jours et aux mois. Après le jour, on met une virgule.</div>
   </div>`;
@@ -1291,7 +1294,7 @@ function vSos() {
   const L = getLesson('clase');
   return bar('En classe', '') + `<p class="muted" style="margin:0 0 14px">Pour demander de l’aide en espagnol. Touchez une phrase pour l’afficher en grand.</p>
   <div class="sos">${SOS.map(([e, i], n) => { const it = L.items[i]; return `<button data-go="sos/${n}"><span class="pic">${e}</span><b>${esc(plain(it.es))}</b><small>${esc(it.fr)}</small></button>`; }).join('')}</div>
-  <h3 class="sec-t">Pour l’appel</h3><div class="btn-row"><button class="btn ghost" data-go="l/lista">¡Presente! · ¡Estoy! · ¡No está!</button></div>`;
+  ${visible(getLesson('lista')) ? `<h3 class="sec-t">Pour l’appel</h3><div class="btn-row"><button class="btn ghost" data-go="l/lista">¡Presente! · ¡Estoy! · ¡No está!</button></div>` : ''}`;
 }
 function vSosUno(n) {
   const s = SOS[+n]; if (!s) return vSos();
@@ -1352,8 +1355,9 @@ function vMemoSec(k) {
     <div class="box"><h3>La date</h3><p>Jour, nombre (en lettres) <b>de</b> mois — sans majuscule :</p><p class="s" style="font-size:1.3rem">Fecha: jueves, 8 (ocho) de octubre</p><button class="btn ghost sm" data-go="fecha">${I.cal} La date d’aujourd’hui</button></div>
     <div class="box"><h3>Fille ou garçon</h3><p>${sHTML('un chico → una chica')} · ${sHTML('un alumno → una alumna')} · ${sHTML('español → española')}</p></div>`;
   if (k === 'fechas') return bar('Jours, mois, nombres', back) + `<div class="list">
-    <button class="row" data-go="l/fecha"><span class="pic row-ic">📅</span><span class="row-tx"><b>Los días y la fecha</b><small>${DIAS.slice(1).concat('domingo').join(', ')}</small></span>${I.next}</button>
-    <button class="row" data-go="l/numeros"><span class="pic row-ic">🔢</span><span class="row-tx"><b>Los números</b><small>uno, dos, tres… treinta y uno</small></span>${I.next}</button></div>`;
+    ${visible(getLesson('fecha')) ? `<button class="row" data-go="l/fecha"><span class="pic row-ic">📅</span><span class="row-tx"><b>Los días y la fecha</b><small>${DIAS.slice(1).concat('domingo').join(', ')}</small></span>${I.next}</button>` : ''}
+    ${visible(getLesson('numeros')) ? `<button class="row" data-go="l/numeros"><span class="pic row-ic">🔢</span><span class="row-tx"><b>Los números</b><small>uno, dos, tres… treinta y uno</small></span>${I.next}</button>` : ''}
+    <button class="row" data-go="fecha"><span class="pic row-ic">🗓️</span><span class="row-tx"><b>La date du jour</b><small>${fechaTxt(new Date())}</small></span>${I.next}</button></div>`;
   return vMemo();
 }
 function vVerbo(inf) {
@@ -1418,7 +1422,8 @@ function exW(it, dir) {
   return {type:'choice', ask:`${p}<div class="q-fr">${esc(it.fr)}</div>`, hint:it.num ? 'Comment dit-on ce nombre en espagnol ?' : 'Comment dit-on en espagnol ?', opts};
 }
 function exQA(it) {
-  const ds = distractors(it, 2, x => x.a.es);
+  // jamais comme « mauvaise réponse » la réponse à la même question (ex. « Me llamo Lucas » pour « ¿Cómo te llamas? »)
+  const ds = distractors(it, 2, x => x.a.es, x => low(plain(x.q.es)) !== low(plain(it.q.es)));
   return {type:'choice', ask:`<div class="q-es">${sHTML(it.q.es)}</div>${box(it.id) === 0 ? `<div class="q-sub">${esc(it.q.fr)}</div>` : ''}`,
     say:speakText(it.q.es), hint:'Choisis la bonne réponse.', opts:shuffle([it, ...ds]).map(x => ({ok:x === it, html:sHTML(x.a.es)}))};
 }
@@ -1441,25 +1446,39 @@ function exOrder(es, fr, ctx) {
   const t = parse(es), ws = t.filter(isWord).map((k, i) => Object.assign({}, k, {i}));
   let sh; do { sh = shuffle(ws); } while (ws.length > 1 && sh.every((k, j) => k.i === j));
   const ends = k => k && !isWord(k) && !/^[()]+$/.test(k.t) ? k.t.replace(/[()]/g, '') : '';
-  return {type:'order', ctx:ctx ? sHTML(ctx) : '', fr, pre:ends(t[0]), post:ends(t[t.length - 1]),
+  const ask = (ctx ? `<div class="q-sub">Réponds à la question :</div><div class="q-es" style="font-size:1.5rem">${sHTML(ctx)}</div><div class="q-sub">Ta réponse veut dire :</div>`
+    : `<div class="q-sub">Remets les mots dans l’ordre pour dire :</div>`) + `<div class="q-fr" style="font-size:1.3rem">« ${esc(fr)} »</div>`;
+  return {type:'order', ask, ctx:ctx ? sHTML(ctx) : '', fr, hint:'Touche les mots dans le bon ordre.', pre:ends(t[0]), post:ends(t[t.length - 1]),
     chips:sh, target:ws.map(k => k.t), placed:[], say:speakText(es), es};
 }
 const chipTxt = k => k.r === 'O' ? `(${k.t})` : k.t;
 function exCard(it, dir) {
   const p = it.img ? `<span class="pic q-pic">${pic(it.img)}</span>` : '';
   const es = `<div class="q-es">${it.t === 'p' ? sHTML(it.es) : esc(it.es)}</div>`;
-  if (dir === 'es') return {type:'card', ask:p + es, say0:speakText(it.es), hint:'Qu’est-ce que ça veut dire ? Réponds dans ta tête, puis vérifie.', reveal:`<div class="q-fr">${esc(it.fr)}</div>`, say:''};
-  return {type:'card', ask:`${p}<div class="q-fr">${esc(it.fr)}</div>`, hint:'Dis-le en espagnol (dans ta tête ou à voix haute), puis vérifie.', reveal:`<div class="q-es">${it.t === 'p' ? sHTML(it.es) : esc(it.es)}</div>`, say:speakText(it.es)};
+  if (dir === 'es') return {type:'card', ask:`<span class="tag">Dans ta tête</span>${p}<div class="q-sub">Que veut dire :</div>${es}`, say0:speakText(it.es), hint:'Cherche le sens en français, puis touche « Voir la réponse ».', reveal:`<div class="q-fr">${esc(it.fr)}</div>`, say:''};
+  return {type:'card', ask:`<span class="tag">Dans ta tête</span>${p}<div class="q-sub">Comment dit-on en espagnol :</div><div class="q-fr">« ${esc(it.fr)} »</div>`, hint:'Dis-le (dans ta tête ou à voix haute), puis touche « Voir la réponse ».', reveal:`<div class="q-es">${it.t === 'p' ? sHTML(it.es) : esc(it.es)}</div>`, say:speakText(it.es)};
 }
 function exCardQA(it) {
-  return {type:'card', ask:`<div class="q-es">${sHTML(it.q.es)}</div><div class="q-sub">${esc(it.q.fr)}</div>`, say0:speakText(it.q.es), hint:'Réponds à voix haute, puis vérifie.', reveal:`<div class="q-es">${sHTML(it.a.es)}</div>`, say:speakText(it.a.es)};
+  return {type:'card', ask:`<span class="tag">Dans ta tête</span><div class="q-sub">Réponds à la question :</div><div class="q-es">${sHTML(it.q.es)}</div><div class="q-sub">« ${esc(it.q.fr)} »</div>`, say0:speakText(it.q.es), hint:'Réponds à voix haute, puis touche « Voir la réponse ».', reveal:`<div class="q-es">${sHTML(it.a.es)}</div>`, say:speakText(it.a.es)};
+}
+/* « Le bon verbe » : la phrase avec la case du verbe vide, et les 3 formes du verbe (yo, tú, él/ella) */
+function verbTarget(es) { const t = parse(es), i = t.findIndex(k => k.r === 'V' && FORMS[low(k.t)]); return i < 0 ? null : {t, i}; }
+function exVerbo(it) {
+  const src = it.t === 'qa' ? it.a : it, vt = verbTarget(src.es), k = vt.t[vt.i];
+  const v = VERBOS.find(x => x.inf === FORMS[low(k.t)].inf), up = k.t.charAt(0) !== low(k.t).charAt(0);
+  const forms = [...new Set(v.f.map(x => x[0].split(' ').pop()))];
+  const rev = {}; vt.t.forEach((x, i) => { if (i !== vt.i) rev[i] = true; });
+  return {type:'choice', hint:'Quel verbe va dans la case ?',
+    ask:`${it.t === 'qa' ? `<div class="q-sub">Question :</div><div class="q-es" style="font-size:1.4rem">${sHTML(it.q.es)}</div><div class="q-sub">Réponse :</div>` : ''}<div class="q-es"><span class="s">${renderS(vt.t, {cases:true, rev})}</span></div><div class="q-sub">« ${esc(src.fr)} »</div>`,
+    opts:shuffle(forms).map(x => ({ok:low(x) === low(k.t), html:`<span class="w v">${esc(up ? cap(x) : x)}</span>`}))};
 }
 function exLetra(it, dir) {
   const ds = pickN(ALFA.filter(a => a[0] !== it.l), 2);
   if (dir === 'l2n') return {type:'choice', ask:`<div class="q-letter">${it.l.toUpperCase()}</div>`, hint:'Comment s’appelle cette lettre ?', opts:shuffle([[it.l, it.es], ...ds.map(a => [a[0], a[1]])]).map(a => ({ok:a[0] === it.l, html:`la ${esc(a[1])}`}))};
   return {type:'choice', ask:`<div class="q-es">la ${esc(it.es)}</div>`, say:it.es, hint:'Quelle est cette lettre ?', opts:shuffle([it.l, ...ds.map(a => a[0])]).map(l => ({ok:l === it.l, html:`<b style="font-size:1.6rem">${l.toUpperCase()}</b>`}))};
 }
-function veoPool() { return lessons().filter(L => (L.id === 'espana' || L.id === 'materias') && visible(L)).flatMap(trainable).filter(x => (x._l === 'espana' || x._l === 'materias') && x.t === 'w' && x.img && !x.img.startsWith('sw:') && !/clase/.test(x.es)); }
+// (sans les drapeaux : sur certains ordinateurs ils s’affichent en lettres, ce qui gênerait le jeu)
+function veoPool() { return lessons().filter(L => (L.id === 'espana' || L.id === 'materias') && visible(L)).flatMap(trainable).filter(x => !/[\u{1F1E6}-\u{1F1FF}]/u.test(x.img || '')).filter(x => (x._l === 'espana' || x._l === 'materias') && x.t === 'w' && x.img && !x.img.startsWith('sw:') && !/clase/.test(x.es)); }
 function exVeo(it) {
   const ini = initial(it.es), name = ALFA_NAME[ini] || ini;
   const others = [], used = new Set([ini]);
@@ -1469,7 +1488,7 @@ function exVeo(it) {
 }
 function gen(it, easy) {
   const b = easy ? 0 : box(it.id), sens = S.set.sens;
-  const canVeo = () => veoPool().some(x => x.id === it.id) && Math.random() < 0.4;
+  const canVeo = () => veoPool().length >= 4 && veoPool().some(x => x.id === it.id) && Math.random() < 0.4;
   if (it.t === 'l') return exLetra(it, b <= 1 ? 'l2n' : 'n2l');
   if (it.t === 'w') {
     if (it.num) return exW(it, sens === 'es' ? 'es2fr' : sens === 'fr' ? 'fr2es' : b <= 1 ? 'es2fr' : 'fr2es');
@@ -1482,12 +1501,17 @@ function gen(it, easy) {
   }
   if (it.t === 'p') {
     if (b <= 1) return orderable(it.es) ? exOrder(it.es, it.fr) : exW(it, sens === 'fr' ? 'fr2es' : 'es2fr');
-    if (b <= 3) return exW(it, sens === 'es' ? 'es2fr' : 'fr2es');
+    if (b <= 3) return verbTarget(it.es) && Math.random() < 0.5 ? exVerbo(it) : exW(it, sens === 'es' ? 'es2fr' : 'fr2es');
     return exCard(it, sens === 'es' ? 'es' : 'fr');
   }
   if (it.t === 'qa') {
     if (b <= 1) return exQA(it);
-    if (b <= 3) return parse(it.q.es).some(k => k.r === 'Q') && Math.random() < 0.6 ? exHueco(it) : orderable(it.a.es) ? exOrder(it.a.es, it.a.fr, it.q.es) : exQA(it);
+    if (b <= 3) {
+      const r = Math.random(), hasQ = parse(it.q.es).some(k => k.r === 'Q'), hasV = !!verbTarget(it.a.es);
+      if (hasQ && r < 0.4) return exHueco(it);
+      if (hasV && r < 0.8) return exVerbo(it);
+      return orderable(it.a.es) ? exOrder(it.a.es, it.a.fr, it.q.es) : hasQ ? exHueco(it) : exQA(it);
+    }
     return exCardQA(it);
   }
   return exW(it, 'es2fr');
@@ -1543,11 +1567,8 @@ function vSesion(key) {
       return `<button class="${c}" data-act="pick" data-i="${i}" ${A ? 'disabled' : ''} aria-label="${esc(o.label)}">${o.html}</button>`;
     }).join('')}</div>`;
   } else if (ex.type === 'order') {
-    if (ex.ctx) h = h.replace('<div class="hint">', `<div class="q-es" style="font-size:1.4rem">${ex.ctx}</div><div class="hint">`);
-    h += `<div class="q-fr" style="font-size:1.25rem;font-weight:500">« ${esc(ex.fr)} »</div>
-      <div class="slots" aria-label="Ta phrase">${ex.pre ? `<span class="pu">${esc(ex.pre)}</span>` : ''}${ex.placed.map((ci, j) => `<button class="chip" data-act="odel" data-j="${j}" ${A ? 'disabled' : ''}><span class="w ${(ex.chips[ci].r || '').toLowerCase()}">${esc(chipTxt(ex.chips[ci]))}</span></button>`).join('')}${ex.post && ex.placed.length === ex.chips.length ? `<span class="pu">${esc(ex.post)}</span>` : ''}</div>
+    h += `<div class="slots" aria-label="Ta phrase">${ex.pre ? `<span class="pu">${esc(ex.pre)}</span>` : ''}${ex.placed.map((ci, j) => `<button class="chip" data-act="odel" data-j="${j}" ${A ? 'disabled' : ''}><span class="w ${(ex.chips[ci].r || '').toLowerCase()}">${esc(chipTxt(ex.chips[ci]))}</span></button>`).join('')}${ex.post && ex.placed.length === ex.chips.length ? `<span class="pu">${esc(ex.post)}</span>` : ''}</div>
       <div class="chips">${ex.chips.map((k, ci) => `<button class="chip${ex.placed.includes(ci) ? ' used' : ''}" data-act="oadd" data-i="${ci}" ${A || ex.placed.includes(ci) ? 'disabled' : ''}><span class="w ${(k.r || '').toLowerCase()}">${esc(chipTxt(k))}</span></button>`).join('')}</div>`;
-    if (!A) h = h.replace(`<div class="hint">${ex.hint || ''}</div>`, `<div class="hint">Touche les mots dans le bon ordre.</div>`);
   } else if (ex.type === 'card') {
     if (!A) h += ex.open ? `<div class="reveal">${ex.reveal}${sayBtn(ex.say, 'Écouter')}</div>` : '';
   }
@@ -1608,7 +1629,7 @@ function vAjustes() {
     <div class="field"><span class="flab">Leçons montrées</span>
       <div class="lchips">${lessons().map(L => `<button class="${!S.eleve.lecons || S.eleve.lecons.includes(L.id) ? 'on' : ''}" data-act="lchip" data-id="${L.id}">${esc(L.icon || '')} ${esc(L.es)}</button>`).join('')}</div>
       <div class="btn-row"><button class="btn ghost sm" data-act="lall">Toutes</button><button class="btn ghost sm" data-act="lnone">Aucune</button></div></div>
-    ${tge('memo', 'Montrer le Mémo', '')}${tge('sos', 'Montrer « En classe »', '')}${tge('fr', 'Traduction en français permise', 'Le bouton « FR » et « Voir le français »')}
+    ${tge('memo', 'Montrer le Mémo', '')}${tge('sos', 'Montrer « En classe »', '')}${tge('fr', 'Traductions en français visibles', 'Bouton « FR », « Voir le français » et les traductions dans les leçons. Les exercices gardent le français quand il est la question ou la réponse.')}
     <div class="field"><label for="ecode">Votre code (4 chiffres)</label><input type="password" inputmode="numeric" pattern="[0-9]*" id="ecode" data-ecode maxlength="4" autocomplete="off" style="max-width:160px" placeholder="${S.eleve.k ? '••••' : ''}">
       <small id="codeok">${S.eleve.k ? '✓ Un code est enregistré. Tapez-en un autre pour le changer.' : 'Choisissez un code : il servira à sortir du mode élève.'}</small></div>
     <div class="btn-row"><button class="btn" data-act="eleveOn">${I.lock} Passer en mode élève</button><button class="btn ghost" data-go="qr">${I.qr} QR code pour les tablettes du collège</button></div>
@@ -1647,8 +1668,9 @@ function vPerso() {
 }
 function vQR() {
   if (!S.eleve.k) return bar('QR code pour l’élève', 'ajustes') + `<div class="card"><p>Choisissez d’abord votre code à 4 chiffres (Réglages → Mode élève) : il protège les réglages sur les tablettes du collège.</p><button class="btn" data-go="ajustes">Retour aux réglages</button></div>`;
-  AFTER = buildQR;
   const n = (S.eleve.lecons || lessons().map(l => l.id)).filter(id => id !== 'perso').length;
+  if (!n) return bar('QR code pour l’élève', 'ajustes') + `<div class="card"><p>Aucune leçon à mettre dans le QR code. Choisissez au moins une leçon dans Réglages → Mode élève (« Mon collège » reste toujours sur votre tablette).</p><button class="btn" data-go="ajustes">Retour aux réglages</button></div>`;
+  AFTER = buildQR;
   return bar('QR code pour l’élève', 'ajustes') + `<div class="card" style="text-align:center">
     <p>L’élève vise ce code avec l’appareil photo d’une tablette du collège (connectée à internet). L’appli s’ouvre en <b>mode élève</b>, avec vos réglages (${n} leçon${n > 1 ? 's' : ''})${S.user.items.length ? ' et vos ajouts' : ''}.</p>
     <div class="qr" id="qrbox"><p class="muted">Fabrication du code…</p></div><div id="qrinfo"></div></div>
@@ -2102,7 +2124,11 @@ Voz.init();
   }
   route();
 })();
-window.__esp = {QR, payloadObj, packPayload, importLink, ses:() => SES, lessons, gen, parse, pairQA, persoLesson, buildSession, S:() => S, plain, initial, veoPool, VERBOS, CORR, LEX, FORMS};
+window.__esp = {
+  // pour les contrôles : affiche un exercice donné, sans toucher à la progression
+  testStep:(it, ex) => { SES = {key:'_t', steps:[{kind:'q', it, ex, retry:true}], i:0, ans:null, first:0, total:1, errs:[], practice:false};
+    current = {fn:vSesion, args:['_t'], q:new URLSearchParams()}; render(); return app.innerText; },
+  exVerbo, verbTarget, QR, payloadObj, packPayload, importLink, ses:() => SES, lessons, gen, parse, pairQA, persoLesson, buildSession, S:() => S, plain, initial, veoPool, VERBOS, CORR, LEX, FORMS};
 </script>
 </body>
 </html>
