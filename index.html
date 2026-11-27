@@ -263,6 +263,45 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .end .score{font-size:1.15rem;color:var(--ink2)}
 .errs{width:100%;max-width:660px;text-align:left}
 
+/* apprendre : choix des activités */
+.agrid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.acard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;text-align:left;display:flex;flex-direction:column;gap:4px;min-height:136px;box-shadow:var(--sh);position:relative}
+.acard .pic{font-size:34px;margin-bottom:4px;justify-content:start}
+.acard b{font-size:1.12rem}
+.acard small{color:var(--ink2);line-height:1.35}
+.acard.rec{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand)}
+.rbadge{position:absolute;top:12px;right:12px;font-size:.75rem;font-weight:750;color:#fff;background:var(--brand);border-radius:999px;padding:3px 10px}
+/* cartes */
+.flip{perspective:1200px;width:min(560px,100%);aspect-ratio:1.45;cursor:pointer;margin:4px auto}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 30px rgba(30,35,40,.08);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:22px;text-align:center;overflow:hidden}
+.face.back{transform:rotateY(180deg);background:#FBFAF6}
+.face>.lab{position:absolute;top:12px;left:16px}
+.face .turn{position:absolute;bottom:12px;right:16px;font-size:.8rem;color:var(--ink3);font-weight:650}
+/* écrire */
+.wslots{display:flex;flex-wrap:wrap;gap:12px 22px;justify-content:center;align-items:flex-end;font-size:clamp(26px,5vw,40px);font-weight:650;margin:6px 0}
+.wchunk{display:flex;align-items:flex-end;gap:3px}
+.wword{display:flex;gap:4px}
+.wbox{min-width:1.05em;height:1.45em;border-bottom:3px solid var(--line2);display:grid;place-items:center;line-height:1;padding:0 1px}
+.wbox.cur{border-color:var(--brand);background:var(--brand-soft);border-radius:6px 6px 0 0}
+.wbox.f{border-color:var(--ok)}
+.wgiven{color:var(--ink2);font-weight:500;padding-bottom:.15em}
+.ltiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:660px}
+.lt{min-width:58px;height:58px;padding:0 6px;border-radius:14px;background:var(--card);border:1px solid var(--line2);box-shadow:0 2px 0 var(--line2);font-size:1.6rem;font-weight:700;text-align:center}
+.lt.used{visibility:hidden}
+.lt.ko{animation:shake .35s;background:var(--kobg);border-color:var(--ko)}
+.acc{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.acc button{min-width:50px;height:50px;border-radius:12px;border:1px solid var(--line2);background:#fff;font-size:1.35rem;font-weight:700;text-align:center}
+input.winput{font-size:1.7rem;text-align:center;max-width:440px;min-height:64px;font-weight:600}
+/* associer */
+.pairs{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:720px}
+.pcol{display:flex;flex-direction:column;gap:10px}
+.pb{min-height:64px;border-radius:14px;background:var(--card);border:2px solid var(--line);padding:10px 12px;font-size:1.15rem;font-weight:600;text-align:center;line-height:1.3}
+.pb.sel{border-color:var(--brand);background:var(--brand-soft)}
+.pb.ok{border-color:var(--ok);background:var(--okbg);opacity:.55}
+.pb.ko{border-color:var(--ko);background:var(--kobg);animation:shake .35s}
+
 /* mémo */
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .mcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:16px;text-align:left;display:flex;flex-direction:column;gap:4px;min-height:104px}
@@ -337,6 +376,8 @@ input[type=text],select{padding:11px 14px;border:1px solid var(--line2);border-r
 
 @media (max-width:560px){
   .app{padding-left:14px;padding-right:14px}
+  .lt{min-width:50px;height:52px;font-size:1.4rem}
+  .flip{aspect-ratio:1.1}
   .tile{min-height:132px;padding:16px}
   .mgrid,.two{grid-template-columns:1fr}
   .vr{grid-template-columns:86px 1fr auto}
@@ -344,7 +385,7 @@ input[type=text],select{padding:11px 14px;border:1px solid var(--line2);border-r
   .dchips{grid-column:1}
   .spark{display:none}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media print{.fbar,.bar .ib,.cont{display:none}}
 </style>
 </head>
@@ -360,7 +401,7 @@ input[type=text],select{padding:11px 14px;border:1px solid var(--line2);border-r
    2. Outils de langue       5. Écrans
    3. Données de l’appareil  6. Exercices
    ====================================================================== */
-const VERSION = '1.2 — 27/11/2026';
+const VERSION = '1.3 — 27/11/2026';
 
 /* ---------------------------------------------------------------- 1. COURS */
 const UNIDADES = [
@@ -871,7 +912,7 @@ const KEY = 'espanol5e';
 const DEF = () => ({v:1, prog:{}, hist:{}, last:null,
   user:{units:[], lessons:[], items:[]},
   perso:{prenom:'', genero:'chico', grupo:'B', colegio:'', materia:'', color:'', tutor:'', profs:{}},
-  set:{voz:true, lento:false, grande:false, couleurs:'douces', sens:'mix'},
+  set:{voz:true, lento:false, grande:false, couleurs:'douces', sens:'mix', ecrire:'letras', blocs:true},
   eleve:{on:false, lecons:null, memo:true, sos:true, fr:true, k:''}});
 function load() {
   const d = DEF();
@@ -1063,6 +1104,7 @@ const routes = [
   [/^d\/([^/]+)\/(\d+)$/, vDialogo], [/^entrenar$/, vEntrenar], [/^s\/([^/]+)$/, vSesion], [/^memo$/, vMemo],
   [/^memo\/([^/]+)$/, vMemoSec], [/^verbo\/([^/]+)$/, vVerbo], [/^fecha$/, vFecha], [/^sos$/, vSos], [/^sos\/(\d+)$/, vSosUno],
   [/^ajustes$/, vAjustes], [/^perso$/, vPerso], [/^anadir$/, vAnadir], [/^mios$/, vMios], [/^qr$/, vQR],
+  [/^aprender\/([^/]+)$/, vAprender], [/^act\/(cartes|escribir|asociar)\/([^/]+)$/, vActividad],
 ];
 function go(path) { if (location.hash === '#/' + path) route(); else location.hash = '#/' + path; }
 function route() {
@@ -1101,7 +1143,7 @@ function vHome() {
   <button class="fecha-card" data-go="fecha"><span class="ic">${I.cal}</span><span><span class="lab">Fecha · la date du jour</span><span class="fecha-txt">${fechaTxt(d)}</span><span class="fecha-fr">${fechaFr(d)}</span></span></button>
   <div class="tiles">
     ${tile('lecciones', I.book, 'Leçons', 'Comprendre les phrases et les mots du cours')}
-    ${tile('entrenar', I.target, 'S’entraîner', 'Retenir le vocabulaire, petit à petit', due ? `${due} à revoir aujourd’hui` : '')}
+    ${tile('entrenar', I.target, 'Apprendre', 'Cartes, écrire, assembler, associer…', due ? `${due} à revoir aujourd’hui` : '')}
     ${!E || S.eleve.memo ? tile('memo', I.grid, 'Mémo', 'Verbes, mots-questions, alphabet') : ''}
     ${!E || S.eleve.sos ? tile('sos', I.help, 'En classe', '¿Cómo se dice? No comprendo…') : ''}
   </div>
@@ -1144,7 +1186,7 @@ function vLeccion(id) {
   h += `<div class="lh"><span class="pic">${esc(L.icon || '📘')}</span><div><h2>${esc(L.es)}</h2><p>${esc(L.fr)}</p></div></div>`;
   if (L.intro) h += `<p class="intro">${L.intro}</p>`;
   const btns = [];
-  if (tr.length) btns.push(`<button class="btn" data-act="start" data-k="${L.id}">${I.target} S’entraîner sur cette leçon</button>`);
+  if (tr.length) btns.push(`<button class="btn" data-go="aprender/${L.id}">${I.target} Apprendre cette leçon</button>`);
   if (L.kind === 'veo' && veoPool().length >= 4) btns.push(`<button class="btn ghost" data-act="start" data-k="_veo">${I.play} Jouer à « Veo, veo »</button>`);
   if (btns.length) h += `<div class="btn-row">${btns.join('')}</div>`;
   if (L.kind === 'alfabeto') h += `<h3 class="sec-t">Les lettres</h3>` + alfaBlock();
@@ -1382,17 +1424,17 @@ function spark() {
 }
 function vEntrenar() {
   const due = dueItems().length, kn = knownTotal(), tot = allTrain().length;
-  let h = bar('S’entraîner', '');
+  let h = bar('Apprendre', '');
   h += `<div class="stats"><div><div class="stat-n">${kn}</div><small>mots et phrases sus sur ${tot}</small></div>${spark()}</div>`;
   h += due ? `<button class="btn wide" data-act="start" data-k="_repaso" style="margin-bottom:6px">${I.redo} Révision du jour · ${due} à revoir</button>`
     : `<p class="okmsg">Rien à revoir aujourd’hui. Choisissez une leçon pour apprendre du nouveau.</p>`;
-  h += `<p class="muted" style="font-size:.88rem;margin:6px 4px 0">Un mot est « su » quand il a été réussi 3 fois, à des jours différents. Les séances sont courtes : 10 questions.</p>`;
+  h += `<p class="muted" style="font-size:.88rem;margin:6px 4px 0">Choisis une leçon, puis ta façon d’apprendre : cartes, écrire, assembler, associer… Un mot est « su » quand il a été réussi 3 fois, à des jours différents.</p>`;
   units().forEach(u => {
     const ls = lessons().filter(l => l.u === u.id && visible(l) && trainable(l).length);
     if (!ls.length) return;
     h += `<section class="grp"><h2 class="grp-t">${esc(u.es)}</h2><div class="list">${ls.map(L => {
       const tr = trainable(L), k = tr.filter(known).length, d = tr.filter(it => isDue(it.id)).length, nw = tr.filter(it => !seen(it.id)).length;
-      return `<button class="row" data-act="start" data-k="${L.id}"><span class="pic row-ic">${esc(L.icon || '📘')}</span><span class="row-tx"><b>${esc(L.es)}</b><small>${k} / ${tr.length} sus${d ? ` · ${d} à revoir` : ''}${nw ? ` · ${nw} nouveaux` : ''}</small>${pbar(k, tr.length)}</span>${I.play}</button>`;
+      return `<button class="row" data-go="aprender/${L.id}?de=entrenar"><span class="pic row-ic">${esc(L.icon || '📘')}</span><span class="row-tx"><b>${esc(L.es)}</b><small>${k} / ${tr.length} sus${d ? ` · ${d} à revoir` : ''}${nw ? ` · ${nw} nouveaux` : ''}</small>${pbar(k, tr.length)}</span>${I.next}</button>`;
     }).join('')}</div></section>`;
   });
   if (veoPool().length >= 4) h += `<section class="grp"><h2 class="grp-t">Jeu</h2><div class="list"><button class="row" data-act="start" data-k="_veo"><span class="pic row-ic">👀</span><span class="row-tx"><b>Veo, veo</b><small>Trouver l’image qui commence par la lettre</small></span>${I.play}</button></div></section>`;
@@ -1542,10 +1584,11 @@ function buildSession(key, list) {
   return {key, steps, i:0, ans:null, first:0, total:steps.filter(s => s.kind === 'q').length, errs:[], date:t, practice:!!list};
 }
 function vSesion(key) {
-  if (!SES || SES.key !== key) SES = buildSession(key);
-  const back = (getLesson(key) && !key.startsWith('_')) ? `l/${key}` : 'entrenar';
+  const act = key.startsWith('act:') ? key.split(':') : null;
+  if (!SES || SES.key !== key) SES = act ? buildActSession(act[1], act[2]) : buildSession(key);
+  const back = act ? `aprender/${act[2]}` : (getLesson(key) && !key.startsWith('_')) ? `aprender/${key}` : 'entrenar';
   const close = `<button class="ib" data-act="quit" data-back="${back}" aria-label="Arrêter">${I.close}</button>`;
-  if (!SES.steps.length) return bar('S’entraîner', back) + `<p class="okmsg">Il n’y a rien à travailler ici pour l’instant.</p>`;
+  if (!SES.steps.length) return bar('Apprendre', back) + `<p class="okmsg">Il n’y a rien à travailler ici pour l’instant.</p>`;
   if (SES.i >= SES.steps.length) return vFin(back);
   const st = SES.steps[SES.i], n = SES.i, N = SES.steps.length;
   let h = `<div class="ses-top">${close}<div class="ses-prog"><i style="width:${Math.round(100 * n / N)}%"></i></div><span class="ses-n">${n + 1} / ${N}</span></div><div class="ex">`;
@@ -1568,7 +1611,8 @@ function vSesion(key) {
     }).join('')}</div>`;
   } else if (ex.type === 'order') {
     h += `<div class="slots" aria-label="Ta phrase">${ex.pre ? `<span class="pu">${esc(ex.pre)}</span>` : ''}${ex.placed.map((ci, j) => `<button class="chip" data-act="odel" data-j="${j}" ${A ? 'disabled' : ''}><span class="w ${(ex.chips[ci].r || '').toLowerCase()}">${esc(chipTxt(ex.chips[ci]))}</span></button>`).join('')}${ex.post && ex.placed.length === ex.chips.length ? `<span class="pu">${esc(ex.post)}</span>` : ''}</div>
-      <div class="chips">${ex.chips.map((k, ci) => `<button class="chip${ex.placed.includes(ci) ? ' used' : ''}" data-act="oadd" data-i="${ci}" ${A || ex.placed.includes(ci) ? 'disabled' : ''}><span class="w ${(k.r || '').toLowerCase()}">${esc(chipTxt(k))}</span></button>`).join('')}</div>`;
+      <div class="chips">${ex.chips.map((k, ci) => `<button class="chip${ex.placed.includes(ci) ? ' used' : ''}" data-act="oadd" data-i="${ci}" ${A || ex.placed.includes(ci) ? 'disabled' : ''}><span class="w ${S.set.blocs === false ? '' : (k.r || '').toLowerCase()}">${esc(chipTxt(k))}</span></button>`).join('')}</div>
+      ${A ? '' : `<button class="say" data-act="bcol" aria-pressed="${S.set.blocs !== false}">🎨 Couleurs des blocs : ${S.set.blocs === false ? 'non' : 'oui'}</button>`}`;
   } else if (ex.type === 'card') {
     if (!A) h += ex.open ? `<div class="reveal">${ex.reveal}${sayBtn(ex.say, 'Écouter')}</div>` : '';
   }
@@ -1592,7 +1636,7 @@ function answer(ok, pick) {
   const firstTry = !st.retry || (SES.practice && !st.again);
   if (firstTry) { if (ok) SES.first++; else SES.errs.push(st.it); }
   if (!st.retry) { record(st.it, ok); snapshot(); save(); }
-  if (!ok) SES.steps.push({kind:'q', it:st.it, ex:gen(st.it, true), retry:true, again:true});
+  if (!ok) SES.steps.push({kind:'q', it:st.it, ex:st.make ? st.make() : gen(st.it, true), make:st.make, retry:true, again:true});
   render();
   if (ok && canSay()) { const ex = st.ex; Voz.say(ex.type === 'veo' ? speakText(ex.show) : ex.type === 'order' ? ex.say : st.it.t === 'qa' ? speakText(st.it.a.es) : ''); }
 }
@@ -1604,6 +1648,177 @@ function vFin(back) {
     <div class="btn-row" style="width:100%;max-width:660px">${errs.length ? `<button class="btn ghost" data-act="again">${I.redo} Revoir les erreurs</button>` : ''}<button class="btn" data-act="quit" data-back="${back}">Terminer</button></div></div>`;
 }
 
+/* ------------------------------------------------ 7. APPRENDRE : les activités */
+const ACTS = [
+  {k:'mix', icon:'🧠', t:'Révision intelligente', d:'Un peu de tout, au bon moment. Le plus efficace.'},
+  {k:'cartes', icon:'🃏', t:'Cartes', d:'Retourne la carte : tu savais ?'},
+  {k:'escribir', icon:'✏️', t:'Écrire', d:'Écris le mot en espagnol, lettre par lettre.'},
+  {k:'armar', icon:'🧱', t:'Assembler', d:'Remets les blocs de la phrase dans l’ordre.'},
+  {k:'asociar', icon:'🔗', t:'Associer', d:'Relie chaque mot espagnol à son sens.'},
+  {k:'verbo', icon:'🔤', t:'Le bon verbe', d:'Choisis la bonne forme du verbe.'},
+  {k:'veo', icon:'👀', t:'Veo, veo', d:'Trouve l’image qui commence par la lettre.'},
+];
+const MIN_N = {mix:1, cartes:1, escribir:1, armar:1, asociar:3, verbo:1, veo:4};
+const nWords = es => parse(es).filter(isWord).length;
+const prioritize = arr => shuffle(arr).sort((a, b) => ((isDue(b.id) ? 1 : 0) - (isDue(a.id) ? 1 : 0)) || (box(a.id) - box(b.id)));
+// ce qu’il faut écrire : l’article (el, la, un…) et « (yo) » sont donnés, la ponctuation aussi
+function writeParts(it) {
+  const toks = parse(it.es), ws = toks.map((k, i) => [k, i]).filter(([k]) => isWord(k)), give = new Set();
+  if (ws.length > 1 && /^(el|la|los|las|un|una)$/i.test(ws[0][0].t)) give.add(ws[0][1]);
+  toks.forEach((k, i) => { if (k.r === 'O') give.add(i); });
+  const todo = ws.filter(([, i]) => !give.has(i)).map(([, i]) => i);
+  return {toks, give, todo, letters:todo.flatMap(i => [...toks[i].t]), answer:todo.map(i => toks[i].t).join(' ')};
+}
+function writable(it) {
+  if (it.t !== 'w' && it.t !== 'p') return false;
+  const n = writeParts(it).letters.length;
+  return n >= 1 && n <= 18 && (it.t === 'w' || nWords(it.es) <= 3);
+}
+function actPool(kind, L) {
+  const tr = trainable(L);
+  if (kind === 'mix' || kind === 'cartes') return tr;
+  if (kind === 'escribir') return tr.filter(writable);
+  if (kind === 'armar') return tr.filter(it => it.t === 'p' ? orderable(it.es) : it.t === 'qa' && orderable(it.a.es));
+  if (kind === 'asociar') return tr.filter(it => it.t === 'w' || (it.t === 'p' && nWords(it.es) <= 4));
+  if (kind === 'verbo') return tr.filter(it => (it.t === 'p' || it.t === 'qa') && verbTarget(it.t === 'qa' ? it.a.es : it.es));
+  if (kind === 'veo') return ['espana', 'materias', 'veo'].includes(L.id) && veoPool().length >= 4 ? veoPool() : [];
+  return [];
+}
+function vAprender(lid, q) {
+  const L = getLesson(lid);
+  if (!L || !visible(L)) return bar('Leçon introuvable', 'entrenar');
+  const tr = trainable(L), k = tr.filter(known).length;
+  const back = q && q.get('de') === 'entrenar' ? 'entrenar' : `l/${lid}`;
+  return bar('Apprendre', back) + `<div class="lh"><span class="pic">${esc(L.icon || '📘')}</span><div style="flex:1"><h2>${esc(L.es)}</h2><p>${k} / ${tr.length} sus</p>${pbar(k, tr.length)}</div></div>
+    <p class="muted" style="margin:0 0 12px">Choisis ta façon d’apprendre :</p>
+    <div class="agrid2">${ACTS.map(a => actPool(a.k, L).length < MIN_N[a.k] ? '' :
+      `<button class="acard${a.k === 'mix' ? ' rec' : ''}" data-act="astart" data-k="${a.k}" data-l="${lid}"><span class="pic">${a.icon}</span><b>${a.t}</b><small>${a.d}</small>${a.k === 'mix' ? '<span class="rbadge">Conseillé</span>' : ''}</button>`).join('')}</div>`;
+}
+// « Assembler » et « Le bon verbe » passent par le moteur des séances (mêmes écrans, mêmes contrôles)
+function buildActSession(kind, lid, list) {
+  const L = getLesson(lid), pool = list || (L ? prioritize(actPool(kind, L)).slice(0, 10) : []);
+  const make = it => () => kind === 'verbo' ? exVerbo(it) : it.t === 'qa' ? exOrder(it.a.es, it.a.fr, it.q.es) : exOrder(it.es, it.fr);
+  const steps = shuffle(pool).map(it => ({kind:'q', it, ex:make(it)(), make:make(it), retry:!!list}));
+  return {key:`act:${kind}:${lid}`, kind, lid, steps, i:0, ans:null, first:0, total:steps.length, errs:[], date:today(), practice:!!list};
+}
+let AV = null;   // activité en cours : cartes, écrire ou associer
+const CONF = {b:'v', v:'b', c:'s', s:'c', z:'s', g:'j', j:'g', n:'ñ', ñ:'n', a:'á', e:'é', i:'í', o:'ó', u:'ú', á:'a', é:'e', í:'i', ó:'o', ú:'u',
+  l:'y', y:'l', r:'l', m:'n', d:'t', t:'d', p:'b', q:'c', h:'a', f:'v', x:'s', k:'c', w:'v'};
+function newW(it) {
+  const wp = writeParts(it), extra = [];
+  for (const ch of shuffle(wp.letters)) { const c = CONF[low(ch)]; if (c && !extra.includes(c)) extra.push(c); if (extra.length === 3) break; }
+  while (extra.length < 2) extra.push('aeo'[extra.length]);
+  return {it, wp, pos:0, errors:0, hints:0, tiles:shuffle(wp.letters.concat(extra)).map((ch, id) => ({ch, id, used:false})), done:false, ok:false, kb:'', accent:false};
+}
+function buildAV(kind, lid) {
+  const L = getLesson(lid), pool = L && visible(L) ? actPool(kind, L) : [];
+  const A = {key:kind + ':' + lid, kind, lid, res:[], firstOk:0, n:0};
+  if (kind === 'cartes') { const deck = prioritize(pool).slice(0, 20); return Object.assign(A, {queue:deck, total:deck.length, flip:false, seen:new Set(), knew:0, dir:S.set.sens === 'fr' ? 'fr' : 'es'}); }
+  if (kind === 'escribir') { const deck = prioritize(pool).slice(0, 10); return Object.assign(A, {deck, i:0, W:deck.length ? newW(deck[0]) : null, total:deck.length}); }
+  if (kind === 'asociar') {
+    const seenEs = new Set(), seenFr = new Set(), deck = [];
+    for (const it of prioritize(pool)) { const e = low(plain(it.es)), f = low(it.fr); if (seenEs.has(e) || seenFr.has(f)) continue; seenEs.add(e); seenFr.add(f); deck.push(it); if (deck.length === 15) break; }
+    const rounds = []; for (let i = 0; i < deck.length; i += 5) rounds.push(deck.slice(i, i + 5));
+    if (rounds.length > 1 && rounds[rounds.length - 1].length < 3) rounds[rounds.length - 2].push(...rounds.pop());
+    return Object.assign(A, {rounds, r:0, total:deck.length, dir:S.set.sens === 'fr' ? 'fr' : 'es', wrong:new Set(), errors:0}, newRound(rounds[0] || []));
+  }
+  return A;
+}
+function newRound(items) { return {L:shuffle(items.map(x => x.id)), R:shuffle(items.map(x => x.id)), matched:new Set(), selL:null, selR:null, flash:null}; }
+function actTop(A, done, total) {
+  return `<div class="ses-top"><button class="ib" data-act="aquit" aria-label="Arrêter">${I.close}</button><div class="ses-prog"><i style="width:${total ? Math.round(100 * done / total) : 0}%"></i></div><span class="ses-n">${Math.min(done + (done < total ? 1 : 0), total)} / ${total}</span></div>`;
+}
+function actFin(A, line, list) {
+  return `<div class="end"><div class="pic" style="font-size:64px">🎉</div><h2>¡Terminado!</h2><div class="score">${line}</div>
+    ${list.length ? `<div class="errs"><h3 class="sec-t">À revoir</h3><div class="stack">${list.map(e => `<div class="srow">${e.t === 'qa' ? sHTML(e.q.es) + '<span class="ans">' + sHTML(e.a.es) + '</span>' : e.t === 'l' ? `<b>${e.l.toUpperCase()}</b> = la ${esc(e.es)}` : `<b>${e.t === 'p' ? sHTML(e.es) : esc(e.es)}</b>`}<small>${esc(e.t === 'qa' ? e.a.fr : e.fr)}</small></div>`).join('')}</div></div>` : '<p class="okmsg">Tout juste du premier coup !</p>'}
+    <div class="btn-row" style="width:100%;max-width:660px"><button class="btn ghost" data-act="astart" data-k="${A.kind}" data-l="${A.lid}">${I.redo} Recommencer</button><button class="btn" data-go="aprender/${A.lid}">Autre activité</button></div></div>`;
+}
+function vActividad(kind, lid) {
+  if (!AV || AV.key !== kind + ':' + lid) AV = buildAV(kind, lid);
+  if (!AV.total) return bar('Apprendre', `aprender/${lid}`) + '<p class="okmsg">Il n’y a rien pour cette activité dans cette leçon.</p>';
+  return kind === 'cartes' ? vCartes(AV) : kind === 'escribir' ? vEscribir(AV) : vAsociar(AV);
+}
+/* Cartes à retourner */
+function cardSide(it, side) {
+  if (it.t === 'l') return side === 'es' ? `<div class="q-letter">${it.l.toUpperCase()}</div>` : `<div class="q-es">la ${esc(it.es)}</div><div class="q-sub">ex. : ${esc((ALFA.find(a => a[0] === it.l) || [])[2] || '')}</div>`;
+  if (it.t === 'qa') return side === 'es' ? `<span class="lab">Question</span><div class="q-es">${sHTML(it.q.es)}</div>` : `<span class="lab">Réponse</span><div class="q-es">${sHTML(it.a.es)}</div><div class="q-sub">${esc(it.a.fr)}</div>`;
+  if (side === 'es') return `<div class="q-es">${it.t === 'p' ? sHTML(it.es) : esc(it.es)}</div>`;
+  return `${it.img ? `<span class="pic q-pic">${pic(it.img)}</span>` : ''}<div class="q-fr">${esc(it.fr)}</div>`;
+}
+function vCartes(A) {
+  if (!A.queue.length) return actFin(A, `${A.knew} carte${A.knew > 1 ? 's' : ''} sue${A.knew > 1 ? 's' : ''} du premier coup, sur ${A.total}.`, A.res);
+  const it = A.queue[0], fwd = A.dir === 'es' || it.t === 'qa';
+  const front = cardSide(it, fwd ? 'es' : 'fr'), back = cardSide(it, fwd ? 'fr' : 'es');
+  const both = A.queue.some(x => x.t === 'w' || x.t === 'p');
+  const sayT = it.t === 'qa' ? (A.flip ? speakText(it.a.es) : speakText(it.q.es)) : it.t === 'l' ? it.es : (fwd !== A.flip ? speakText(it.es) : '');
+  return actTop(A, A.total - new Set(A.queue.map(x => x.id)).size, A.total) + `<div class="ex">
+    ${both ? `<div class="seg" role="group" aria-label="Côté visible"><button class="${A.dir === 'es' ? 'on' : ''}" data-act="cdir" data-d="es">Espagnol d’abord</button><button class="${A.dir === 'fr' ? 'on' : ''}" data-act="cdir" data-d="fr">Français d’abord</button></div>` : ''}
+    <div class="flip${A.flip ? ' on' : ''}" data-act="cflip" role="button" tabindex="0" aria-label="Retourner la carte">
+      <div class="flip-in"><div class="face">${front}<span class="turn">touche pour retourner ↻</span></div><div class="face back">${back}</div></div></div>
+    ${sayT ? sayBtn(sayT, 'Écouter') : ''}
+    <div class="cont" style="position:static">${A.flip ? `<button class="btn ghost" data-act="cknow" data-ok="0">${I.redo} À revoir</button><button class="btn" data-act="cknow" data-ok="1">${I.check} Je savais</button>`
+      : `<button class="btn wide" data-act="cflip">Retourner la carte</button>`}</div>
+    <p class="muted" style="font-size:.88rem;margin:0">Les cartes « à revoir » reviennent un peu plus tard.</p></div>`;
+}
+/* Écrire lettre par lettre (ou au clavier) */
+function wSlots(W) {
+  let p = 0, out = '', chunk = '';
+  const flush = () => { if (chunk) out += `<span class="wchunk">${chunk}</span>`; chunk = ''; };
+  W.wp.toks.forEach((k, i) => {
+    if (k.sp && i > 0) flush();
+    if (!isWord(k) || W.wp.give.has(i)) { chunk += `<span class="wgiven">${esc(k.t)}</span>`; return; }
+    chunk += `<span class="wword">${[...k.t].map(ch => { const n = p++, f = n < W.pos || W.done; return `<span class="wbox${f ? ' f' : ''}${n === W.pos && !W.done ? ' cur' : ''}">${f ? esc(ch) : ''}</span>`; }).join('')}</span>`;
+  });
+  flush();
+  return `<div class="wslots" aria-label="Le mot à écrire">${out}</div>`;
+}
+function vEscribir(A) {
+  if (A.i >= A.deck.length) return actFin(A, `${A.firstOk} mot${A.firstOk > 1 ? 's' : ''} bien écrit${A.firstOk > 1 ? 's' : ''} du premier coup, sur ${A.total}.`, A.res);
+  const W = A.W, it = W.it, kb = S.set.ecrire === 'teclado';
+  const given = W.wp.toks.filter((k, i) => isWord(k) && W.wp.give.has(i)).map(k => k.t).join(' ');
+  let h = actTop(A, A.i, A.total) + `<div class="ex">
+    <div class="seg" role="group" aria-label="Façon d’écrire"><button class="${kb ? '' : 'on'}" data-act="wmode" data-m="letras">Lettres à toucher</button><button class="${kb ? 'on' : ''}" data-act="wmode" data-m="teclado">Clavier</button></div>
+    ${it.img ? `<span class="pic q-pic">${pic(it.img)}</span>` : ''}<div class="q-sub">Écris en espagnol :</div><div class="q-fr">« ${esc(it.fr)} »</div>`;
+  if (!kb) {
+    h += wSlots(W);
+    if (!W.done) h += `<div class="ltiles">${W.tiles.map(t => `<button class="lt${t.used ? ' used' : ''}" data-act="wtile" data-i="${t.id}" ${t.used ? 'disabled' : ''}>${esc(t.ch)}</button>`).join('')}</div>
+      <div class="btn-row" style="justify-content:center">${sayBtn(speakText(it.es), 'Écouter')}<button class="say" data-act="whint">💡 Une lettre</button></div>`;
+  } else {
+    h += `<div class="wslots">${given ? `<span class="wgiven">${esc(given)}</span>` : ''}${W.done ? `<span>${esc(W.kb)}</span>` : ''}</div>`;
+    if (!W.done) h += `<input type="text" id="kbin" class="winput" value="${esc(W.kb)}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Ta réponse">
+      <div class="acc">${['á', 'é', 'í', 'ó', 'ú', 'ñ', 'ü'].map(c => `<button data-act="kbins" data-c="${c}" aria-label="Lettre ${c}">${c}</button>`).join('')}</div>
+      <div class="btn-row" style="justify-content:center">${sayBtn(speakText(it.es), 'Écouter')}<button class="btn" data-act="kbcheck">${I.check} Vérifier</button></div>`;
+  }
+  h += '</div>';
+  if (W.done) h += `<div class="ex" style="padding:0"><div class="fb ${W.ok ? 'ok' : 'ko'}"><div class="fb-t">${W.ok ? I.check + ' ¡Muy bien!' : 'Presque ! La bonne écriture :'}</div>
+      <div><b style="font-size:1.4rem">${esc(plain(it.es))}</b> = ${esc(it.fr)}</div>${W.accent ? '<div>👀 Attention à l’accent.</div>' : ''}${!kb && (W.errors || W.hints) ? `<div class="muted">${W.errors} erreur${W.errors > 1 ? 's' : ''}${W.hints ? `, ${W.hints} lettre${W.hints > 1 ? 's' : ''} d’aide` : ''}</div>` : ''}${sayBtn(speakText(it.es), 'Écouter')}</div>
+      <div class="cont"><button class="btn wide" data-act="wnext">Continuer</button></div></div>`;
+  if (kb && !W.done) AFTER = () => { const i = $('#kbin'); if (i) i.focus(); };
+  return h;
+}
+function wFinish(ok, accent) {
+  const A = AV, W = A.W; W.done = true; W.ok = ok; W.accent = !!accent;
+  record(W.it, ok); if (ok) A.firstOk++; else A.res.push(W.it);
+  snapshot(); save(); render();
+  if (ok) Voz.say(speakText(W.it.es));
+}
+const wNorm = s => low(s).replace(/[¡!¿?.,;:…()]/g, '').replace(/\s+/g, ' ').trim();
+/* Associer : relier espagnol et français */
+function vAsociar(A) {
+  if (A.r >= A.rounds.length) return actFin(A, `${A.firstOk} paire${A.firstOk > 1 ? 's' : ''} trouvée${A.firstOk > 1 ? 's' : ''} du premier coup, sur ${A.total}.`, A.res);
+  const items = A.rounds[A.r], byId = id => items.find(x => x.id === id);
+  const es = it => it.t === 'p' ? plain(it.es) : it.es, left = A.dir === 'es' ? es : it => it.fr, right = A.dir === 'es' ? it => it.fr : es;
+  const btn = (side, id, label) => {
+    let c = 'pb'; if (A.matched.has(id)) c += ' ok'; else if (A.flash && A.flash[side] === id) c += ' ko'; else if ((side === 'l' ? A.selL : A.selR) === id) c += ' sel';
+    return `<button class="${c}" data-act="pair" data-s="${side}" data-id="${esc(id)}" ${A.matched.has(id) ? 'disabled' : ''}>${esc(label)}</button>`;
+  };
+  const done = A.rounds.slice(0, A.r).reduce((n, r) => n + r.length, 0) + A.matched.size;
+  return actTop(A, done, A.total) + `<div class="ex">
+    <div class="seg" role="group" aria-label="Colonnes"><button class="${A.dir === 'es' ? 'on' : ''}" data-act="pdir" data-d="es">Espagnol à gauche</button><button class="${A.dir === 'fr' ? 'on' : ''}" data-act="pdir" data-d="fr">Français à gauche</button></div>
+    <div class="hint">Touche un mot à gauche, puis son sens à droite.${A.rounds.length > 1 ? ` (série ${A.r + 1} sur ${A.rounds.length})` : ''}</div>
+    <div class="pairs"><div class="pcol">${A.L.map(id => btn('l', id, left(byId(id)))).join('')}</div><div class="pcol">${A.R.map(id => btn('r', id, right(byId(id)))).join('')}</div></div></div>`;
+}
+
 /* --- Réglages --- */
 function vAjustes() {
   const tg = (k, t, s) => `<button class="set" data-act="tset" data-k="${k}" role="switch" aria-checked="${!!S.set[k]}"><span><b>${t}</b>${s ? `<small>${s}</small>` : ''}</span><span class="tg${S.set[k] ? ' on' : ''}"></span></button>`;
@@ -1613,7 +1828,7 @@ function vAjustes() {
   return bar('Réglages et ajouts', '') + `
   <div class="card"><h3>Mode d’emploi en 4 points</h3>
     <p style="margin:4px 0"><b>1. En cours</b> : « Leçons » → touchez une phrase → elle s’affiche en grand. Touchez un mot pour son sens ; « FR » montre la traduction ; pour une question, « Comment répondre ? » montre ce qui change. En haut : « Cases » cache les mots (il reste les cadres) ; « Mot à mot » écrit le sens sous chaque mot.</p>
-    <p style="margin:4px 0"><b>2. Pour mémoriser</b> : « S’entraîner », 10 questions, un peu chaque jour. L’appli redonne les mots au bon moment.</p>
+    <p style="margin:4px 0"><b>2. Pour mémoriser</b> : « Apprendre » → une leçon → une activité : Révision intelligente (conseillée, un peu chaque jour), Cartes, Écrire, Assembler, Associer, Le bon verbe. Toutes comptent dans la progression.</p>
     <p style="margin:4px 0"><b>3. Après chaque cours</b> : « Ajouter » les nouveaux mots et phrases (ci-dessous).</p>
     <p style="margin:4px 0"><b>4. De temps en temps</b> : « Enregistrer une sauvegarde ».</p></div>
   <div class="card"><h3>Comment l’élève apprend</h3>
@@ -1984,6 +2199,77 @@ const ACT = {
     render(); Voz.say(speakText(line.es));
   },
   start(el) { SES = buildSession(el.dataset.k); go('s/' + el.dataset.k); },
+  astart(el) {
+    const k = el.dataset.k, lid = el.dataset.l;
+    if (k === 'mix') { SES = buildSession(lid); go('s/' + lid); }
+    else if (k === 'veo') { SES = buildSession('_veo'); go('s/_veo'); }
+    else if (k === 'armar' || k === 'verbo') { SES = buildActSession(k, lid); go(`s/act:${k}:${lid}`); }
+    else { AV = buildAV(k, lid); go(`act/${k}/${lid}`); }
+  },
+  aquit() { const lid = AV && AV.lid; AV = null; go(lid ? `aprender/${lid}` : 'entrenar'); },
+  cflip() {
+    const A = AV; if (!A || !A.queue.length) return;
+    A.flip = !A.flip; const f = $('.flip');
+    if (f) { f.classList.toggle('on', A.flip); setTimeout(() => { if (AV === A) render(); }, 460); } else render();
+  },
+  cdir(el) { AV.dir = el.dataset.d; AV.flip = false; render(); },
+  cknow(el) {
+    const A = AV, ok = el.dataset.ok === '1', it = A.queue.shift();
+    if (!A.seen.has(it.id)) { A.seen.add(it.id); record(it, ok); if (ok) A.knew++; else A.res.push(it); snapshot(); save(); }
+    if (!ok) A.queue.splice(Math.min(3, A.queue.length), 0, it);
+    A.flip = false; render();
+  },
+  wmode(el) { S.set.ecrire = el.dataset.m; save(); if (AV && AV.W && !AV.W.done) AV.W = newW(AV.W.it); render(); },
+  wtile(el) {
+    const W = AV.W; if (W.done) return;
+    const t = W.tiles.find(x => x.id === +el.dataset.i); if (!t || t.used) return;
+    if (t.ch === W.wp.letters[W.pos]) {
+      t.used = true; W.pos++;
+      if (W.pos >= W.wp.letters.length) wFinish(W.errors <= 1 && W.hints === 0); else render();
+    } else { W.errors++; el.classList.remove('ko'); void el.offsetWidth; el.classList.add('ko'); }
+  },
+  whint() {
+    const W = AV.W; if (W.done) return;
+    const t = W.tiles.find(x => !x.used && x.ch === W.wp.letters[W.pos]); if (!t) return;
+    t.used = true; W.pos++; W.hints++;
+    if (W.pos >= W.wp.letters.length) wFinish(false); else render();
+  },
+  wnext() { const A = AV; A.i++; A.W = A.i < A.deck.length ? newW(A.deck[A.i]) : null; render(); window.scrollTo(0, 0); },
+  kbins(el) {
+    const inp = $('#kbin'); if (!inp) return;
+    const s = inp.selectionStart == null ? inp.value.length : inp.selectionStart, e = inp.selectionEnd == null ? s : inp.selectionEnd;
+    inp.setRangeText(el.dataset.c, s, e, 'end'); AV.W.kb = inp.value; inp.focus();
+  },
+  kbcheck() {
+    const W = AV.W, inp = $('#kbin'); if (inp) W.kb = inp.value;
+    if (!W.kb.trim()) { toast('Écris le mot d’abord.'); return; }
+    const a = wNorm(W.kb), b = wNorm(W.wp.answer);
+    if (a === b) wFinish(true); else if (deacc(a) === deacc(b)) wFinish(true, true); else wFinish(false);
+  },
+  pair(el) {
+    const A = AV; if (A.flash) return;
+    const side = el.dataset.s, id = el.dataset.id, items = A.rounds[A.r];
+    if (side === 'l') A.selL = A.selL === id ? null : id; else A.selR = A.selR === id ? null : id;
+    if (A.selL && A.selR) {
+      if (A.selL === A.selR) {
+        const it = items.find(x => x.id === A.selL), ok = !A.wrong.has(it.id);
+        A.matched.add(it.id); record(it, ok); if (ok) A.firstOk++; else A.res.push(it); snapshot(); save();
+        A.selL = A.selR = null;
+        if (A.matched.size === items.length) {
+          render();
+          setTimeout(() => { if (AV !== A) return; A.r++; if (A.r < A.rounds.length) Object.assign(A, newRound(A.rounds[A.r])); render(); }, 700);
+          return;
+        }
+      } else {
+        A.errors++; A.wrong.add(A.selL); A.wrong.add(A.selR); A.flash = {l:A.selL, r:A.selR}; A.selL = A.selR = null; render();
+        setTimeout(() => { if (AV !== A) return; A.flash = null; render(); }, 650);
+        return;
+      }
+    }
+    render();
+  },
+  pdir(el) { AV.dir = el.dataset.d; AV.selL = AV.selR = null; render(); },
+  bcol() { S.set.blocs = S.set.blocs === false; save(); render(); },
   quit(el) { SES = null; go(el.dataset.back || 'entrenar'); },
   next() { SES.i++; SES.ans = null; render(); window.scrollTo(0, 0); },
   pick(el) { if (SES.ans) return; const ex = SES.steps[SES.i].ex, i = +el.dataset.i; answer(ex.opts[i].ok, i); },
@@ -1996,7 +2282,7 @@ const ACT = {
   odel(el) { const ex = SES.steps[SES.i].ex; if (SES.ans) return; ex.placed.splice(+el.dataset.j, 1); render(); },
   reveal() { const ex = SES.steps[SES.i].ex; ex.open = true; render(); Voz.say(ex.say); },
   card(el) { const ex = SES.steps[SES.i].ex; ex.open = false; answer(el.dataset.ok === '1'); },
-  again() { const errs = [...new Map(SES.errs.map(e => [e.id, e])).values()]; const k = SES.key; SES = buildSession(k, errs); render(); },
+  again() { const errs = [...new Map(SES.errs.map(e => [e.id, e])).values()]; const k = SES.key; SES = SES.kind ? buildActSession(SES.kind, SES.lid, errs) : buildSession(k, errs); render(); },
   tset(el) { const k = el.dataset.k; S.set[k] = !S.set[k]; save(); render(); },
   sset(el) { S.set[el.dataset.k] = el.dataset.v; save(); render(); },
   etg(el) { const k = el.dataset.k; S.eleve[k] = !S.eleve[k]; save(); render(); },
@@ -2060,6 +2346,8 @@ document.addEventListener('click', e => {
 });
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.matches && e.target.matches('[data-act="tok"]')) { ACT.tok(e.target); return; }
+  if (e.key === 'Enter' && e.target.id === 'kbin') { e.preventDefault(); ACT.kbcheck(); return; }
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.flip')) { e.preventDefault(); ACT.cflip(); return; }
   if (e.target.matches && e.target.matches('input,select,textarea')) return;
   if (UI.nav && current && current.fn === vFocus) {
     if (e.key === 'ArrowRight' && UI.nav.next) go(UI.nav.next);
@@ -2074,8 +2362,11 @@ document.addEventListener('pointerdown', e => {
 });
 ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => document.addEventListener(ev, () => clearTimeout(longT)));
 $('#ov').addEventListener('click', e => { if (e.target.id === 'ov') ACT.padx(); });
+// les boutons d’accents ne font pas perdre le curseur du clavier
+document.addEventListener('pointerdown', e => { if (e.target.closest && e.target.closest('[data-act="kbins"]')) e.preventDefault(); });
 document.addEventListener('input', e => {
   const el = e.target;
+  if (el.id === 'kbin' && AV && AV.W) { AV.W.kb = el.value; return; }
   if (el.dataset.ecode !== undefined) {
     el.value = el.value.replace(/\D/g, '').slice(0, 4);
     if (el.value.length === 4) { S.eleve.k = hashCode(el.value); save(); const ok = $('#codeok'); if (ok) ok.textContent = '✓ Code enregistré. Notez-le quelque part.'; }
@@ -2125,6 +2416,7 @@ Voz.init();
   route();
 })();
 window.__esp = {
+  av:() => AV, actPool, writeParts, writable, buildAV, ACTS,
   // pour les contrôles : affiche un exercice donné, sans toucher à la progression
   testStep:(it, ex) => { SES = {key:'_t', steps:[{kind:'q', it, ex, retry:true}], i:0, ans:null, first:0, total:1, errs:[], practice:false};
     current = {fn:vSesion, args:['_t'], q:new URLSearchParams()}; render(); return app.innerText; },
