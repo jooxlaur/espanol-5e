@@ -1,0 +1,10 @@
+# Liste blanche : seuls les fichiers de l’appli sont publiés.
+# Tout le reste (contrôles, captures, noms interdits, LISEZMOI) reste sur l’ordinateur.
+*
+!.gitignore
+!index.html
+!manifest.webmanifest
+!sw.js
+!icon-192.png
+!icon-512.png
+!README.md

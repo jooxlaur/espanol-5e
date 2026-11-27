@@ -1,0 +1,2108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F6F4F0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Español 5e">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Español 5e</title>
+<style>
+:root{
+  --bg:#F6F4F0; --card:#FFFFFF; --ink:#1E2328; --ink2:#59626D; --ink3:#868D96;
+  --line:#E6E1D9; --line2:#D3CCC1; --brand:#22303C; --brand-soft:#EDF0F3;
+  --v:#C2410C; --vbg:#FFF2EA; --q:#7E22CE; --p:#0369A1; --pbg:#E8F3FA; --o:#868D96;
+  --ok:#15803D; --okbg:#EAF6EE; --ko:#B45309; --kobg:#FFF6E3; --mark:#FCE38A;
+  --r:18px; --r2:14px;
+  --sh:0 1px 2px rgba(30,35,40,.05),0 6px 18px rgba(30,35,40,.05);
+  --fs:18px;
+  --sb:env(safe-area-inset-bottom,0px);
+}
+body.grande{--fs:21px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 var(--fs)/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button,select,input{font:inherit;color:inherit}
+button{background:none;border:0;padding:0;margin:0;cursor:pointer;touch-action:manipulation;text-align:inherit}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #2563EB;outline-offset:2px}
+.app{max-width:900px;margin:0 auto;padding:max(12px,env(safe-area-inset-top)) 20px calc(48px + var(--sb))}
+svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.muted{color:var(--ink2)}
+.pic{font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;line-height:1;display:inline-grid;place-items:center}
+.pic svg{width:1em;height:1em}
+.sw{width:1em;height:1em;border-radius:.22em;border:1px solid rgba(0,0,0,.16);display:block}
+
+/* barre du haut */
+.bar{display:flex;align-items:center;gap:12px;min-height:60px;margin-bottom:6px}
+.bar h1{font-size:1.15rem;font-weight:700;margin:0;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ib{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);box-shadow:var(--sh);flex:none}
+
+/* accueil */
+.brand{display:flex;align-items:center;gap:14px;margin:8px 0 18px}
+.logo{width:54px;height:54px;border-radius:16px;background:var(--v);color:#fff;font-weight:800;display:grid;place-items:center;font-size:1.3rem;letter-spacing:-.02em;flex:none}
+.brand-t{font-weight:800;font-size:1.4rem;line-height:1.2}
+.brand-s{color:var(--ink2);font-size:.92rem}
+.brand .ib{margin-left:auto}
+.fecha-card{display:flex;align-items:center;gap:16px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px;box-shadow:var(--sh);margin-bottom:16px}
+.fecha-card .ic{width:52px;height:52px;border-radius:14px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;flex:none}
+.lab{display:block;font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.fecha-txt{display:block;font-size:clamp(20px,3.4vw,28px);font-weight:700;line-height:1.25;margin:2px 0}
+.fecha-fr{display:block;color:var(--ink2);font-size:.95rem}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;min-height:clamp(158px,22vh,230px);box-shadow:var(--sh);display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.tile .ti{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);margin-bottom:6px}
+.tile .ti svg{width:28px;height:28px}
+.tile b{font-size:1.25rem;line-height:1.2}
+.tile small{color:var(--ink2);font-size:.92rem;line-height:1.35}
+.tile .badge{margin-top:auto;font-size:.85rem;font-weight:700;color:var(--ok);background:var(--okbg);border-radius:999px;padding:3px 10px}
+.resume{display:flex;align-items:center;gap:10px;width:100%;margin-top:14px;padding:14px 18px;border-radius:var(--r2);border:1px dashed var(--line2);color:var(--ink2)}
+.resume b{color:var(--ink)}
+.resume svg{margin-left:auto}
+
+/* listes */
+.grp{margin-top:18px}
+.grp-t{font-size:1rem;font-weight:750;margin:0 4px 10px}
+.grp-t span{display:block;font-weight:400;color:var(--ink2);font-size:.88rem}
+.list{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;align-items:center;gap:14px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:12px 16px;min-height:68px}
+.row-ic{font-size:30px;width:46px;height:46px;flex:none}
+.row-tx{flex:1;min-width:0;display:flex;flex-direction:column}
+.row-tx b{font-weight:650;line-height:1.3}
+.row-tx small{color:var(--ink2);font-size:.88rem;line-height:1.3}
+.row>svg{color:var(--ink3)}
+.pbar{height:6px;border-radius:6px;background:var(--line);margin-top:8px;overflow:hidden;max-width:240px}
+.pbar i{display:block;height:100%;background:var(--ok);border-radius:6px}
+.lock{font-size:.75rem;font-weight:700;color:var(--ink2);background:var(--brand-soft);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:2px}
+
+/* phrases en couleurs */
+.s{line-height:2}
+.s .ch{white-space:nowrap}
+.w{display:inline-block;line-height:1.25;border-radius:6px}
+.w.v{color:var(--v);box-shadow:inset 0 0 0 2px var(--v);background:var(--vbg);padding:.02em .22em;border-radius:6px;font-weight:600}
+.w.q{color:var(--q);font-weight:700;text-decoration:underline;text-decoration-color:var(--q);text-decoration-thickness:.11em;text-underline-offset:.2em}
+.w.p{color:var(--p);box-shadow:inset 0 0 0 2px var(--p);background:var(--pbg);padding:.02em .34em;border-radius:999px;font-weight:600}
+.w.o{color:var(--o)}
+/* couleurs douces (par défaut) : le texte reste foncé, seuls les cadres sont colorés */
+.c-douces .w.v{color:var(--ink);box-shadow:inset 0 0 0 2px #CF7A3E;background:#FFF8F2;font-weight:500}
+.c-douces .w.q{color:var(--ink);font-weight:600;text-decoration-color:#9B6BD3;text-decoration-thickness:.09em}
+.c-douces .w.p{color:var(--ink);box-shadow:inset 0 0 0 2px #4E93C4;background:#F3F9FD;font-weight:500}
+.c-sans .w.v,.c-sans .w.q,.c-sans .w.p{color:inherit;box-shadow:none;background:none;text-decoration:none;font-weight:inherit;padding:0}
+.w mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 .03em}
+.w.hl{background:var(--mark)!important}
+/* « Cases » : les cadres sans les mots */
+.w.hid{color:transparent!important;cursor:pointer}
+.w.hid mark{background:none}
+.w.n.hid,.c-sans .w.hid{outline:2px dashed var(--line2);outline-offset:-2px;border-radius:6px}
+/* « Mot à mot » : le sens de chaque mot dessous */
+.mw{display:inline-flex;flex-direction:column;align-items:center;vertical-align:baseline}
+.mw>small{font-size:max(13px,.4em);font-weight:500;color:var(--ink2);line-height:1.2;margin-top:.15em;white-space:nowrap;letter-spacing:0}
+.vues{display:flex;width:max-content;max-width:100%;margin:0 auto 6px}
+.fr1{color:var(--ink)}
+.w.sel{outline:3px solid var(--ink);outline-offset:3px}
+.blank{display:inline-block;width:3.4em;height:.95em;border-bottom:3px solid var(--ink);vertical-align:-.05em}
+[data-act="tok"]{cursor:pointer}
+
+/* page de leçon */
+.lh{display:flex;gap:16px;align-items:center;margin:2px 0 14px}
+.lh .pic{font-size:46px;width:64px;height:64px;background:var(--card);border:1px solid var(--line);border-radius:18px;flex:none}
+.lh h2{margin:0;font-size:clamp(22px,3.6vw,30px);line-height:1.2}
+.lh p{margin:2px 0 0;color:var(--ink2)}
+.intro{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--brand);border-radius:var(--r2);padding:12px 16px;margin:0 0 14px;color:var(--ink2)}
+.intro b{color:var(--ink)}
+.sec-t{font-size:.78rem;font-weight:750;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);margin:26px 4px 10px}
+.srow{display:block;width:100%;background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:12px 16px}
+.srow .s{font-size:1.2rem}
+.srow small{display:block;color:var(--ink2);font-size:.9rem;line-height:1.35}
+.srow .ans{display:flex;gap:8px;margin-top:4px}
+.srow .ans::before{content:"↳";color:var(--ink3);font-size:1.2rem;line-height:2}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.wcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;min-height:122px}
+.wcard .pic{font-size:40px;min-height:44px}
+.wcard b{font-size:1.05rem;font-weight:650;line-height:1.25}
+.wcard small{color:var(--ink2);font-size:.85rem;line-height:1.3}
+.wgrid.compact{grid-template-columns:repeat(auto-fill,minmax(118px,1fr))}
+.wgrid.compact .wcard{min-height:0;padding:10px 8px}
+.dcard{display:flex;align-items:center;gap:14px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:14px 16px}
+.dcard .ic{width:46px;height:46px;border-radius:13px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;flex:none}
+.dcard b{display:block}
+.dcard small{color:var(--ink2)}
+.dcard>svg:last-child{margin-left:auto;color:var(--ink3)}
+.stack{display:flex;flex-direction:column;gap:10px}
+
+/* boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 22px;border-radius:15px;background:var(--brand);color:#fff;font-weight:650;border:1px solid var(--brand);text-align:center}
+.btn.ghost{background:var(--card);color:var(--ink);border-color:var(--line2)}
+.btn.wide{width:100%}
+.btn.sm{min-height:44px;padding:0 16px;border-radius:12px;font-size:.95rem;white-space:nowrap}
+.btn:disabled{opacity:.4}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap}
+.btn-row .btn{flex:1}
+.link{color:var(--brand);font-weight:650;text-decoration:underline;text-underline-offset:3px}
+.danger{color:#B42318}
+
+/* vue « grand écran » */
+.fx{min-height:calc(100vh - 230px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:18px;padding:6px 0 130px}
+.big{font-size:clamp(30px,5.8vw,52px);font-weight:600;line-height:1.3;max-width:100%}
+.big .s{line-height:1.75}
+.pic.xl{font-size:clamp(84px,14vw,130px)}
+.fr{color:var(--ink2);font-size:clamp(18px,2.8vw,26px);line-height:1.35}
+.frbox{min-height:1.5em}
+.note{background:#FFFBEA;border:1px solid #EFE0A0;border-radius:12px;padding:10px 14px;font-size:.95rem;color:#5A4A10;max-width:660px;text-align:left}
+.gloss{min-height:62px;max-width:640px;width:100%;display:flex;align-items:center;justify-content:center}
+.gloss>div{background:var(--card);border:1px solid var(--line2);border-radius:14px;padding:10px 18px;box-shadow:var(--sh);font-size:1.1rem}
+.gloss small{display:block;color:var(--ink2);font-size:.9rem}
+.gloss .tip{color:var(--ink3);font-size:.95rem}
+.legend{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;font-size:.86rem;color:var(--ink2);align-items:center}
+.legend .w{font-size:.95rem}
+.fbar{position:fixed;left:0;right:0;bottom:0;padding:10px 16px calc(10px + var(--sb));background:rgba(246,244,240,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line);display:flex;justify-content:center;align-items:center;gap:12px;z-index:20}
+.fbar button{width:66px;height:56px;border-radius:16px;background:var(--card);border:1px solid var(--line2);display:grid;place-items:center;font-weight:800;font-size:1rem}
+.fbar button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.fbar button:disabled{opacity:.3}
+.fbar .btn{width:auto;flex:1;max-width:520px;height:56px;font-size:1.05rem;background:var(--brand);color:#fff;border-color:var(--brand)}
+.fbar .btn.ghost{background:var(--card);color:var(--ink);border-color:var(--line2)}
+.fbar .pos{min-width:58px;text-align:center;color:var(--ink2);font-size:.9rem;font-weight:600}
+.tq{width:100%;max-width:780px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 22px 18px;box-shadow:var(--sh)}
+.tq .lab{margin-bottom:2px}
+.tq .big{font-size:clamp(26px,4.8vw,44px)}
+.tq .fr{font-size:clamp(16px,2.4vw,21px)}
+.rules{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:680px}
+.rules .rl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.rule{background:var(--card);border:1px dashed var(--line2);border-radius:999px;padding:6px 16px;font-weight:650;font-size:1.1rem}
+.rule mark{background:var(--mark);border-radius:3px;padding:0 .05em}
+.rules p{margin:0;color:var(--ink2)}
+.down{color:var(--ink3);font-size:1.6rem;line-height:1}
+
+/* dialogues */
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{padding:8px 14px;border-radius:10px;min-height:42px;font-weight:650;color:var(--ink2);font-size:.95rem}
+.seg button.on{background:var(--brand);color:#fff}
+.dtools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:4px 0 16px}
+.dl{display:flex;flex-direction:column;gap:12px;padding-bottom:40px}
+.bub{max-width:86%;background:var(--card);border:1px solid var(--line);border-radius:20px 20px 20px 6px;padding:10px 16px 12px;text-align:left;box-shadow:var(--sh)}
+.bub.r{align-self:flex-end;border-radius:20px 20px 6px 20px;background:#F3F5F8}
+.bub .who{font-size:.76rem;font-weight:750;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em}
+.bub .s{font-size:clamp(20px,3vw,26px)}
+.bub .fr{font-size:.98rem;margin-top:2px}
+.bub.hid .s{color:var(--ink3)}
+.bub.hid{border-style:dashed}
+.bub.new{box-shadow:0 0 0 3px var(--brand);animation:pop .25s ease-out}
+@keyframes pop{from{transform:translateY(10px);opacity:.2}to{transform:none;opacity:1}}
+.dl.paso{padding-bottom:110px}
+
+/* mode élève */
+.mode-e{font-size:.78rem;font-weight:750;color:var(--brand);background:var(--brand-soft);border-radius:999px;padding:3px 10px;display:inline-block;margin-top:2px}
+#ov{position:fixed;inset:0;background:rgba(20,25,30,.55);display:none;align-items:center;justify-content:center;z-index:80;padding:20px}
+#ov.on{display:flex}
+.kp{background:var(--card);border-radius:22px;padding:22px;width:min(360px,100%);text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.kp h3{margin:0;font-size:1.15rem}
+.kp .dots{display:flex;gap:14px;justify-content:center;margin:14px 0 18px}
+.kp .dots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--ink2)}
+.kp .dots i.on{background:var(--ink);border-color:var(--ink)}
+.kp .keys{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kp .keys button{height:62px;border-radius:16px;background:var(--bg);font-size:1.5rem;font-weight:700;text-align:center}
+.kp.err .dots{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.lchips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.lchips button{border:1px solid var(--line2);border-radius:999px;padding:8px 14px;background:#fff;font-size:.93rem;font-weight:600;text-align:center}
+.lchips button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.qr{background:#fff;padding:14px;border-radius:16px;border:1px solid var(--line);width:min(440px,100%);margin:6px auto 12px}
+.qr svg{display:block;width:100%;height:auto}
+.linkbox{font-family:ui-monospace,Consolas,monospace;font-size:.78rem;word-break:break-all;background:var(--bg);border-radius:10px;padding:8px 10px;color:var(--ink2);max-height:5.5em;overflow:auto}
+
+/* entraînement */
+.ses-top{display:flex;align-items:center;gap:14px;margin:6px 0 14px}
+.ses-prog{flex:1;height:10px;background:var(--line);border-radius:10px;overflow:hidden}
+.ses-prog i{display:block;height:100%;background:var(--brand);border-radius:10px;transition:width .25s}
+.ses-n{font-weight:700;color:var(--ink2);font-size:.95rem;min-width:56px;text-align:right}
+.ex{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:4px 0 20px}
+.tag{font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);background:var(--brand-soft);border-radius:999px;padding:4px 12px}
+.q-pic{font-size:clamp(64px,11vw,92px)}
+.q-es{font-size:clamp(26px,4.8vw,42px);font-weight:600;line-height:1.3}
+.q-fr{font-size:clamp(24px,4.2vw,36px);font-weight:650;line-height:1.3}
+.q-letter{font-size:clamp(90px,16vw,140px);font-weight:800;line-height:1}
+.q-sub{color:var(--ink2);font-size:1rem}
+.hint{color:var(--ink2);font-size:1rem;font-weight:650}
+.say{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:12px;border:1px solid var(--line2);background:var(--card);font-weight:650;font-size:.95rem;color:var(--ink2)}
+.opts{display:grid;gap:12px;width:100%;max-width:660px}
+.opt{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:14px 18px;min-height:66px;font-size:1.2rem;text-align:center;box-shadow:0 1px 0 var(--line)}
+.opt .s{line-height:1.8}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.ko{border-color:var(--ko);background:var(--kobg)}
+.opt.dim{opacity:.45}
+.veo-g{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:520px}
+.veo-t{aspect-ratio:1.35;background:var(--card);border:2px solid var(--line);border-radius:18px;font-size:clamp(54px,9vw,76px);display:grid;place-items:center}
+.veo-t.ok{border-color:var(--ok);background:var(--okbg)}
+.veo-t.ko{border-color:var(--ko);background:var(--kobg)}
+.veo-q{font-size:clamp(22px,3.8vw,32px);font-weight:600;line-height:1.4}
+.slots{min-height:70px;width:100%;max-width:720px;border-bottom:2px solid var(--line2);display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;padding:8px 4px;font-size:1.3rem}
+.slots .pu{font-weight:700;color:var(--ink2)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:720px}
+.chip{background:var(--card);border:1px solid var(--line2);border-radius:13px;padding:8px 14px;font-size:1.3rem;min-height:54px;box-shadow:0 2px 0 var(--line2)}
+.chip.used{visibility:hidden}
+.chip.ed{font-size:1.1rem;min-height:46px;padding:6px 12px}
+.fb{width:100%;max-width:660px;border-radius:16px;padding:14px 16px;text-align:left;display:flex;flex-direction:column;gap:8px}
+.fb.ok{background:var(--okbg);border:1px solid #BFE3CB}
+.fb.ko{background:var(--kobg);border:1px solid #F0D49A}
+.fb-t{font-weight:800;font-size:1.15rem;display:flex;align-items:center;gap:8px}
+.fb.ok .fb-t{color:var(--ok)}
+.fb.ko .fb-t{color:var(--ko)}
+.fb .s{font-size:1.2rem}
+.cont{position:sticky;bottom:0;padding:12px 0 calc(12px + var(--sb));background:linear-gradient(rgba(246,244,240,0),var(--bg) 30%);width:100%;max-width:660px;display:flex;gap:10px}
+.cont .btn{flex:1}
+.reveal{width:100%;max-width:660px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.stats{display:flex;align-items:center;gap:18px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px;box-shadow:var(--sh);margin-bottom:14px}
+.stat-n{font-size:2.3rem;font-weight:800;line-height:1}
+.stats small{color:var(--ink2);display:block}
+.spark{margin-left:auto;width:42%;max-width:260px;height:54px}
+.okmsg{background:var(--okbg);border:1px solid #BFE3CB;color:#14532D;border-radius:var(--r2);padding:12px 16px;margin-bottom:6px}
+.end{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:20px 0}
+.end h2{font-size:2rem;margin:0}
+.end .score{font-size:1.15rem;color:var(--ink2)}
+.errs{width:100%;max-width:660px;text-align:left}
+
+/* mémo */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:16px;text-align:left;display:flex;flex-direction:column;gap:4px;min-height:104px}
+.mcard b{font-size:1.1rem}
+.mcard small{color:var(--ink2);line-height:1.35}
+.vr{display:grid;grid-template-columns:118px 1fr auto;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.pers b{display:block;font-size:1.15rem}
+.pers small{color:var(--ink2)}
+.vform{font-size:clamp(24px,4vw,34px);font-weight:600}
+.vform .w.v u{text-decoration-thickness:3px;text-underline-offset:4px}
+.vr .fr{font-size:.95rem}
+.box{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin-bottom:12px}
+.box h3{margin:0 0 8px;font-size:1.1rem}
+.box p{margin:6px 0}
+.box .s{font-size:1.15rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tbl{width:100%;border-collapse:collapse}
+.tbl td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl td:first-child{font-weight:650;font-size:1.15rem;width:44%}
+.tbl tr:last-child td{border-bottom:0}
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:10px}
+.at{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:92px;justify-content:center}
+.at b{font-size:2rem;line-height:1.1}
+.at small{color:var(--ink2);font-size:.9rem}
+.at.on{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand)}
+.adet{min-height:84px;margin:12px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:12px 16px;display:flex;align-items:center;gap:16px}
+.adet .L{font-size:2.6rem;font-weight:800;width:64px;text-align:center}
+.adet small{color:var(--ink2);display:block}
+
+/* date */
+.fecha-big{display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;align-items:flex-end;margin:10px 0}
+.fp{display:flex;flex-direction:column;align-items:center;gap:4px}
+.fp b{font-size:clamp(30px,6vw,56px);font-weight:650;line-height:1.15;border-bottom:3px solid var(--line2);padding:0 2px}
+.fp small{color:var(--ink3);font-size:.82rem;font-weight:650}
+.fp.sep b{border-color:transparent;color:var(--ink2)}
+
+/* en classe */
+.sos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sos button{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 12px;min-height:136px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;box-shadow:var(--sh)}
+.sos .pic{font-size:40px}
+.sos b{font-size:1.25rem;line-height:1.25}
+.sos small{color:var(--ink2)}
+
+/* formulaires */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--sh);margin-bottom:14px}
+.card h3{margin:0 0 6px;font-size:1.12rem}
+.card>p{margin:0 0 10px;color:var(--ink2);font-size:.95rem}
+.field{display:flex;flex-direction:column;gap:6px;margin:12px 0}
+.field>label,.flab{font-weight:650;font-size:.95rem}
+.field small{color:var(--ink2);font-size:.85rem}
+input[type=text],select{padding:11px 14px;border:1px solid var(--line2);border-radius:12px;background:#fff;min-height:50px;width:100%}
+.set{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);width:100%;text-align:left}
+.set:last-child{border-bottom:0}
+.set small{display:block;color:var(--ink2);font-size:.86rem}
+.tg{width:58px;height:34px;border-radius:34px;background:var(--line2);position:relative;flex:none;transition:background .15s}
+.tg::after{content:"";position:absolute;top:3px;left:3px;width:28px;height:28px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:left .15s}
+.tg.on{background:var(--ok)}
+.tg.on::after{left:27px}
+.prow{border-top:1px solid var(--line);padding:12px 0;display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center}
+.prow .pm b{display:block}
+.prow .pm small{color:var(--ink2)}
+.pin{display:grid;grid-template-columns:150px 1fr;gap:8px}
+.dchips{display:flex;gap:6px;grid-column:2;flex-wrap:wrap}
+.dchips button{min-width:54px;height:42px;padding:0 8px;border-radius:11px;border:1px solid var(--line2);background:#fff;font-weight:700;font-size:.9rem;text-align:center}
+.dchips button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.irow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.irow .s{font-size:1.05rem}
+.irow>div{flex:1;min-width:0}
+.irow small{color:var(--ink2);display:block}
+#toast{position:fixed;left:50%;bottom:calc(96px + var(--sb));transform:translateX(-50%) translateY(16px);background:var(--brand);color:#fff;padding:12px 18px;border-radius:12px;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:60;max-width:90vw;font-weight:600;text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:560px){
+  .app{padding-left:14px;padding-right:14px}
+  .tile{min-height:132px;padding:16px}
+  .mgrid,.two{grid-template-columns:1fr}
+  .vr{grid-template-columns:86px 1fr auto}
+  .prow,.pin{grid-template-columns:1fr}
+  .dchips{grid-column:1}
+  .spark{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.fbar,.bar .ib,.cont{display:none}}
+</style>
+</head>
+<body>
+<div id="app" class="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="ov" role="dialog" aria-modal="true" aria-label="Code de l’adulte"></div>
+<script>
+'use strict';
+/* ======================================================================
+   ESPAÑOL 5e — outil d’accompagnement (un seul fichier, marche hors ligne)
+   1. Contenu du cours       4. Progression (révisions espacées)
+   2. Outils de langue       5. Écrans
+   3. Données de l’appareil  6. Exercices
+   ====================================================================== */
+const VERSION = '1.1 — 27/11/2026';
+
+/* ---------------------------------------------------------------- 1. COURS */
+const UNIDADES = [
+  {id:'u1', es:'Unidad 1 · ¿Empezamos?', fr:'On commence ?'},
+  {id:'u2', es:'Unidad 2 · Me presento', fr:'Je me présente'},
+];
+// Syntaxe des phrases : {V:verbe} encadré · {Q:mot-question} souligné · {P:petit mot} entouré · ({O:yo}) facultatif
+const W = (es, fr, img, o) => Object.assign({t:'w', es, fr, img:img || ''}, o || {});
+const P = (es, fr, note) => ({t:'p', es, fr, note:note || ''});
+const QA = (q, qf, a, af, note) => ({t:'qa', q:{es:q, fr:qf}, a:{es:a, fr:af}, note:note || ''});
+const D = (titre, lines) => ({t:'d', titre, lines:lines.map(([w, es, fr]) => ({w, es, fr}))});
+
+const LECCIONES = [
+{id:'clase', u:'u1', icon:'🙋', es:'En clase', fr:'Demander de l’aide en espagnol',
+ intro:'Les phrases du marque-page : pour <b>demander</b> quand on ne comprend pas.',
+ items:[
+  P('¿{Q:Cómo} se {V:dice}…?', 'Comment dit-on… ?'),
+  P('¿{Q:Qué} {V:significa}…?', 'Que veut dire… ?'),
+  P('¿{Q:Cómo} se {V:escribe}?', 'Comment ça s’écrit ?'),
+  P('¿{V:Puedes} repetir?', 'Tu peux répéter ?'),
+  P('¿{V:Puede} repetir?', 'Vous pouvez répéter ?', 'Puede : pour parler poliment au professeur, comme « vous ».'),
+  P('No {V:sé}.', 'Je ne sais pas.'),
+  P('No {V:comprendo}.', 'Je ne comprends pas.'),
+ ]},
+{id:'lista', u:'u1', icon:'📋', es:'Pasar lista', fr:'Faire l’appel',
+ intro:'Le professeur fait l’appel. Si l’élève est là, il répond… S’il n’est pas là, les autres disent…',
+ items:[
+  W('¡Presente!', 'Présent !', '🙋'),
+  W('¡Aquí!', 'Ici !', '👇'),
+  W('¡Sí!', 'Oui !', '👍'),
+  P('¡{V:Soy} yo!', 'C’est moi !'),
+  P('¡{V:Estoy}!', 'Je suis là !'),
+  P('¡No {V:está}!', 'Il (elle) n’est pas là !'),
+  P('¡{V:Falta}!', 'Il (elle) manque !'),
+  W('¡Ausente!', 'Absent !', '🪑'),
+ ]},
+{id:'alfabeto', u:'u1', icon:'🔤', es:'El alfabeto', fr:'L’alphabet', kind:'alfabeto',
+ intro:'Touchez une lettre pour l’entendre et voir un mot qui commence par elle.', items:[]},
+{id:'espana', u:'u1', icon:'🌎', es:'España y Latinoamérica', fr:'L’Espagne et l’Amérique latine',
+ items:[
+  W('la copa del mundo', 'la coupe du monde', '🏆'),
+  W('el sol', 'le soleil', '☀️'),
+  W('un abanico', 'un éventail', 'svg:abanico'),
+  W('la bandera', 'le drapeau', '🚩'),
+  W('la pelota', 'le ballon', '⚽'),
+  W('el toro', 'le taureau', '🐂'),
+  W('la bailarina de flamenco', 'la danseuse de flamenco', '💃'),
+  W('el mapa de Latinoamérica', 'la carte de l’Amérique latine', '🌎'),
+  W('un cactus', 'un cactus', '🌵'),
+  W('Chichén Itzá', 'des temples mayas, au Mexique', 'svg:piramide'),
+ ]},
+{id:'saludar', u:'u1', icon:'👋', es:'Saludar', fr:'Dire bonjour',
+ intro:'Pour dire bonjour, ça dépend du <b>moment de la journée</b>.',
+ items:[
+  W('¡Hola!', 'Salut ! Bonjour ! (à tout moment)', '👋'),
+  W('¡Buenos días!', 'Bonjour ! (le matin)', '🌅'),
+  W('¡Buenas tardes!', 'Bonjour ! (l’après-midi)', '☀️'),
+  W('¡Buenas noches!', 'Bonsoir ! Bonne nuit !', '🌙'),
+  W('por la mañana', 'le matin', '🕘'),
+  W('por la tarde', 'l’après-midi', '🕒'),
+  W('por la noche', 'le soir, la nuit', '🌃'),
+  D('Por la mañana', [
+    ['Chico', '¡Buenos días!', 'Bonjour !'],
+    ['Chica', '¡Hola! ¿{Q:Qué} tal?', 'Salut ! Ça va ?'],
+    ['Chico', '¡Bien! Gracias. ¿Y tú?', 'Bien ! Merci. Et toi ?'],
+  ]),
+  D('Por la tarde', [
+    ['Sofía', '¡Buenas tardes, Lola! ¿{Q:Qué} tal?', 'Bonjour, Lola ! Ça va ?'],
+    ['Lola', '¡Hola, Sofía! Regular.', 'Salut, Sofía ! Bof.'],
+  ]),
+ ]},
+{id:'despedirse', u:'u1', icon:'🚪', es:'Despedirse', fr:'Dire au revoir',
+ intro:'<b>¡Buenas noches!</b> sert aussi à dire au revoir le soir.',
+ items:[
+  W('¡Adiós!', 'Au revoir !', '👋'),
+  W('¡Hasta luego!', 'À plus tard !'),
+  W('¡Hasta pronto!', 'À bientôt !'),
+  W('¡Hasta mañana!', 'À demain !'),
+  W('¡Nos vemos!', 'On se voit ! (À plus !)'),
+  W('¡Hasta la próxima!', 'À la prochaine !'),
+  W('¡Chao!', 'Ciao ! (pour partir)'),
+ ]},
+{id:'que-tal', u:'u1', icon:'🙂', es:'¿Qué tal estás?', fr:'Comment ça va ?',
+ items:[
+  QA('¿{Q:Qué} tal {V:estás} hoy?', 'Comment vas-tu aujourd’hui ?', 'Hoy ({O:yo}) {V:estoy} bien.', 'Aujourd’hui, je vais bien.',
+     'Dans la question, estás finit par s : on parle à « tú ». Dans la réponse, je parle de moi : estoy, avec « yo ».'),
+  P('¿{Q:Qué} tal?', 'Ça va ?'),
+  P('¡Bien, gracias! ¿Y tú?', 'Bien, merci ! Et toi ?'),
+  W('fenomenal', 'génial, super', '🤩'),
+  W('súper bien', 'super bien', '😄'),
+  W('muy bien', 'très bien', '😊'),
+  W('bien', 'bien', '🙂'),
+  W('regular', 'bof, moyen', '😐'),
+  W('mal', 'mal', '🙁'),
+  W('muy mal', 'très mal', '😞'),
+  W('fatal', 'horrible, très très mal', '😫'),
+  D('Diálogo', [
+    ['Francisco', '¡Hola!', 'Salut !'],
+    ['Sofía', '¡Buenos días! ¿{Q:Qué} tal {V:estás} hoy?', 'Bonjour ! Comment vas-tu aujourd’hui ?'],
+    ['Francisco', '¡Hoy yo {V:estoy} fenomenal! ¿Y tú?', 'Aujourd’hui, je vais super bien ! Et toi ?'],
+    ['Sofía', 'Hoy yo {V:estoy} muy bien, gracias. ¿{Q:Cómo} {P:te} {V:llamas}?', 'Aujourd’hui, je vais très bien, merci. Comment tu t’appelles ?'],
+    ['Francisco', '{P:Me} {V:llamo} Francisco.', 'Je m’appelle Francisco.'],
+    ['Sofía', '¡Adiós!', 'Au revoir !'],
+    ['Francisco', '¡Nos vemos! ¡Hasta la próxima! ¡Chao!', 'À plus ! À la prochaine ! Ciao !'],
+  ]),
+ ]},
+{id:'te-llamas', u:'u1', icon:'🏷️', es:'¿Cómo te llamas?', fr:'Comment tu t’appelles ?',
+ items:[
+  QA('¿{Q:Cómo} {P:te} {V:llamas}?', 'Comment tu t’appelles ?', '{P:Me} {V:llamo} Mateo.', 'Je m’appelle Mateo.',
+     'te devient me, llamas devient llamo : dans la réponse, je parle de moi.'),
+  QA('¿{Q:Cómo} {P:se} {V:llama}?', 'Comment il (elle) s’appelle ?', '{P:Se} {V:llama} Lucía.', 'Elle s’appelle Lucía.',
+     'On parle de quelqu’un d’autre : se llama.'),
+  P('({O:Yo}) {V:soy} Mateo.', 'Je suis Mateo.'),
+ ]},
+{id:'colores', u:'u1', icon:'🎨', es:'Los colores', fr:'Les couleurs',
+ items:[
+  QA('¿{Q:Cuál} {V:es} {P:tu} color favorito?', 'Quelle est ta couleur préférée ?', '{P:Mi} color favorito {V:es} el turquesa.', 'Ma couleur préférée est le turquoise.',
+     'tu devient mi. « es » ne change pas : on parle de la couleur. Attention : color est masculin (el color, favorito).'),
+  QA('¿{Q:De qué color} {V:es} el pantalón de la profesora?', 'De quelle couleur est le pantalon de la professeure ?', '{V:Es} negro.', 'Il est noir.'),
+  W('turquesa', 'turquoise', 'sw:#19B3AA'),
+  W('azul claro', 'bleu clair', 'sw:#8CC4EE'),
+  W('azul oscuro', 'bleu foncé', 'sw:#1E3A8A'),
+  W('negro', 'noir', 'sw:#121212'),
+  W('rojo', 'rouge', 'sw:#D62828'),
+  W('azul', 'bleu', 'sw:#2563EB'),
+  W('verde', 'vert', 'sw:#2E9E44'),
+  W('amarillo', 'jaune', 'sw:#F6C90E'),
+  W('blanco', 'blanc', 'sw:#FFFFFF'),
+  W('naranja', 'orange', 'sw:#F28C28'),
+  W('rosa', 'rose', 'sw:#F49AC2'),
+  W('gris', 'gris', 'sw:#8E8E8E'),
+  W('marrón', 'marron', 'sw:#7B4A2A'),
+  W('morado', 'violet', 'sw:#7E3FA0'),
+ ]},
+{id:'materias', u:'u1', icon:'📚', es:'Las materias', fr:'Les matières',
+ intro:'⚠️ Attention : <b>la clase</b> = le cours.',
+ items:[
+  W('la lengua', 'le français (la langue maternelle)', '📖'),
+  W('la música', 'la musique', '🎵'),
+  W('la biología', 'les SVT (la biologie)', '🐸'),
+  W('la clase de matemáticas', 'le cours de maths', '➗'),
+  W('la clase de plástica', 'le cours d’arts plastiques', '🎨'),
+  W('el deporte', 'le sport (l’EPS)', '🏃'),
+  W('la física y la química', 'la physique-chimie', '🧪'),
+  W('la tecnología', 'la technologie', '💻'),
+  W('el inglés', 'l’anglais', '🇬🇧'),
+  W('el español', 'l’espagnol', '🇪🇸'),
+  W('la clase de sociales', 'le cours d’histoire-géo', '🌍'),
+  W('la clase', 'le cours', '🏫'),
+  W('la materia', 'la matière', '📚'),
+ ]},
+{id:'profes', u:'u1', icon:'👩‍🏫', es:'Mi clase y mis profes', fr:'Ma classe et mes profs',
+ items:[
+  QA('¿{Q:En qué} clase {V:estás}?', 'Tu es dans quelle classe ?', '{V:Estoy} en primero de ESO B.', 'Je suis en 5e B.',
+     'En Espagne, la 5e s’appelle « primero de ESO ».'),
+  QA('¿{Q:Cuál} {V:es} {P:tu} materia favorita?', 'Quelle est ta matière préférée ?', '{P:Mi} materia favorita {V:es} la música.', 'Ma matière préférée est la musique.',
+     'tu devient mi. Materia est féminin : favorita, avec un a.'),
+  P('{P:Mis} materias favoritas {V:son} la música y el deporte.', 'Mes matières préférées sont la musique et le sport.', 'Plusieurs matières : mis… son…'),
+  QA('¿{Q:Quién} {V:es} {P:tu} tutora?', 'Qui est ta professeure principale ?', '{P:Mi} tutora {V:es} la señora García.', 'Ma professeure principale est madame García.'),
+  QA('¿{Q:Quién} {V:es} la señora Martín?', 'Qui est madame Martín ?', 'La señora Martín {V:es} {P:mi} profe de plástica.', 'Madame Martín est ma prof d’arts plastiques.'),
+  QA('¿{Q:Cómo} {P:se} {V:llama} {P:tu} profe de tecnología?', 'Comment s’appelle ton prof de technologie ?', '{P:Mi} profe de tecnología {P:se} {V:llama} el señor López.', 'Mon prof de technologie s’appelle monsieur López.'),
+  QA('¿{Q:Qué} día {V:tienes} clase de plástica?', 'Quel jour as-tu cours d’arts plastiques ?', '{V:Tengo} clase de plástica el jueves.', 'J’ai cours d’arts plastiques le jeudi.',
+     'tienes devient tengo. el jueves = le jeudi.'),
+  QA('¿{Q:Qué} días {V:tienes} clase de deporte?', 'Quels jours as-tu sport ?', '{V:Tengo} clase de deporte el lunes y el viernes.', 'J’ai sport le lundi et le vendredi.'),
+  W('el señor', 'monsieur', '👨'),
+  W('la señora', 'madame', '👩'),
+  W('el profe, la profe', 'le prof, la prof'),
+  W('el tutor, la tutora', 'le prof principal, la prof principale'),
+ ]},
+{id:'fecha', u:'u1', icon:'📅', es:'Los días y la fecha', fr:'Les jours et la date', kind:'fecha',
+ items:[
+  P('Fecha: jueves, 8 (ocho) de octubre.', 'Date : jeudi 8 octobre.', 'Pas de majuscule aux jours et aux mois en espagnol.'),
+  W('hoy', 'aujourd’hui'), W('la fecha', 'la date'), W('el día', 'le jour'),
+  W('lunes', 'lundi'), W('martes', 'mardi'), W('miércoles', 'mercredi'), W('jueves', 'jeudi'),
+  W('viernes', 'vendredi'), W('sábado', 'samedi'), W('domingo', 'dimanche'),
+  W('enero', 'janvier'), W('febrero', 'février'), W('marzo', 'mars'), W('abril', 'avril'),
+  W('mayo', 'mai'), W('junio', 'juin'), W('julio', 'juillet'), W('agosto', 'août'),
+  W('septiembre', 'septembre'), W('octubre', 'octobre'), W('noviembre', 'novembre'), W('diciembre', 'décembre'),
+ ]},
+{id:'numeros', u:'u1', icon:'🔢', es:'Los números', fr:'Les nombres de 1 à 31', kind:'numeros', items:[]},
+{id:'veo', u:'u1', icon:'👀', es:'Veo, veo', fr:'Le jeu « Je vois, je vois »', kind:'veo',
+ intro:'On dit <b>la</b> devant une lettre : la be, la te… « Empieza por la te » = ça commence par la lettre T.',
+ items:[
+  D('Veo, veo', [
+    ['A', '{V:Veo}, {V:veo}.', 'Je vois, je vois.'],
+    ['B', '¿{Q:Qué} {V:ves}?', 'Qu’est-ce que tu vois ?'],
+    ['A', 'Una cosita…', 'Une petite chose…'],
+    ['B', '¿Y {Q:qué} cosita {V:es}?', 'Et c’est quelle petite chose ?'],
+    ['A', '{V:Empieza} por la…', 'Ça commence par la…'],
+    ['B', '{V:Es}…', 'C’est…'],
+  ]),
+  P('{V:Veo}, {V:veo}.', 'Je vois, je vois.'),
+  P('¿{Q:Qué} {V:ves}?', 'Qu’est-ce que tu vois ?'),
+  P('Una cosita…', 'Une petite chose…'),
+  P('¿Y {Q:qué} cosita {V:es}?', 'Et c’est quelle petite chose ?'),
+  P('{V:Empieza} por la…', 'Ça commence par la…'),
+ ]},
+{id:'quien', u:'u2', icon:'🙋‍♂️', es:'¿Quién eres?', fr:'Qui es-tu ? Où étudies-tu ?',
+ intro:'Pour une fille : <b>un → una</b>, et le mot finit par <b>a</b>.',
+ items:[
+  QA('¿{Q:Quién} {V:eres}?', 'Qui es-tu ?', '({O:Yo}) {V:soy} un chico de primero de ESO B.', 'Je suis un garçon de 5e B.',
+     'eres devient soy : je parle de moi.'),
+  P('({O:Yo}) {V:soy} una chica de primero de ESO B.', 'Je suis une fille de 5e B.'),
+  P('({O:Yo}) {V:soy} un alumno de primero de ESO B.', 'Je suis un élève de 5e B.'),
+  P('({O:Yo}) {V:soy} una alumna de primero de ESO B.', 'Je suis une élève de 5e B.'),
+  QA('¿{Q:En qué} colegio {V:estudias}?', 'Dans quel collège étudies-tu ?', '({O:Yo}) {V:estudio} en el colegio Victor Hugo.', 'J’étudie au collège Victor Hugo.',
+     'estudias devient estudio. en el colegio = au collège.'),
+  W('un chico', 'un garçon', '👦'),
+  W('una chica', 'une fille', '👧'),
+  W('un alumno', 'un élève (garçon)'),
+  W('una alumna', 'une élève (fille)'),
+  W('el colegio', 'le collège', '🏫'),
+ ]},
+{id:'mateo', u:'u2', icon:'🇪🇸', es:'Mateo y Lucía', fr:'Doc 1 · ¡Soy español!',
+ items:[
+  D('Mateo y Lucía', [
+    ['Mateo', '¡Buenas! {P:Mi} nombre {V:es} Mateo, se {V:escribe} M-A-T-E-O.', 'Salut ! Mon prénom est Mateo, ça s’écrit M-A-T-E-O.'],
+    ['Mateo', '{V:Soy} un chico. {V:Soy} español, {V:soy} de Andalucía.', 'Je suis un garçon. Je suis espagnol, je suis d’Andalousie.'],
+    ['Mateo', '¿Y tú? ¿{Q:Cuál} {V:es} {P:tu} nombre?', 'Et toi ? Quel est ton prénom ?'],
+    ['Lucía', '¡Hola! {P:Me} {V:llamo} Lucía.', 'Salut ! Je m’appelle Lucía.'],
+    ['Lucía', '{V:Soy} española, {V:vengo} de Cataluña.', 'Je suis espagnole, je viens de Catalogne.'],
+    ['Lucía', '¿Y tú? ¿{Q:Quién} {V:eres}? ¿{Q:De dónde} {V:vienes}?', 'Et toi ? Qui es-tu ? D’où viens-tu ?'],
+  ]),
+  QA('¿{Q:Cuál} {V:es} {P:tu} nombre?', 'Quel est ton prénom ?', '{P:Mi} nombre {V:es} Mateo.', 'Mon prénom est Mateo.',
+     'tu devient mi. « es » ne change pas : on parle du prénom.'),
+  QA('¿{Q:De dónde} {V:vienes}?', 'D’où viens-tu ?', '{V:Vengo} de Cataluña.', 'Je viens de Catalogne.', 'vienes devient vengo.'),
+  P('{P:Su} nombre {V:es} Mateo.', 'Son prénom est Mateo.'),
+  P('Mateo {V:es} un chico. Mateo {V:es} español y {V:viene} de Andalucía.', 'Mateo est un garçon. Mateo est espagnol et il vient d’Andalousie.'),
+  P('Lucía {V:es} una chica. Lucía {V:es} española y {V:viene} de Cataluña.', 'Lucía est une fille. Lucía est espagnole et elle vient de Catalogne.'),
+  W('español', 'espagnol (un garçon)', '🇪🇸'),
+  W('española', 'espagnole (une fille)'),
+  W('el nombre', 'le prénom'),
+  W('el apellido', 'le nom de famille'),
+  W('la nacionalidad', 'la nationalité'),
+  W('la autonomía', 'la région (en Espagne)'),
+  W('Andalucía', 'l’Andalousie'),
+  W('Cataluña', 'la Catalogne'),
+ ]},
+{id:'presento', u:'u2', icon:'📝', es:'Me presento', fr:'Je me présente',
+ intro:'Le modèle pour se présenter : <b>saluer</b>, dire <b>qui on est</b>, puis <b>dire au revoir</b>.',
+ items:[
+  D('Catrinita', [
+    ['Catrinita', '¡Hola! ¿{Q:Qué} tal {V:estás}? {V:Soy} Catrinita. Y tú, ¿{Q:quién} {V:eres}?', 'Salut ! Comment vas-tu ? Je suis Catrinita. Et toi, qui es-tu ?'],
+  ]),
+  D('Mi presentación', [
+    ['Yo', '¡Buenas tardes!', 'Bonjour !'],
+    ['Yo', '{P:Me} {V:llamo}…', 'Je m’appelle…'],
+    ['Yo', '¡{V:Estoy} bien!', 'Je vais bien !'],
+    ['Yo', '({O:Yo}) {V:soy} un alumno de primero de ESO B.', 'Je suis un élève de 5e B.'],
+    ['Yo', '{V:Estudio} en el colegio…', 'J’étudie au collège…'],
+    ['Yo', '{P:Mi} materia favorita {V:es}…', 'Ma matière préférée est…'],
+    ['Yo', '¡Hasta luego!', 'À plus tard !'],
+  ]),
+  P('¡{V:Estoy} bien!', 'Je vais bien !'),
+  P('{V:Estudio} en el colegio…', 'J’étudie au collège…'),
+ ]},
+];
+
+/* L’alphabet (fiche du cours) : lettre, nom, mot d’exemple, aide à la prononciation */
+const ALFA = [
+ ['a','a','apellido'],['b','be','bandera'],['c','ce','cacao'],['d','de','diez'],['e','e','español','se dit « é »'],
+ ['f','efe','flamenco'],['g','ge','garaje'],['h','hache','hablar','le h ne se prononce pas'],['i','i','Ibiza'],
+ ['j','jota','Javier','le j se dit dans la gorge'],['k','ka','Frida Kahlo'],['l','ele','la'],['m','eme','mundo'],
+ ['n','ene','no'],['ñ','eñe','España','ñ se dit comme « gn »'],['o','o','once'],['p','pe','pelota'],
+ ['q','cu','Quijote','se dit « cou »'],['r','erre','repetir'],['s','ese','sol'],['t','te','toro'],
+ ['u','u','uno','se dit « ou »'],['v','uve','vaso','se dit « oubé »'],['w','uve doble','wifi','se dit « oubé doble »'],
+ ['x','equis','xilófono'],['y','ye','yo','on dit aussi « i griega »'],['z','zeta','zorro'],
+];
+const ALFA_NAME = Object.fromEntries(ALFA.map(a => [a[0], a[1]]));
+
+const DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const JOURS = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+const MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const NUMEROS = ['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince',
+ 'dieciséis','diecisiete','dieciocho','diecinueve','veinte','veintiuno','veintidós','veintitrés','veinticuatro','veinticinco',
+ 'veintiséis','veintisiete','veintiocho','veintinueve','treinta','treinta y uno'];
+LECCIONES.find(l => l.id === 'numeros').items = NUMEROS.slice(1).map((n, i) => W(n, String(i + 1), '', {num:i + 1}));
+LECCIONES.find(l => l.id === 'alfabeto').items = ALFA.map(([l, n]) => ({t:'l', l, es:n, fr:l.toUpperCase()}));
+
+/* Les verbes vus en cours (yo · tú · él/ella) */
+const PERS = ['yo', 'tú', 'él / ella'];
+const PERS_FR = ['je', 'tu', 'il / elle'];
+const VERBOS = [
+ {inf:'ser', fr:'être', sens:'ce que je suis', f:[['soy','je suis'],['eres','tu es'],['es','il / elle est']],
+  ex:['{V:Soy} un chico.', '¿{Q:Quién} {V:eres}?', 'Mateo {V:es} español.']},
+ {inf:'estar', fr:'être', sens:'où je suis, comment je vais', f:[['estoy','je suis, je vais'],['estás','tu es, tu vas'],['está','il / elle est, va']],
+  ex:['Hoy {V:estoy} bien.', '¿{Q:Qué} tal {V:estás}?', '¡No {V:está}!']},
+ {inf:'llamarse', fr:'s’appeler', f:[['me llamo','je m’appelle'],['te llamas','tu t’appelles'],['se llama','il / elle s’appelle']],
+  ex:['¿{Q:Cómo} {P:te} {V:llamas}?', '{P:Me} {V:llamo} Lucía.', '{P:Mi} profe {P:se} {V:llama} el señor López.']},
+ {inf:'tener', fr:'avoir', f:[['tengo','j’ai'],['tienes','tu as'],['tiene','il / elle a']],
+  ex:['¿{Q:Qué} día {V:tienes} clase de plástica?', '{V:Tengo} clase de plástica el jueves.']},
+ {inf:'estudiar', fr:'étudier', f:[['estudio','j’étudie'],['estudias','tu étudies'],['estudia','il / elle étudie']],
+  ex:['¿{Q:En qué} colegio {V:estudias}?', '{V:Estudio} en el colegio…']},
+ {inf:'venir', fr:'venir', f:[['vengo','je viens'],['vienes','tu viens'],['viene','il / elle vient']],
+  ex:['¿{Q:De dónde} {V:vienes}?', '{V:Vengo} de Cataluña.', 'Mateo {V:viene} de Andalucía.']},
+ {inf:'ver', fr:'voir', f:[['veo','je vois'],['ves','tu vois'],['ve','il / elle voit']],
+  ex:['{V:Veo}, {V:veo}.', '¿{Q:Qué} {V:ves}?']},
+ {inf:'poder', fr:'pouvoir', f:[['puedo','je peux'],['puedes','tu peux'],['puede','il / elle peut']],
+  ex:['¿{V:Puedes} repetir?']},
+];
+
+/* Les matières et les couleurs (pour « Mon collège ») */
+const MATERIAS = [
+ {k:'lengua', es:'lengua', fav:'la lengua', de:'de français', favFr:'le français'},
+ {k:'matematicas', es:'matemáticas', fav:'la clase de matemáticas', de:'de maths', favFr:'le cours de maths'},
+ {k:'ingles', es:'inglés', fav:'el inglés', de:'d’anglais', favFr:'l’anglais'},
+ {k:'espanol', es:'español', fav:'el español', de:'d’espagnol', favFr:'l’espagnol'},
+ {k:'sociales', es:'sociales', fav:'la clase de sociales', de:'d’histoire-géo', favFr:'le cours d’histoire-géo'},
+ {k:'biologia', es:'biología', fav:'la biología', de:'de SVT', favFr:'les SVT'},
+ {k:'fisica', es:'física y química', fav:'la física y la química', de:'de physique-chimie', favFr:'la physique-chimie'},
+ {k:'tecnologia', es:'tecnología', fav:'la tecnología', de:'de technologie', favFr:'la technologie'},
+ {k:'musica', es:'música', fav:'la música', de:'de musique', favFr:'la musique'},
+ {k:'plastica', es:'plástica', fav:'la clase de plástica', de:'d’arts plastiques', favFr:'le cours d’arts plastiques'},
+ {k:'deporte', es:'deporte', fav:'el deporte', de:'d’EPS', favFr:'le sport'},
+];
+const COLORES = LECCIONES.find(l => l.id === 'colores').items.filter(i => i.t === 'w').map(i => ({es:i.es, fr:i.fr}));
+const DIAS_CLASE = ['lunes','martes','miércoles','jueves','viernes'];
+const DIAS_CLASE_FR = ['lun.','mar.','mer.','jeu.','ven.'];
+
+/* Petits dessins (quand il n’existe pas d’émoji) */
+const SVGPIC = {
+ abanico:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 50 6 27a34 34 0 0 1 52 0Z" fill="#E4572E"/><path d="M32 50 6 27a34 34 0 0 1 52 0Z" fill="none" stroke="#9E2A12" stroke-width="2"/><g stroke="#FCE38A" stroke-width="2"><path d="M32 50 12 21"/><path d="M32 50 22 15"/><path d="M32 50V13"/><path d="M32 50 42 15"/><path d="M32 50 52 21"/></g><rect x="29" y="47" width="6" height="12" rx="2" fill="#7B4A2A"/></svg>',
+ piramide:'<svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#C9A66B" stroke="#8C6B35" stroke-width="1.5"><rect x="6" y="48" width="52" height="9"/><rect x="12" y="39" width="40" height="9"/><rect x="18" y="30" width="28" height="9"/><rect x="24" y="21" width="16" height="9"/><rect x="27" y="11" width="10" height="10"/></g><rect x="29" y="21" width="6" height="36" fill="#8C6B35"/></svg>',
+};
+
+/* ------------------------------------------------------- 2. OUTILS DE LANGUE */
+const LEX = {
+ 'hola':'salut, bonjour','buenos':'bons','buenas':'bonnes — ¡Buenas! = salut !','días':'jours','tardes':'après-midi','noches':'nuits, soirs',
+ 'adiós':'au revoir','hasta':'jusqu’à','luego':'plus tard','pronto':'bientôt','mañana':'demain (por la mañana = le matin)',
+ 'nos':'nous','vemos':'(nous) voyons — ¡Nos vemos! = on se voit !','próxima':'prochaine','chao':'ciao, salut (pour partir)',
+ 'qué':'que, quoi, quel — mot-question','tal':'¿Qué tal? = ça va ?','hoy':'aujourd’hui',
+ 'yo':'je, moi — on peut l’enlever : le verbe suffit','tú':'tu, toi (avec un accent)','y':'et','gracias':'merci',
+ 'muy':'très','bien':'bien','súper':'super','fenomenal':'génial','regular':'bof, moyen','mal':'mal','fatal':'horrible',
+ 'cómo':'comment — mot-question','te':'te — petit mot de « tú »','me':'me — petit mot de « yo »','se':'se — petit mot de « él, ella »',
+ 'cuál':'quel, quelle — mot-question','quién':'qui — mot-question','dónde':'où','en qué':'dans quel, dans quelle — mot-question',
+ 'de dónde':'d’où — mot-question','de qué color':'de quelle couleur — mot-question',
+ 'tu':'ton, ta (sans accent)','mi':'mon, ma','su':'son, sa','mis':'mes',
+ 'color':'couleur (masculin : el color)','favorito':'préféré','favorita':'préférée','favoritas':'préférées',
+ 'el':'le','la':'la','los':'les','las':'les','un':'un','una':'une','de':'de','del':'du','en':'en, dans','por':'par',
+ 'turquesa':'turquoise','azul':'bleu','claro':'clair','oscuro':'foncé','negro':'noir','pantalón':'pantalon',
+ 'profesora':'professeure','profesor':'professeur','profe':'prof','materia':'matière','materias':'matières',
+ 'clase':'cours (et aussi : classe)','primero':'premier — primero de ESO = la 5e','eso':'le collège en Espagne',
+ 'tutora':'professeure principale','tutor':'professeur principal','señora':'madame','señor':'monsieur','día':'jour',
+ 'lunes':'lundi','martes':'mardi','miércoles':'mercredi','jueves':'jeudi','viernes':'vendredi','sábado':'samedi','domingo':'dimanche',
+ 'plástica':'arts plastiques','deporte':'sport (EPS)','biología':'SVT','música':'musique','tecnología':'technologie',
+ 'inglés':'anglais','español':'espagnol','española':'espagnole','lengua':'langue (le français)','matemáticas':'maths',
+ 'sociales':'histoire-géo','física':'physique','química':'chimie',
+ 'chico':'garçon','chica':'fille','alumno':'élève (garçon)','alumna':'élève (fille)','colegio':'collège',
+ 'nombre':'prénom','apellido':'nom de famille','andalucía':'l’Andalousie (sud de l’Espagne)','cataluña':'la Catalogne (nord-est de l’Espagne)',
+ 'mateo':'un prénom','lucía':'un prénom','francisco':'un prénom','sofía':'un prénom','lola':'un prénom','catrinita':'un prénom',
+ 'cosita':'petite chose','sí':'oui','no':'non, ne… pas','aquí':'ici','presente':'présent','ausente':'absent',
+ 'dice':'dit (verbe decir)','significa':'veut dire (verbe significar)','escribe':'écrit (verbe escribir)','sé':'je sais (verbe saber)',
+ 'comprendo':'je comprends (verbe comprender)','falta':'manque (verbe faltar)','empieza':'commence (verbe empezar)',
+ 'son':'sont (verbe ser, pour plusieurs)','repetir':'répéter','fecha':'date',
+ 'copa':'coupe','mundo':'monde','sol':'soleil','abanico':'éventail','bandera':'drapeau','pelota':'ballon','toro':'taureau',
+ 'bailarina':'danseuse','flamenco':'flamenco (danse du sud de l’Espagne)','mapa':'carte','latinoamérica':'l’Amérique latine','cactus':'cactus',
+};
+['garcía','lópez','martín','durand'].forEach(w => { LEX[w] = 'un nom de famille'; });
+LEX.victor = LEX.hugo = 'le nom du collège';
+NUMEROS.forEach((n, i) => { if (i) LEX[n] = String(i); });
+MESES.forEach((m, i) => { LEX[m] = MOIS[i]; });
+const FORMS = {};
+VERBOS.forEach(v => v.f.forEach(([form, fr], p) => { FORMS[form.split(' ').pop()] = {inf:v.inf, infFr:v.fr, p, fr}; }));
+// Question (tú) → réponse (yo)
+const CORR = {tu:'mi', tus:'mis', te:'me', 'tú':'yo'};
+VERBOS.forEach(v => { CORR[v.f[1][0].split(' ').pop()] = v.f[0][0].split(' ').pop(); });
+const QW = new Set(['cómo','qué','cuál','quién','dónde','cuándo','cuánto','cuánta','cuántos','cuántas','cuáles','quiénes']);
+const PW = new Set(['mi','tu','su','mis','tus','sus','me','te','se']);
+const VX = new Set(['dice','significa','escribe','sé','comprendo','falta','empieza','son','vemos']);
+
+/* ------------------------------------------------------------- utilitaires */
+const $ = (s, el) => (el || document).querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const low = s => String(s).toLowerCase();
+const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+const deacc = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '');
+const slug = s => deacc(low(String(s || '').replace(/\{[QVPO]:([^}]*)\}/g, '$1'))).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const pickN = (a, n) => shuffle(a).slice(0, n);
+const pad = n => String(n).padStart(2, '0');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const today = () => ymd(new Date());
+const addDays = (s, n) => { const [y, m, d] = s.split('-').map(Number); return ymd(new Date(y, m - 1, d + n)); };
+const stripMarks = s => String(s || '').replace(/\{[QVPO]:([^}]*)\}/g, '$1');
+const cleanName = s => String(s || '').replace(/[{}]/g, '').replace(/\s+/g, ' ').trim();
+
+/* Découpe une phrase marquée en morceaux : {t, r (rôle), sp (espace avant), pre/post (ponctuation)} */
+function parse(src) {
+  const toks = []; let sp = false, m;
+  const re = /\{([QVPO]):([^}]*)\}|(\s+)|([¿¡(]+)|([)?!.,;:…]+)|([^\s{}¿¡()?!.,;:…]+)/g;
+  while ((m = re.exec(String(src || '')))) {
+    if (m[3]) { sp = true; continue; }
+    if (m[1]) toks.push({t:m[2], r:m[1], sp});
+    else if (m[4]) toks.push({t:m[4], r:null, sp, pre:true});
+    else if (m[5]) toks.push({t:m[5], r:null, sp, post:true});
+    else toks.push({t:m[6], r:null, sp});
+    sp = false;
+  }
+  return toks;
+}
+const isWord = k => !k.pre && !k.post;
+const plain = es => parse(es).map((k, i) => (k.sp && i ? ' ' : '') + k.t).join('');
+const speakText = es => plain(es).replace(/[()…]/g, ' ').replace(/\s+/g, ' ').trim();
+
+function renderS(toks, o) {
+  o = o || {};
+  let out = '', chunk = '', wi = -1;
+  const flush = () => { if (chunk) { out += (out ? ' ' : '') + `<span class="ch">${chunk}</span>`; chunk = ''; } };
+  toks.forEach((k, i) => {
+    if (k.sp && i > 0) flush();
+    if (!isWord(k)) { chunk += `<span class="pu">${esc(k.t)}</span>`; return; }
+    wi++;
+    if (o.blank === i) { chunk += '<span class="blank" aria-label="mot manquant"></span>'; return; }
+    let txt = esc(k.t), cls = 'w ' + (k.r ? k.r.toLowerCase() : 'n');
+    const hidden = o.cases && !(o.rev && o.rev[i]);
+    if (hidden) cls += ' hid';
+    else if (o.hl && i in o.hl) { const n = o.hl[i]; if (n > 0) txt = esc(k.t.slice(0, n)) + `<mark>${esc(k.t.slice(n))}</mark>`; else cls += ' hl'; }
+    const tap = o.tap ? ` data-act="tok" data-k="${o.tap}" data-i="${i}" role="button" tabindex="0"${hidden ? ' aria-label="mot caché"' : ''}` : '';
+    let html = `<span class="${cls}"${tap}>${txt}</span>`;
+    if (o.mam) html = `<span class="mw">${html}<small>${esc(o.mam[wi] || '') || '&nbsp;'}</small></span>`;
+    chunk += html;
+  });
+  flush();
+  return out;
+}
+const sHTML = (es, o) => `<span class="s">${renderS(parse(es), o)}</span>`;
+
+function glossFor(tok) {
+  const w = low(tok.t).replace(/[^a-záéíóúüñ\s-]/g, '').trim();
+  const f = FORMS[w];
+  if (f) return `<b>${esc(tok.t)}</b> = ${esc(f.fr)}<small>verbe <b>${f.inf}</b> (${esc(f.infFr)}) · avec <b>${PERS[f.p]}</b></small>`;
+  if (LEX[w]) return `<b>${esc(tok.t)}</b> = ${esc(LEX[w])}`;
+  return `<b>${esc(tok.t)}</b>`;
+}
+/* Mot à mot : un sens court sous chaque mot espagnol (la personne du verbe entre parenthèses) */
+const MAM = {
+ 'soy':'(je) suis','eres':'(tu) es','es':'(il) est','son':'(ils) sont','estoy':'(je) suis','estás':'(tu) es','está':'(il) est',
+ 'llamo':'appelle','llamas':'appelles','llama':'appelle','tengo':'(j’)ai','tienes':'(tu) as','tiene':'(il) a',
+ 'estudio':'(j’)étudie','estudias':'(tu) étudies','estudia':'(il) étudie','vengo':'(je) viens','vienes':'(tu) viens','viene':'(il) vient',
+ 'veo':'(je) vois','ves':'(tu) vois','ve':'(il) voit','puedo':'(je) peux','puedes':'(tu) peux','puede':'(vous) pouvez',
+ 'dice':'dit','significa':'signifie','escribe':'écrit','sé':'(je) sais','comprendo':'(je) comprends','falta':'manque',
+ 'empieza':'commence','vemos':'(nous) voyons','repetir':'répéter',
+ 'me':'me','te':'te','se':'se','mi':'mon, ma','tu':'ton, ta','su':'son, sa','mis':'mes','yo':'je','tú':'toi',
+ 'el':'le','la':'la','los':'les','las':'les','un':'un','una':'une','de':'de','del':'du','en':'dans','y':'et','por':'par','no':'ne… pas',
+ 'cómo':'comment','qué':'quel','cuál':'quel','quién':'qui','dónde':'où','en qué':'dans quel','de dónde':'d’où','de qué color':'de quelle couleur',
+ 'hoy':'aujourd’hui','bien':'bien','muy':'très','súper':'super','gracias':'merci','hola':'salut','adiós':'au revoir',
+ 'hasta':'jusqu’à','luego':'plus tard','pronto':'bientôt','próxima':'prochaine','nos':'nous','chao':'ciao',
+ 'buenos':'bons','buenas':'bonnes','días':'jours','tardes':'après-midis','noches':'nuits',
+ 'chico':'garçon','chica':'fille','alumno':'élève','alumna':'élève','colegio':'collège','clase':'cours','primero':'premier','eso':'ESO',
+ 'materia':'matière','materias':'matières','favorito':'préféré','favorita':'préférée','favoritas':'préférées','color':'couleur',
+ 'profe':'prof','profesora':'professeure','tutora':'prof principale','tutor':'prof principal','señora':'madame','señor':'monsieur','día':'jour',
+ 'nombre':'prénom','apellido':'nom','español':'espagnol','española':'espagnole','cosita':'petite chose','pantalón':'pantalon',
+ 'sí':'oui','aquí':'ici','presente':'présent','ausente':'absent','fecha':'date',
+ 'plástica':'arts plastiques','deporte':'sport','biología':'SVT','música':'musique','tecnología':'technologie','inglés':'anglais',
+ 'lengua':'langue','matemáticas':'maths','sociales':'histoire-géo','física':'physique','química':'chimie',
+ 'negro':'noir','turquesa':'turquoise','azul':'bleu','claro':'clair','oscuro':'foncé','regular':'bof','fenomenal':'génial','mal':'mal','fatal':'horrible',
+};
+function mamWord(toks, i) {
+  const k = toks[i], w = low(k.t).replace(/[^a-záéíóúüñ\s-]/g, '').trim();
+  const words = toks.filter(isWord), j = words.indexOf(k), pv = words[j - 1], nx = words[j + 1];
+  if (w === 'qué' && nx && low(nx.t) === 'tal') return 'ça';
+  if (w === 'tal' && pv && low(pv.t) === 'qué') return 'va';
+  if (w === 'mañana') return pv && low(pv.t) === 'la' ? 'matin' : 'demain';
+  if (w === 'clase' && pv && pv.r === 'Q') return 'classe';
+  if (w in MAM) return MAM[w];
+  if (FORMS[w]) return FORMS[w].fr.split(',')[0];
+  if (LEX[w] && !/prénom|nom de famille|nom du collège/.test(LEX[w])) return LEX[w].split(/ — |, | \(|=/)[0].trim();
+  return '';
+}
+// mot à mot d’une phrase ; « custom » = ce que l’adulte a écrit (séparé par /), prioritaire mot par mot
+function mamOf(toks, custom) {
+  const c = Array.isArray(custom) ? custom : [];
+  return toks.map((k, i) => [k, i]).filter(([k]) => isWord(k)).map(([k, i], j) => (c[j] && c[j].trim()) || mamWord(toks, i));
+}
+function commonPrefix(a, b) { let n = 0; while (n < a.length && n < b.length && a[n] === b[n]) n++; return n; }
+// Ce qui change entre la question et la réponse (tú → yo)
+function pairQA(qt, at) {
+  const qHL = {}, aHL = {}, rules = [], used = new Set();
+  qt.forEach((k, i) => {
+    if (!isWord(k)) return;
+    const lw = low(k.t), tgt = CORR[lw]; if (!tgt) return;
+    const j = at.findIndex((m, jj) => !used.has(jj) && isWord(m) && low(m.t) === tgt);
+    if (j < 0) return;
+    used.add(j);
+    const n = commonPrefix(lw, tgt), part = n >= 3 ? n : 0;
+    qHL[i] = part; aHL[j] = part;
+    rules.push({from:lw, to:tgt, n:part, verb:!!FORMS[lw]});
+  });
+  return {qHL, aHL, rules};
+}
+function autoRole(toks, i) {
+  const k = toks[i], w = low(k.t), nx = toks[i + 1], pv = toks[i - 1];
+  if (pv && pv.t.endsWith('(') && nx && nx.t.startsWith(')') && w === 'yo') return 'O';
+  if (FORMS[w] || VX.has(w)) return 'V';
+  if (QW.has(w)) return 'Q';
+  if ((w === 'en' || w === 'de') && nx && QW.has(low(nx.t))) return 'Q';
+  if (PW.has(w)) return 'P';
+  return null;
+}
+function initial(es) {
+  const w = deacc(low(es)).replace(/^[¡¿]/, '').replace(/^(el|la|los|las|un|una)\s+/, '');
+  return w.charAt(0) === 'n' && low(es).replace(/^(el|la|un|una)\s+/, '').charAt(0) === 'ñ' ? 'ñ' : w.charAt(0);
+}
+
+/* ------------------------------------------------- 3. DONNÉES DE L’APPAREIL */
+const KEY = 'espanol5e';
+const DEF = () => ({v:1, prog:{}, hist:{}, last:null,
+  user:{units:[], lessons:[], items:[]},
+  perso:{prenom:'', genero:'chico', grupo:'B', colegio:'', materia:'', color:'', tutor:'', profs:{}},
+  set:{voz:true, lento:false, grande:false, couleurs:'douces', sens:'mix'},
+  eleve:{on:false, lecons:null, memo:true, sos:true, fr:true, k:''}});
+function load() {
+  const d = DEF();
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) { const s = JSON.parse(raw); for (const k in d) if (s[k] !== undefined) d[k] = (d[k] && typeof d[k] === 'object' && !Array.isArray(d[k])) ? Object.assign(d[k], s[k]) : s[k]; }
+  } catch (e) {}
+  if (d.set.colores === false) d.set.couleurs = 'sans';
+  delete d.set.colores;
+  if (!['douces', 'vives', 'sans'].includes(d.set.couleurs)) d.set.couleurs = 'douces';
+  if (!['es', 'fr', 'mix'].includes(d.set.sens)) d.set.sens = 'mix';
+  return d;
+}
+const isEleve = () => !!S.eleve.on;
+const visible = L => !isEleve() || !S.eleve.lecons || S.eleve.lecons.includes(L.id);
+const hashCode = c => { let h = 2166136261; for (const ch of 'es5e:' + c) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36); };
+let S = load();
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { toast('Impossible d’enregistrer sur cet appareil.'); } }
+try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
+
+let _lessons = null;
+const invalidate = () => { _lessons = null; };
+function units() { return UNIDADES.concat(S.user.units); }
+function lessons() {
+  if (_lessons) return _lessons;
+  const out = [];
+  const add = (L, extra) => {
+    const seen = {};
+    const items = L.items.map(it => {
+      const base = L.id + '/' + (it.t === 'qa' ? slug(it.q.es) : it.t === 'd' ? 'd-' + slug(it.titre) : it.t === 'l' ? 'l-' + it.l : slug(it.es));
+      let id = it.id || base, k = 2;
+      while (seen[id]) id = base + '-' + (k++);
+      seen[id] = 1;
+      return Object.assign({}, it, {id, _l:L.id});
+    });
+    out.push(Object.assign({}, L, extra, {items}));
+  };
+  const pl = persoLesson();
+  LECCIONES.forEach(L => {
+    if (pl && L.id === 'quien') add(pl, {perso:true});
+    add(Object.assign({}, L, {items:L.items.concat(S.user.items.filter(x => x.l === L.id))}), {builtIn:true});
+  });
+  S.user.lessons.forEach(L => add(Object.assign({}, L, {items:S.user.items.filter(x => x.l === L.id)}), {mine:true}));
+  return (_lessons = out);
+}
+const getLesson = id => lessons().find(l => l.id === id);
+const trainable = L => L.items.filter(it => it.t !== 'd');
+const allTrain = () => lessons().filter(visible).flatMap(trainable);
+
+/* « Mon collège » : les vraies réponses de l’élève, seulement sur cet appareil */
+function persoLesson() {
+  const p = S.perso; if (!p) return null;
+  const profs = MATERIAS.filter(m => p.profs[m.k] && cleanName(p.profs[m.k].n));
+  if (!cleanName(p.prenom) && !cleanName(p.colegio) && !profs.length && !p.materia && !p.color) return null;
+  const items = [], lines = [];
+  const g = cleanName(p.grupo), grupo = g ? ' ' + g : '';
+  const fille = p.genero === 'chica';
+  const clase = `primero de ESO${grupo}`;
+  const prenom = cleanName(p.prenom), colegio = cleanName(p.colegio);
+  lines.push(['Yo', '¡Hola!', 'Salut !']);
+  if (prenom) {
+    items.push(QA('¿{Q:Cómo} {P:te} {V:llamas}?', 'Comment tu t’appelles ?', `{P:Me} {V:llamo} ${prenom}.`, `Je m’appelle ${prenom}.`));
+    lines.push(['Yo', `{P:Me} {V:llamo} ${prenom}.`, `Je m’appelle ${prenom}.`]);
+  }
+  items.push(QA('¿{Q:Quién} {V:eres}?', 'Qui es-tu ?', `({O:Yo}) {V:soy} ${fille ? 'una chica' : 'un chico'} de ${clase}.`, `Je suis ${fille ? 'une fille' : 'un garçon'} de 5e${grupo}.`));
+  items.push(P(`({O:Yo}) {V:soy} ${fille ? 'una alumna' : 'un alumno'} de ${clase}.`, `Je suis ${fille ? 'une' : 'un'} élève de 5e${grupo}.`));
+  lines.push(['Yo', `({O:Yo}) {V:soy} ${fille ? 'una alumna' : 'un alumno'} de ${clase}.`, `Je suis ${fille ? 'une' : 'un'} élève de 5e${grupo}.`]);
+  items.push(QA('¿{Q:En qué} clase {V:estás}?', 'Tu es dans quelle classe ?', `{V:Estoy} en ${clase}.`, `Je suis en 5e${grupo}.`));
+  if (colegio) {
+    items.push(QA('¿{Q:En qué} colegio {V:estudias}?', 'Dans quel collège étudies-tu ?', `({O:Yo}) {V:estudio} en el colegio ${colegio}.`, `J’étudie au collège ${colegio}.`));
+    lines.push(['Yo', `{V:Estudio} en el colegio ${colegio}.`, `J’étudie au collège ${colegio}.`]);
+  }
+  const mf = MATERIAS.find(m => m.k === p.materia);
+  if (mf) {
+    items.push(QA('¿{Q:Cuál} {V:es} {P:tu} materia favorita?', 'Quelle est ta matière préférée ?', `{P:Mi} materia favorita {V:es} ${mf.fav}.`, `Ma matière préférée est ${mf.favFr}.`));
+    lines.push(['Yo', `{P:Mi} materia favorita {V:es} ${mf.fav}.`, `Ma matière préférée est ${mf.favFr}.`]);
+  }
+  const co = COLORES.find(c => c.es === p.color);
+  if (co) {
+    items.push(QA('¿{Q:Cuál} {V:es} {P:tu} color favorito?', 'Quelle est ta couleur préférée ?', `{P:Mi} color favorito {V:es} el ${co.es}.`, `Ma couleur préférée est le ${co.fr}.`));
+    lines.push(['Yo', `{P:Mi} color favorito {V:es} el ${co.es}.`, `Ma couleur préférée est le ${co.fr}.`]);
+  }
+  const tp = p.tutor && p.profs[p.tutor] && cleanName(p.profs[p.tutor].n) ? p.profs[p.tutor] : null;
+  if (tp) {
+    const f = tp.t !== 'el señor', nm = cleanName(tp.n);
+    items.push(QA(`¿{Q:Quién} {V:es} {P:tu} ${f ? 'tutora' : 'tutor'}?`, `Qui est ${f ? 'ta professeure principale' : 'ton professeur principal'} ?`,
+      `{P:Mi} ${f ? 'tutora' : 'tutor'} {V:es} ${f ? 'la señora' : 'el señor'} ${nm}.`, `${f ? 'Ma professeure principale' : 'Mon professeur principal'} est ${f ? 'madame' : 'monsieur'} ${nm}.`));
+  }
+  profs.forEach(m => {
+    const pr = p.profs[m.k], f = pr.t !== 'el señor', nm = cleanName(pr.n);
+    const who = `${f ? 'la señora' : 'el señor'} ${nm}`, whoFr = `${f ? 'madame' : 'monsieur'} ${nm}`;
+    items.push(QA(`¿{Q:Quién} {V:es} ${who}?`, `Qui est ${whoFr} ?`, `${cap(who)} {V:es} {P:mi} profe de ${m.es}.`, `${cap(whoFr)} est ${f ? 'ma' : 'mon'} prof ${m.de}.`));
+    items.push(QA(`¿{Q:Cómo} {P:se} {V:llama} {P:tu} profe de ${m.es}?`, `Comment s’appelle ton prof ${m.de} ?`, `{P:Mi} profe de ${m.es} {P:se} {V:llama} ${who}.`, `Mon prof ${m.de} s’appelle ${whoFr}.`));
+    const dias = DIAS_CLASE.filter(d => (pr.dias || []).includes(d));
+    if (dias.length) {
+      const many = dias.length > 1;
+      const es = dias.map(d => 'el ' + d), fr = dias.map(d => 'le ' + JOURS[DIAS.indexOf(d)]);
+      const join = (a, y) => a.length > 1 ? a.slice(0, -1).join(', ') + ' ' + y + ' ' + a[a.length - 1] : a[0];
+      items.push(QA(`¿{Q:Qué} ${many ? 'días' : 'día'} {V:tienes} clase de ${m.es}?`, `${many ? 'Quels jours' : 'Quel jour'} as-tu cours ${m.de} ?`,
+        `{V:Tengo} clase de ${m.es} ${join(es, 'y')}.`, `J’ai cours ${m.de} ${join(fr, 'et')}.`));
+    }
+  });
+  lines.push(['Yo', '¡Hasta luego!', 'À plus tard !']);
+  items.unshift(D('Mi presentación', lines));
+  return {id:'perso', u:'u2', icon:'⭐', es:'Yo y mi colegio', fr:'Mes vraies réponses', items,
+    intro:'Les phrases de l’élève, avec ses vrais professeurs. Elles restent seulement sur cette tablette.'};
+}
+
+/* -------------------------------------------- 4. PROGRESSION (Leitner) */
+const INT = [0, 1, 2, 4, 8, 16];   // jours avant la révision suivante, selon la boîte
+const box = id => (S.prog[id] && S.prog[id].b) || 0;
+const seen = id => !!S.prog[id];
+const isDue = id => seen(id) && S.prog[id].d <= today();
+const known = it => box(it.id) >= 3;
+function record(it, ok) {
+  const t = today(), p = S.prog[it.id] || {b:0, d:t, n:0};
+  const due = !S.prog[it.id] || p.d <= t;
+  p.n = (p.n || 0) + 1;
+  if (ok) { if (due) { p.b = Math.min(5, p.b + 1); p.d = addDays(t, INT[p.b]); } }
+  else { p.b = 1; p.d = t; }
+  S.prog[it.id] = p;
+}
+function knownTotal() { return allTrain().filter(known).length; }
+function dueItems() { return allTrain().filter(it => isDue(it.id)); }
+function snapshot() { S.hist[today()] = knownTotal(); }
+
+/* -------------------------------------------------------------- voix */
+const Voz = {
+  voice:null, ok:false,
+  init() {
+    if (!('speechSynthesis' in window)) return;
+    const pick = () => {
+      const vs = speechSynthesis.getVoices() || [];
+      const es = vs.filter(v => /^es([-_]|$)/i.test(v.lang));
+      this.voice = es.find(v => /es[-_]ES/i.test(v.lang)) || es[0] || null;
+      const was = this.ok; this.ok = !!this.voice;
+      if (was !== this.ok) render();
+    };
+    pick();
+    if (speechSynthesis.addEventListener) speechSynthesis.addEventListener('voiceschanged', pick);
+    let n = 0; const iv = setInterval(() => { pick(); if (this.ok || ++n > 12) clearInterval(iv); }, 300);
+  },
+  say(text) {
+    if (!this.ok || !S.set.voz || !text) return;
+    try {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.voice = this.voice; u.lang = this.voice.lang; u.rate = S.set.lento ? 0.62 : 0.9;
+      speechSynthesis.speak(u);
+    } catch (e) {}
+  },
+};
+const canSay = () => Voz.ok && S.set.voz;
+const sayBtn = (text, label) => canSay() ? `<button class="say" data-act="say" data-t="${esc(text)}" aria-label="Écouter">${I.spk}${label ? ' ' + label : ''}</button>` : '';
+
+/* ------------------------------------------------------------- icônes */
+const ic = d => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${d}</svg>`;
+const I = {
+  back:ic('<path d="M15 18l-6-6 6-6"/>'), next:ic('<path d="M9 18l6-6-6-6"/>'),
+  book:ic('<path d="M3 5.5C3 4.7 3.7 4 4.5 4H10a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4.5A1.5 1.5 0 0 1 3 16.5z"/><path d="M21 5.5c0-.8-.7-1.5-1.5-1.5H14a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h5.5c.8 0 1.5-.7 1.5-1.5z"/>'),
+  target:ic('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/>'),
+  grid:ic('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M10 4v16"/>'),
+  help:ic('<path d="M4 5h16v11H10l-5 4v-4H4z"/><path d="M10 8.7a2 2 0 1 1 2.8 1.8c-.5.3-.8.7-.8 1.3"/><path d="M12 13.8v.1"/>'),
+  cal:ic('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+  set:ic('<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>'),
+  spk:ic('<path d="M4 9.5v5h3.5L12 18V6L7.5 9.5z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/>'),
+  check:ic('<path d="M5 12.5l4.5 4.5L19 7.5"/>'), redo:ic('<path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/>'),
+  close:ic('<path d="M6 6l12 12M18 6L6 18"/>'), plus:ic('<path d="M12 5v14M5 12h14"/>'),
+  chat:ic('<path d="M4 5h11v8H8.5L4 16.5z"/><path d="M15 9h5v8.5L16.5 15H10v-2"/>'),
+  play:ic('<path d="M7 5l12 7-12 7z"/>'), edit:ic('<path d="M4 20h4L19 9l-4-4L4 16z"/>'),
+  trash:ic('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>'),
+  down:ic('<path d="M12 4v12M6 11l6 6 6-6M5 20h14"/>'), up:ic('<path d="M12 17V5M6 10l6-6 6 6M5 20h14"/>'),
+  lock:ic('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+  qr:ic('<rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM14 18h2M18 14h2"/>'),
+  kid:ic('<circle cx="12" cy="7" r="3.5"/><path d="M5 20c.8-4 3.6-6 7-6s6.2 2 7 6"/>'),
+};
+function pic(img) {
+  if (!img) return '';
+  if (img.startsWith('sw:')) return /^sw:#[0-9a-fA-F]{3,8}$/.test(img) ? `<span class="sw" style="background:${img.slice(3)}"></span>` : '';
+  if (img.startsWith('svg:')) return SVGPIC[img.slice(4)] || '';
+  return esc(img);
+}
+
+/* ---------------------------------------------------------- 5. ÉCRANS */
+const app = $('#app');
+let current = null, UI = {fr:false, es:false, vue:'phrase', rev:{}, step:{}, dlg:{}, toks:{}, alfa:null, form:null, pin:''};
+const routes = [
+  [/^$/, vHome], [/^lecciones$/, vLecciones], [/^l\/([^/]+)$/, vLeccion], [/^f\/([^/]+)\/(\d+)$/, vFocus],
+  [/^d\/([^/]+)\/(\d+)$/, vDialogo], [/^entrenar$/, vEntrenar], [/^s\/([^/]+)$/, vSesion], [/^memo$/, vMemo],
+  [/^memo\/([^/]+)$/, vMemoSec], [/^verbo\/([^/]+)$/, vVerbo], [/^fecha$/, vFecha], [/^sos$/, vSos], [/^sos\/(\d+)$/, vSosUno],
+  [/^ajustes$/, vAjustes], [/^perso$/, vPerso], [/^anadir$/, vAnadir], [/^mios$/, vMios], [/^qr$/, vQR],
+];
+function go(path) { if (location.hash === '#/' + path) route(); else location.hash = '#/' + path; }
+function route() {
+  const h = decodeURIComponent(location.hash.replace(/^#\/?/, ''));
+  let [path, qs] = h.split('?');
+  if (isEleve() && (/^(ajustes|perso|anadir|mios|qr)/.test(path) || (/^memo|^verbo/.test(path) && !S.eleve.memo) || (/^sos/.test(path) && !S.eleve.sos))) path = '';
+  current = null;
+  for (const [re, fn] of routes) { const m = path.match(re); if (m) { current = {fn, args:m.slice(1), q:new URLSearchParams(qs || '')}; break; } }
+  if (!current) current = {fn:vHome, args:[], q:new URLSearchParams()};
+  render();
+  window.scrollTo(0, 0);
+}
+let AFTER = null;
+function render() {
+  if (!current) return;
+  document.body.classList.toggle('grande', !!S.set.grande);
+  ['douces', 'vives', 'sans'].forEach(c => document.body.classList.toggle('c-' + c, S.set.couleurs === c));
+  AFTER = null;
+  app.innerHTML = current.fn(...current.args, current.q);
+  if (AFTER) AFTER();
+}
+const bar = (title, back, extra) => `<header class="bar">${back != null ? `<button class="ib" data-go="${back}" aria-label="Retour">${I.back}</button>` : ''}<h1>${title}</h1>${extra || ''}</header>`;
+let toastT;
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2200); }
+const pbar = (n, t) => `<div class="pbar" aria-hidden="true"><i style="width:${t ? Math.round(100 * n / t) : 0}%"></i></div>`;
+function fechaParts(d) { return {dia:DIAS[d.getDay()], n:d.getDate(), num:NUMEROS[d.getDate()], mes:MESES[d.getMonth()]}; }
+const fechaTxt = d => { const f = fechaParts(d); return `${f.dia}, ${f.n} (${f.num}) de ${f.mes}`; };
+const fechaFr = d => `${JOURS[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]}`;
+
+/* --- Accueil --- */
+function vHome() {
+  const d = new Date(), due = dueItems().length, L = S.last && getLesson(S.last), E = isEleve();
+  const tile = (go, icn, t, s, badge) => `<button class="tile" data-go="${go}"><span class="ti">${icn}</span><b>${t}</b><small>${s}</small>${badge ? `<span class="badge">${badge}</span>` : ''}</button>`;
+  return `<div class="brand"><div class="logo" aria-hidden="true">¡Ñ!</div><div><div class="brand-t">Español 5e</div>${E ? '<span class="mode-e">Mode élève</span>' : '<div class="brand-s">Mon cours d’espagnol</div>'}</div>
+    ${E ? `<button class="ib" data-act="lock" aria-label="Espace adulte (code)">${I.lock}</button>` : `<button class="ib" data-go="ajustes" aria-label="Réglages">${I.set}</button>`}</div>
+  <button class="fecha-card" data-go="fecha"><span class="ic">${I.cal}</span><span><span class="lab">Fecha · la date du jour</span><span class="fecha-txt">${fechaTxt(d)}</span><span class="fecha-fr">${fechaFr(d)}</span></span></button>
+  <div class="tiles">
+    ${tile('lecciones', I.book, 'Leçons', 'Comprendre les phrases et les mots du cours')}
+    ${tile('entrenar', I.target, 'S’entraîner', 'Retenir le vocabulaire, petit à petit', due ? `${due} à revoir aujourd’hui` : '')}
+    ${!E || S.eleve.memo ? tile('memo', I.grid, 'Mémo', 'Verbes, mots-questions, alphabet') : ''}
+    ${!E || S.eleve.sos ? tile('sos', I.help, 'En classe', '¿Cómo se dice? No comprendo…') : ''}
+  </div>
+  ${L && visible(L) ? `<button class="resume" data-go="l/${L.id}">Reprendre : <b>${esc(L.es)}</b>${I.next}</button>` : ''}`;
+}
+
+/* --- Leçons --- */
+function lessonRow(L) {
+  const tr = trainable(L), k = tr.filter(known).length;
+  return `<button class="row" data-go="l/${L.id}"><span class="pic row-ic">${esc(L.icon || '📘')}</span><span class="row-tx"><b>${esc(L.es)}${L.perso ? '<span class="lock">sur cette tablette</span>' : ''}</b><small>${esc(L.fr)}</small>${tr.length ? pbar(k, tr.length) : ''}</span>${I.next}</button>`;
+}
+function vLecciones() {
+  let h = bar('Leçons', '');
+  units().forEach(u => {
+    const ls = lessons().filter(l => l.u === u.id && visible(l));
+    if (ls.length) h += `<section class="grp"><h2 class="grp-t">${esc(u.es)}<span>${esc(u.fr)}</span></h2><div class="list">${ls.map(lessonRow).join('')}</div></section>`;
+  });
+  const orphan = lessons().filter(l => visible(l) && !units().some(u => u.id === l.u));
+  if (orphan.length) h += `<section class="grp"><h2 class="grp-t">Mes ajouts</h2><div class="list">${orphan.map(lessonRow).join('')}</div></section>`;
+  return h;
+}
+function alfaBlock() {
+  const a = UI.alfa && ALFA.find(x => x[0] === UI.alfa);
+  return `<div class="adet">${a ? `<div class="L">${a[0].toUpperCase()}</div><div><b style="font-size:1.3rem">la ${a[1]}</b><small>Exemple : <b>${esc(a[2])}</b>${a[3] ? ' · ' + esc(a[3]) : ''}</small></div>${sayBtn(a[1] + '. ' + a[2])}` : '<span class="muted">Touchez une lettre.</span>'}</div>
+  <div class="agrid">${ALFA.map(x => `<button class="at${UI.alfa === x[0] ? ' on' : ''}" data-act="alfa" data-l="${x[0]}"><b>${x[0].toUpperCase()}</b><small>${x[1]}</small></button>`).join('')}</div>
+  <div class="two" style="margin-top:14px">
+    <div class="box"><h3>Les 5 voyelles</h3><p class="s" style="font-size:1.6rem;letter-spacing:.2em">a e i o u</p><p class="muted">e se dit « é », u se dit « ou ».</p></div>
+    <div class="box"><h3>Les lettres doublées</h3><p>On ne double que <b>4</b> consonnes : <b>C, R, L, N</b>.</p><p>Astuce : le prénom <b>CAROLINA</b> !</p><p class="muted">acción · perro · llamar · innovar</p></div>
+    <div class="box"><h3>« la » devant une lettre</h3><p>Une lettre est féminine : <b>la</b> a, <b>la</b> be, <b>la</b> te…</p><p class="muted">Empieza por la te = ça commence par T.</p></div>
+    <div class="box"><h3>Une lettre en plus : ñ</h3><p>Elle s’appelle <b>eñe</b> et se dit comme « gn ».</p><p class="muted">España · español · mañana</p></div>
+  </div>`;
+}
+function vLeccion(id) {
+  const L = getLesson(id);
+  if (!L || !visible(L)) return bar('Leçon introuvable', 'lecciones');
+  if (S.last !== id) { S.last = id; save(); }
+  const tr = trainable(L), its = L.items.map((it, i) => [it, i]);
+  const dl = its.filter(([it]) => it.t === 'd'), qa = its.filter(([it]) => it.t === 'qa'), ph = its.filter(([it]) => it.t === 'p'), wd = its.filter(([it]) => it.t === 'w');
+  let h = bar(esc(L.es), 'lecciones');
+  h += `<div class="lh"><span class="pic">${esc(L.icon || '📘')}</span><div><h2>${esc(L.es)}</h2><p>${esc(L.fr)}</p></div></div>`;
+  if (L.intro) h += `<p class="intro">${L.intro}</p>`;
+  const btns = [];
+  if (tr.length) btns.push(`<button class="btn" data-act="start" data-k="${L.id}">${I.target} S’entraîner sur cette leçon</button>`);
+  if (L.kind === 'veo') btns.push(`<button class="btn ghost" data-act="start" data-k="_veo">${I.play} Jouer à « Veo, veo »</button>`);
+  if (btns.length) h += `<div class="btn-row">${btns.join('')}</div>`;
+  if (L.kind === 'alfabeto') h += `<h3 class="sec-t">Les lettres</h3>` + alfaBlock();
+  if (L.kind === 'fecha') h += `<h3 class="sec-t">La date du jour</h3><button class="dcard" data-go="fecha"><span class="ic">${I.cal}</span><span><b>${fechaTxt(new Date())}</b><small>Voir la date en grand pour la recopier</small></span>${I.next}</button>`;
+  if (dl.length) h += `<h3 class="sec-t">Dialogues</h3><div class="stack">${dl.map(([it, i]) => `<button class="dcard" data-go="d/${L.id}/${i}"><span class="ic">${I.chat}</span><span><b>${esc(it.titre)}</b><small>${it.lines.length} répliques · lire ou jouer</small></span>${I.next}</button>`).join('')}</div>`;
+  if (qa.length) h += `<h3 class="sec-t">Questions et réponses</h3><div class="stack">${qa.map(([it, i]) => `<button class="srow" data-go="f/${L.id}/${i}">${sHTML(it.q.es)}<small>${esc(it.q.fr)}</small><span class="ans">${sHTML(it.a.es)}</span></button>`).join('')}</div>`;
+  if (ph.length) h += `<h3 class="sec-t">Phrases</h3><div class="stack">${ph.map(([it, i]) => `<button class="srow" data-go="f/${L.id}/${i}">${sHTML(it.es)}<small>${esc(it.fr)}</small></button>`).join('')}</div>`;
+  if (wd.length) {
+    const compact = L.kind === 'numeros' || L.kind === 'fecha';
+    h += `<h3 class="sec-t">${L.kind === 'numeros' ? 'Les nombres' : 'Les mots'}</h3><div class="wgrid${compact ? ' compact' : ''}">${wd.map(([it, i]) => `<button class="wcard" data-go="f/${L.id}/${i}">${it.img ? `<span class="pic">${pic(it.img)}</span>` : ''}<b>${esc(it.es)}</b><small>${esc(it.fr)}</small></button>`).join('')}</div>`;
+  }
+  return h;
+}
+
+/* --- Vue « grand écran » d’une phrase / d’un mot / d’une question --- */
+function vFocus(lid, idx) {
+  const L = getLesson(lid); idx = +idx;
+  const it = L && L.items[idx];
+  if (!it || !visible(L)) return bar('Introuvable', 'lecciones');
+  if (it.t === 'd') return vDialogo(lid, idx);
+  if (it.t === 'l') return bar(esc(L.es), `l/${lid}`) + `<div class="fx"><div class="q-letter">${it.l.toUpperCase()}</div><div class="big">la ${esc(it.es)}</div>${sayBtn(it.es, 'Écouter')}</div>`;
+  const nav = L.items.map((x, j) => j).filter(j => ['w', 'p', 'qa'].includes(L.items[j].t));
+  const pos = nav.indexOf(idx), prev = nav[pos - 1], next = nav[pos + 1];
+  const key = lid + ':' + idx;
+  const frFirst = S.set.sens === 'fr' && it.t !== 'qa';
+  const frOk = !isEleve() || S.eleve.fr;
+  const vue = it.t === 'w' ? 'phrase' : UI.vue;
+  const rev = k => UI.rev[key + ':' + k] || (UI.rev[key + ':' + k] = {});
+  const opts = (k, t, custom, extra) => Object.assign({tap:k, cases:vue === 'cases', rev:rev(k), mam:vue === 'mam' ? mamOf(t, custom) : null}, extra || {});
+  const tip = `<span class="tip">${vue === 'cases' ? 'Touchez une case pour voir le mot.' : 'Touchez un mot pour voir ce qu’il veut dire.'}</span>`;
+  let body = '', sayT = '';
+  UI.toks = {}; UI.key = key;
+  if (it.t === 'w') {
+    sayT = it.es;
+    const es = `<div class="big">${esc(it.es)}</div>`;
+    body = (it.img ? `<span class="pic xl">${pic(it.img)}</span>` : '') + (frFirst
+      ? `<div class="big fr1">${esc(it.fr)}</div><div class="frbox">${UI.es ? es : ''}</div>`
+      : `${es}<div class="frbox">${UI.fr && frOk ? `<div class="fr">${esc(it.fr)}</div>` : ''}</div>`);
+  } else if (it.t === 'p') {
+    sayT = speakText(it.es);
+    const t = parse(it.es); UI.toks.s = t;
+    const showEs = !frFirst || UI.es || vue !== 'phrase';
+    body = (frFirst ? `<div class="big fr1">${esc(it.fr)}</div>` : '')
+      + (showEs ? `<div class="big"><span class="s">${renderS(t, opts('s', t, it.mam))}</span></div><div class="gloss" id="gloss">${tip}</div>` : '<div class="frbox"></div>')
+      + (!frFirst ? `<div class="frbox">${UI.fr && frOk ? `<div class="fr">${esc(it.fr)}</div>` : ''}</div>` : '')
+      + (it.note ? `<div class="note">💡 ${esc(it.note)}</div>` : '');
+  } else {
+    const step = UI.step[key] || 1;
+    const qt = parse(it.q.es), at = parse(it.a.es), pr = pairQA(qt, at), cs = vue === 'cases';
+    UI.toks.q = qt; UI.toks.a = at;
+    sayT = speakText(step === 3 ? it.a.es : it.q.es);
+    body = `<div class="tq"><span class="lab">Question</span><div class="big"><span class="s">${renderS(qt, opts('q', qt, it.q.mam, {hl:step >= 2 && !cs ? pr.qHL : null}))}</span></div>${UI.fr && frOk ? `<div class="fr">${esc(it.q.fr)}</div>` : ''}</div>`;
+    if (step >= 2) {
+      const verb = pr.rules.some(r => r.verb);
+      body += `<div class="rules"><span class="down" aria-hidden="true">↓</span>${pr.rules.length ? `<div class="rl">${pr.rules.map(r => `<span class="rule">${r.n ? esc(r.from.slice(0, r.n)) + '<mark>' + esc(r.from.slice(r.n)) + '</mark>' : '<mark>' + esc(r.from) + '</mark>'} → ${r.n ? esc(r.to.slice(0, r.n)) + '<mark>' + esc(r.to.slice(r.n)) + '</mark>' : '<mark>' + esc(r.to) + '</mark>'}</span>`).join('')}</div>` : ''}
+        <p>${verb ? 'La question te parle à toi (<b>tú</b>). Dans ta réponse, tu parles de toi (<b>yo</b>).' : pr.rules.length ? 'Dans ta réponse, tu parles de toi.' : 'Ici, on parle de quelqu’un d’autre ou d’une chose : le verbe ne change pas.'}</p></div>`;
+    }
+    if (step === 3) body += `<div class="tq"><span class="lab">Réponse</span><div class="big"><span class="s">${renderS(at, opts('a', at, it.a.mam, {hl:cs ? null : pr.aHL}))}</span></div>${UI.fr && frOk ? `<div class="fr">${esc(it.a.fr)}</div>` : ''}</div>`;
+    body += `<div class="gloss" id="gloss">${step === 1 || cs ? tip : ''}</div>`;
+    if (step === 3 && it.note) body += `<div class="note">💡 ${esc(it.note)}</div>`;
+    body += step === 1 ? `<button class="btn" data-act="step" data-k="${key}" data-n="2">Comment répondre ?</button>`
+      : step === 2 ? `<button class="btn" data-act="step" data-k="${key}" data-n="3">Voir la réponse</button>`
+      : `<button class="btn ghost" data-act="step" data-k="${key}" data-n="1">${I.redo} Recommencer</button>`;
+  }
+  if (vue === 'cases' && it.t !== 'w') body += `<div class="btn-row" style="justify-content:center"><button class="btn ghost sm" data-act="revall">Tout montrer</button><button class="btn ghost sm" data-act="hideall">Tout cacher</button></div>`;
+  const vues = it.t === 'w' ? '' : `<div class="seg vues" role="group" aria-label="Affichage de la phrase">${[['phrase', 'Phrase'], ['cases', 'Cases'], ['mam', 'Mot à mot']].map(([v, t]) => `<button class="${vue === v ? 'on' : ''}" data-act="vue" data-v="${v}" aria-pressed="${vue === v}">${t}</button>`).join('')}</div>`;
+  const legend = it.t !== 'w' && S.set.couleurs !== 'sans' ? `<div class="legend"><span><span class="w v">verbe</span></span><span><span class="w q">mot-question</span></span><span><span class="w p">petit mot</span></span></div>` : '';
+  const tgl = frFirst ? `<button data-act="es" class="${UI.es ? 'on' : ''}" aria-pressed="${!!UI.es}" aria-label="Voir l’espagnol">ES</button>`
+    : frOk ? `<button data-act="fr" class="${UI.fr ? 'on' : ''}" aria-pressed="${UI.fr}" aria-label="Traduction en français">FR</button>` : '';
+  AFTER = () => { UI.nav = {prev:prev != null ? `f/${lid}/${prev}` : null, next:next != null ? `f/${lid}/${next}` : null}; };
+  return bar(esc(L.es), `l/${lid}`) + vues + `<div class="fx">${body}${legend}</div>
+  <nav class="fbar" aria-label="Navigation">
+    <button data-go="f/${lid}/${prev}" ${prev == null ? 'disabled' : ''} aria-label="Précédent">${I.back}</button>
+    ${canSay() ? `<button data-act="say" data-t="${esc(sayT)}" aria-label="Écouter">${I.spk}</button>` : ''}
+    ${tgl}
+    <span class="pos">${pos + 1} / ${nav.length}</span>
+    <button data-go="f/${lid}/${next}" ${next == null ? 'disabled' : ''} aria-label="Suivant">${I.next}</button>
+  </nav>`;
+}
+
+/* --- Dialogues : lire, pas à pas, jouer un rôle --- */
+function vDialogo(lid, idx) {
+  const L = getLesson(lid), it = L && L.items[+idx];
+  if (!it || it.t !== 'd' || !visible(L)) return bar('Introuvable', 'lecciones');
+  const key = lid + ':' + idx;
+  const st = UI.dlg[key] || (UI.dlg[key] = {mode:'todo', n:1, rol:null, open:{}, fr:{}});
+  const who = [...new Set(it.lines.map(l => l.w))], N = it.lines.length;
+  const frOk = !isEleve() || S.eleve.fr;
+  if (N < 2) st.mode = 'todo';
+  let h = bar(esc(it.titre), `l/${lid}`);
+  h += `<div class="dtools">${N > 1 ? `<div class="seg" role="group" aria-label="Mode">
+    <button class="${st.mode === 'todo' ? 'on' : ''}" data-act="dmode" data-k="${key}" data-m="todo">Tout lire</button>
+    <button class="${st.mode === 'paso' ? 'on' : ''}" data-act="dmode" data-k="${key}" data-m="paso">Pas à pas</button>
+    ${who.length > 1 ? `<button class="${st.mode === 'rol' ? 'on' : ''}" data-act="dmode" data-k="${key}" data-m="rol">Jouer un rôle</button>` : ''}
+  </div>` : ''}
+  ${frOk ? `<button class="btn ghost sm" data-act="fr">${UI.fr ? 'Cacher le français' : 'Voir le français'}</button>` : ''}</div>`;
+  if (st.mode === 'rol') h += `<p class="muted" style="margin:0 0 12px">L’élève joue : ${who.map(w => `<button class="btn sm ${st.rol === w ? '' : 'ghost'}" data-act="drol" data-k="${key}" data-w="${esc(w)}">${esc(w)}</button>`).join(' ')}</p>`;
+  if (st.mode === 'paso') h += `<p class="muted" style="margin:0 0 12px">Une réplique à la fois : touchez la dernière bulle ou le bouton en bas.</p>`;
+  const lines = st.mode === 'paso' ? it.lines.slice(0, st.n) : it.lines;
+  h += `<div class="dl${st.mode === 'paso' ? ' paso' : ''}">` + lines.map((l, i) => {
+    const right = who.length > 1 && who.indexOf(l.w) % 2 === 1;
+    const hidden = st.mode === 'rol' && st.rol === l.w && !st.open[i];
+    const isNew = st.mode === 'paso' && i === st.n - 1;
+    const showFr = frOk && (UI.fr || st.fr[i]);
+    return `<button class="bub${right ? ' r' : ''}${hidden ? ' hid' : ''}${isNew ? ' new' : ''}" data-act="dline" data-k="${key}" data-i="${i}">
+      <div class="who">${esc(l.w)}</div>${hidden ? '<div class="s">… à toi ! <small class="muted">(touche pour vérifier)</small></div>' : sHTML(l.es)}
+      ${!hidden && showFr ? `<div class="fr">${esc(l.fr)}</div>` : ''}</button>`;
+  }).join('') + `</div>`;
+  if (st.mode === 'paso') h += `<nav class="fbar">${st.n < N ? `<button class="btn" data-act="dnext" data-k="${key}">Réplique suivante · ${st.n} / ${N}</button>`
+    : `<button class="btn ghost" data-act="dmode" data-k="${key}" data-m="paso">${I.redo} Recommencer</button>`}</nav>`;
+  if (st.mode === 'rol' && !st.rol) h += `<p class="muted">Choisissez le rôle de l’élève : ses répliques seront cachées.</p>`;
+  return h;
+}
+
+/* --- La date --- */
+function vFecha(q) {
+  const off = +(q.get('d') || 0), d = new Date(); d.setDate(d.getDate() + off);
+  const f = fechaParts(d);
+  const nav = n => `fecha?d=${n}`;
+  return bar('La fecha', '') + `<div class="fx" style="min-height:0;padding-bottom:30px">
+    <span class="lab">${off === 0 ? 'Aujourd’hui' : off === -1 ? 'Hier' : off === 1 ? 'Demain' : 'Une autre date'}</span>
+    <div class="fecha-big" aria-label="${esc(fechaTxt(d))}">
+      <span class="fp sep"><b>Fecha:</b><small>&nbsp;</small></span>
+      <span class="fp"><b>${f.dia},</b><small>le jour</small></span>
+      <span class="fp"><b>${f.n}</b><small>le nombre</small></span>
+      <span class="fp"><b>(${f.num})</b><small>en lettres</small></span>
+      <span style="display:flex;gap:10px;align-items:flex-end"><span class="fp sep"><b>de</b><small>&nbsp;</small></span>
+      <span class="fp"><b>${f.mes}</b><small>le mois</small></span></span>
+    </div>
+    <div class="fr">${fechaFr(d)}</div>
+    ${sayBtn(`${f.dia}, ${f.num} de ${f.mes}`, 'Écouter')}
+    <div class="btn-row" style="width:100%;max-width:520px">
+      <button class="btn ghost" data-go="${nav(off - 1)}">${I.back} Hier</button>
+      ${off !== 0 ? `<button class="btn ghost" data-go="${nav(0)}">Aujourd’hui</button>` : ''}
+      <button class="btn ghost" data-go="${nav(off + 1)}">Demain ${I.next}</button>
+    </div>
+    <div class="note">💡 En espagnol, <b>pas de majuscule</b> aux jours et aux mois. Après le jour, on met une virgule.</div>
+  </div>`;
+}
+
+/* --- En classe : phrases de secours --- */
+const SOS = [['💬', 0], ['❓', 1], ['✏️', 2], ['🔁', 3], ['🤷', 5], ['😕', 6]];
+function vSos() {
+  const L = getLesson('clase');
+  return bar('En classe', '') + `<p class="muted" style="margin:0 0 14px">Pour demander de l’aide en espagnol. Touchez une phrase pour l’afficher en grand.</p>
+  <div class="sos">${SOS.map(([e, i], n) => { const it = L.items[i]; return `<button data-go="sos/${n}"><span class="pic">${e}</span><b>${esc(plain(it.es))}</b><small>${esc(it.fr)}</small></button>`; }).join('')}</div>
+  <h3 class="sec-t">Pour l’appel</h3><div class="btn-row"><button class="btn ghost" data-go="l/lista">¡Presente! · ¡Estoy! · ¡No está!</button></div>`;
+}
+function vSosUno(n) {
+  const s = SOS[+n]; if (!s) return vSos();
+  const it = getLesson('clase').items[s[1]];
+  return bar('En classe', 'sos') + `<div class="fx"><span class="pic xl">${s[0]}</span><div class="big">${sHTML(it.es)}</div><div class="fr">${esc(it.fr)}</div>${sayBtn(speakText(it.es), 'Écouter')}${it.note ? `<div class="note">💡 ${esc(it.note)}</div>` : ''}</div>`;
+}
+
+/* --- Mémo --- */
+const MEMO = [
+  ['verbos', 'Les verbes', 'soy, estoy, me llamo, tengo… avec yo, tú, él'],
+  ['ser-estar', 'Soy ou estoy ?', 'Les deux veulent dire « je suis »'],
+  ['preguntas', 'Les mots-questions', '¿Cómo? ¿Quién? ¿Cuál? ¿Qué?…'],
+  ['palabras', 'Les petits mots', 'mi, tu, su · me, te, se · el, la…'],
+  ['alfabeto', 'L’alphabet', 'a, be, ce… et les astuces'],
+  ['escribir', 'Bien écrire', '¿ ¡ à l’envers, accents, la date'],
+  ['fechas', 'Jours, mois, nombres', 'lunes, martes… enero… uno, dos…'],
+];
+function vMemo() {
+  return bar('Mémo', '') + `<div class="mgrid">${MEMO.map(([k, t, s]) => `<button class="mcard" data-go="memo/${k}"><b>${t}</b><small>${s}</small></button>`).join('')}</div>
+  <h3 class="sec-t">Le code couleur</h3><div class="box"><div class="legend" style="justify-content:flex-start;font-size:1rem">
+  <span><span class="w v">verbe</span> encadré</span><span><span class="w q">mot-question</span> souligné</span><span><span class="w p">petit mot</span> entouré</span><span><span class="w o">(yo)</span> facultatif</span></div></div>`;
+}
+function vMemoSec(k) {
+  const back = 'memo';
+  if (k === 'verbos') return bar('Les verbes', back) + `<div class="box"><h3>La règle à retenir</h3>
+    <p>Avec <b>yo</b> (je), le verbe finit par <b>o</b> : ${sHTML('{V:llamo} · {V:tengo} · {V:estudio}')} — ou par <b>oy</b> : ${sHTML('{V:soy} · {V:estoy}')}</p>
+    <p>Avec <b>tú</b> (tu), le verbe finit par <b>s</b> : ${sHTML('{V:llamas} · {V:tienes} · {V:eres} · {V:estás}')}</p></div>
+    <div class="list">${VERBOS.map(v => `<button class="row" data-go="verbo/${v.inf}"><span class="row-tx"><b>${v.inf}</b><small>${esc(v.fr)}${v.sens ? ' — ' + esc(v.sens) : ''}</small></span><span class="muted">${v.f.map(f => f[0]).join(' · ')}</span>${I.next}</button>`).join('')}</div>`;
+  if (k === 'ser-estar') return bar('Soy ou estoy ?', back) + `<p class="muted" style="margin:0 0 12px">En français on dit « je suis » dans les deux cas. En espagnol, il y a deux verbes.</p>
+    <div class="two"><div class="box"><h3>🪪 SOY (ser)</h3><p><b>Qui je suis</b> : mon nom, garçon ou fille, d’où je viens.</p>
+      <p>${sHTML('{V:Soy} Mateo.')}</p><p>${sHTML('{V:Soy} un chico.')}</p><p>${sHTML('{V:Soy} español.')}</p><p>${sHTML('{V:Soy} de Andalucía.')}</p></div>
+    <div class="box"><h3>📍 ESTOY (estar)</h3><p><b>Où je suis</b>, <b>comment je vais</b>.</p>
+      <p>${sHTML('{V:Estoy} en primero de ESO.')}</p><p>${sHTML('Hoy {V:estoy} bien.')}</p><p>${sHTML('¡{V:Estoy}!')} <span class="muted">(je suis là)</span></p></div></div>
+    <div class="box"><h3>Le tableau du cours</h3><table class="tbl">
+      <tr><td>Je me trouve en 5e</td><td>${sHTML('({O:yo}) {V:estoy} en primero de ESO')}</td></tr>
+      <tr><td>Je me sens…</td><td>${sHTML('({O:yo}) {V:estoy}…')}</td></tr>
+      <tr><td>Je suis…</td><td>${sHTML('({O:yo}) {V:soy}…')}</td></tr>
+      <tr><td>Je m’appelle…</td><td>${sHTML('({O:yo}) {P:me} {V:llamo}…')}</td></tr>
+      <tr><td>J’ai…</td><td>${sHTML('({O:yo}) {V:tengo}…')}</td></tr></table></div>`;
+  if (k === 'preguntas') {
+    const Qs = [['¿Cómo?', 'Comment ?', '¿{Q:Cómo} {P:te} {V:llamas}?'], ['¿Quién?', 'Qui ?', '¿{Q:Quién} {V:eres}?'], ['¿Cuál?', 'Quel, quelle (est…) ?', '¿{Q:Cuál} {V:es} {P:tu} color favorito?'],
+      ['¿Qué?', 'Quel (jour…) ? Que, quoi ?', '¿{Q:Qué} día {V:tienes} clase de plástica?'], ['¿En qué?', 'Dans quel… ?', '¿{Q:En qué} colegio {V:estudias}?'],
+      ['¿De dónde?', 'D’où ?', '¿{Q:De dónde} {V:vienes}?'], ['¿De qué color?', 'De quelle couleur ?', '¿{Q:De qué color} {V:es} el pantalón?']];
+    return bar('Les mots-questions', back) + `<div class="box"><table class="tbl">${Qs.map(([w, f, ex]) => `<tr><td><span class="w q">${w}</span><br><small class="muted">${f}</small></td><td>${sHTML(ex)}</td></tr>`).join('')}</table></div>
+    <div class="note">💡 Les mots-questions ont toujours un <b>accent</b> : cómo, quién, cuál, qué, dónde.</div>`;
+  }
+  if (k === 'palabras') return bar('Les petits mots', back) + `<div class="two">
+    <div class="box"><h3>À qui ?</h3><table class="tbl"><tr><td>mon, ma</td><td><span class="w p">mi</span></td></tr><tr><td>ton, ta</td><td><span class="w p">tu</span></td></tr><tr><td>son, sa</td><td><span class="w p">su</span></td></tr><tr><td>mes</td><td><span class="w p">mis</span></td></tr></table></div>
+    <div class="box"><h3>S’appeler</h3><table class="tbl"><tr><td>je m’appelle</td><td>${sHTML('{P:me} {V:llamo}')}</td></tr><tr><td>tu t’appelles</td><td>${sHTML('{P:te} {V:llamas}')}</td></tr><tr><td>il / elle s’appelle</td><td>${sHTML('{P:se} {V:llama}')}</td></tr></table></div>
+    <div class="box"><h3>tú ou tu ?</h3><p><b>tú</b> (avec accent) = toi, tu : ${sHTML('¿Y tú?')}</p><p><b>tu</b> (sans accent) = ton, ta : ${sHTML('{P:tu} nombre')}</p></div>
+    <div class="box"><h3>Les personnes</h3><table class="tbl"><tr><td>je, moi</td><td>yo</td></tr><tr><td>tu, toi</td><td>tú</td></tr><tr><td>il / elle</td><td>él / ella</td></tr></table></div>
+    <div class="box"><h3>Mots utiles</h3><table class="tbl"><tr><td>le / la</td><td>el / la</td></tr><tr><td>un / une</td><td>un / una</td></tr><tr><td>et</td><td>y</td></tr><tr><td>au (dans le)</td><td>en el</td></tr></table></div>
+    <div class="box"><h3>En classe</h3><table class="tbl"><tr><td>aujourd’hui</td><td>hoy</td></tr><tr><td>la date</td><td>la fecha</td></tr><tr><td>le jour</td><td>el día</td></tr><tr><td>le cours</td><td>la clase</td></tr></table></div></div>`;
+  if (k === 'alfabeto') return bar('L’alphabet', back) + alfaBlock();
+  if (k === 'escribir') return bar('Bien écrire', back) + `
+    <div class="box"><h3>¿ ¡ à l’envers au début</h3><p>On ouvre la question avec <b>¿</b> et l’exclamation avec <b>¡</b>.</p><p>${sHTML('¿{Q:Qué} tal?')} · ${sHTML('¡Hola!')}</p></div>
+    <div class="box"><h3>Les accents</h3><p>Les mots-questions ont un accent : ${sHTML('¿{Q:Cómo}? ¿{Q:Quién}? ¿{Q:Cuál}? ¿{Q:Qué}?')}</p><p><b>tú</b> = toi · <b>tu</b> = ton, ta</p></div>
+    <div class="box"><h3>La date</h3><p>Jour, nombre (en lettres) <b>de</b> mois — sans majuscule :</p><p class="s" style="font-size:1.3rem">Fecha: jueves, 8 (ocho) de octubre</p><button class="btn ghost sm" data-go="fecha">${I.cal} La date d’aujourd’hui</button></div>
+    <div class="box"><h3>Fille ou garçon</h3><p>${sHTML('un chico → una chica')} · ${sHTML('un alumno → una alumna')} · ${sHTML('español → española')}</p></div>`;
+  if (k === 'fechas') return bar('Jours, mois, nombres', back) + `<div class="list">
+    <button class="row" data-go="l/fecha"><span class="pic row-ic">📅</span><span class="row-tx"><b>Los días y la fecha</b><small>${DIAS.slice(1).concat('domingo').join(', ')}</small></span>${I.next}</button>
+    <button class="row" data-go="l/numeros"><span class="pic row-ic">🔢</span><span class="row-tx"><b>Los números</b><small>uno, dos, tres… treinta y uno</small></span>${I.next}</button></div>`;
+  return vMemo();
+}
+function vVerbo(inf) {
+  const v = VERBOS.find(x => x.inf === inf); if (!v) return vMemo();
+  const rows = v.f.map(([form, fr], p) => {
+    const parts = form.split(' '), core = parts.pop(), pre = parts.length ? `<span class="w p">${parts[0]}</span> ` : '';
+    let inner = esc(core);
+    if (p === 0) { const n = core.endsWith('oy') ? 2 : core.endsWith('o') ? 1 : 0; if (n) inner = esc(core.slice(0, -n)) + `<u>${esc(core.slice(-n))}</u>`; }
+    if (p === 1 && core.endsWith('s')) inner = esc(core.slice(0, -1)) + '<u>s</u>';
+    return `<div class="vr"><div class="pers"><b>${PERS[p]}</b><small>${PERS_FR[p]}</small></div><div><div class="vform"><span class="s">${pre}<span class="w v">${inner}</span></span></div><div class="fr">${esc(fr)}</div></div>${sayBtn(form)}</div>`;
+  }).join('');
+  return bar(`${v.inf} · ${esc(v.fr)}`, 'memo/verbos') + (v.sens ? `<p class="intro">${v.inf} = ${esc(v.fr)} : <b>${esc(v.sens)}</b>.</p>` : '') + rows +
+    `<h3 class="sec-t">Dans le cours</h3><div class="stack">${v.ex.map(e => `<div class="srow">${sHTML(e)}</div>`).join('')}</div>`;
+}
+
+/* --- S’entraîner --- */
+function spark() {
+  const ks = Object.keys(S.hist).sort().slice(-30); if (ks.length < 2) return '';
+  const vs = ks.map(k => S.hist[k]), mx = Math.max(1, ...vs), w = 260, hgt = 54;
+  const pts = vs.map((v, i) => `${(i * (w - 8) / (vs.length - 1) + 4).toFixed(1)},${(hgt - 6 - v * (hgt - 12) / mx).toFixed(1)}`).join(' ');
+  return `<svg class="spark" viewBox="0 0 ${w} ${hgt}" aria-label="Évolution des mots sus"><polyline points="${pts}" fill="none" stroke="#15803D" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+}
+function vEntrenar() {
+  const due = dueItems().length, kn = knownTotal(), tot = allTrain().length;
+  let h = bar('S’entraîner', '');
+  h += `<div class="stats"><div><div class="stat-n">${kn}</div><small>mots et phrases sus sur ${tot}</small></div>${spark()}</div>`;
+  h += due ? `<button class="btn wide" data-act="start" data-k="_repaso" style="margin-bottom:6px">${I.redo} Révision du jour · ${due} à revoir</button>`
+    : `<p class="okmsg">Rien à revoir aujourd’hui. Choisissez une leçon pour apprendre du nouveau.</p>`;
+  h += `<p class="muted" style="font-size:.88rem;margin:6px 4px 0">Un mot est « su » quand il a été réussi 3 fois, à des jours différents. Les séances sont courtes : 10 questions.</p>`;
+  units().forEach(u => {
+    const ls = lessons().filter(l => l.u === u.id && visible(l) && trainable(l).length);
+    if (!ls.length) return;
+    h += `<section class="grp"><h2 class="grp-t">${esc(u.es)}</h2><div class="list">${ls.map(L => {
+      const tr = trainable(L), k = tr.filter(known).length, d = tr.filter(it => isDue(it.id)).length, nw = tr.filter(it => !seen(it.id)).length;
+      return `<button class="row" data-act="start" data-k="${L.id}"><span class="pic row-ic">${esc(L.icon || '📘')}</span><span class="row-tx"><b>${esc(L.es)}</b><small>${k} / ${tr.length} sus${d ? ` · ${d} à revoir` : ''}${nw ? ` · ${nw} nouveaux` : ''}</small>${pbar(k, tr.length)}</span>${I.play}</button>`;
+    }).join('')}</div></section>`;
+  });
+  if (veoPool().length >= 4) h += `<section class="grp"><h2 class="grp-t">Jeu</h2><div class="list"><button class="row" data-act="start" data-k="_veo"><span class="pic row-ic">👀</span><span class="row-tx"><b>Veo, veo</b><small>Trouver l’image qui commence par la lettre</small></span>${I.play}</button></div></section>`;
+  return h;
+}
+
+/* ---------------------------------------------------------- 6. EXERCICES */
+let SES = null;
+function poolOf(it) { const L = getLesson(it._l); return L ? trainable(L) : []; }
+function distractors(it, n, keyFn, filt) {
+  const k0 = keyFn(it);
+  const ok = x => x.id !== it.id && x.t === it.t && keyFn(x) && keyFn(x) !== k0 && !(it.img && x.img && x.img === it.img) && (!filt || filt(x));
+  let c = shuffle(poolOf(it).filter(ok));
+  if (c.length < n) c = c.concat(shuffle(allTrain().filter(x => ok(x) && !c.includes(x))));
+  const out = [], ks = new Set([k0]);
+  for (const x of c) { const k = keyFn(x); if (!ks.has(k)) { ks.add(k); out.push(x); if (out.length === n) break; } }
+  return out;
+}
+const sameKind = it => x => !!x.num === !!it.num;
+function exW(it, dir) {
+  let ds;
+  if (it.num) ds = shuffle(poolOf(it).filter(x => x.id !== it.id).sort((a, b) => Math.abs(a.num - it.num) - Math.abs(b.num - it.num)).slice(0, 4)).slice(0, 2);
+  else ds = distractors(it, 2, dir === 'es2fr' ? x => x.fr : x => x.es, sameKind(it));
+  const opts = shuffle([it, ...ds]).map(x => ({ok:x === it, html:dir === 'es2fr' ? esc(x.fr) : (x.t === 'p' ? sHTML(x.es) : esc(x.es))}));
+  const p = it.img ? `<span class="pic q-pic">${pic(it.img)}</span>` : '';
+  if (dir === 'es2fr') return {type:'choice', ask:`${p}<div class="q-es">${it.t === 'p' ? sHTML(it.es) : esc(it.es)}</div>`, say:speakText(it.es), hint:it.num ? 'Quel est ce nombre ?' : 'Qu’est-ce que ça veut dire ?', opts};
+  return {type:'choice', ask:`${p}<div class="q-fr">${esc(it.fr)}</div>`, hint:it.num ? 'Comment dit-on ce nombre en espagnol ?' : 'Comment dit-on en espagnol ?', opts};
+}
+function exQA(it) {
+  const ds = distractors(it, 2, x => x.a.es);
+  return {type:'choice', ask:`<div class="q-es">${sHTML(it.q.es)}</div>${box(it.id) === 0 ? `<div class="q-sub">${esc(it.q.fr)}</div>` : ''}`,
+    say:speakText(it.q.es), hint:'Choisis la bonne réponse.', opts:shuffle([it, ...ds]).map(x => ({ok:x === it, html:sHTML(x.a.es)}))};
+}
+const HUECO = {'cómo':['Quién','De dónde','En qué','Cuál'], 'qué':['Quién','Cómo','De dónde'], 'cuál':['Quién','Cómo','De dónde'],
+  'quién':['Cómo','Qué','De dónde'], 'en qué':['Quién','Cómo','De dónde'], 'de dónde':['Quién','Cómo','En qué'], 'de qué color':['Quién','De dónde','Cómo']};
+function exHueco(it) {
+  const qt = parse(it.q.es), gi = qt.findIndex(k => k.r === 'Q');
+  const corr = qt[gi].t, lc = low(corr), up = corr.charAt(0) !== lc.charAt(0);
+  const others = pickN((HUECO[lc] || ['Quién','Cómo','De dónde']).filter(x => low(x) !== lc), 2).map(x => up ? x : low(x));
+  return {type:'choice', ask:`<div class="q-es"><span class="s">${renderS(qt, {blank:gi})}</span></div><div class="q-sub">${esc(it.q.fr)}</div>`,
+    hint:'Quel mot-question manque ?', opts:shuffle([corr, ...others]).map(x => ({ok:x === corr, html:`<span class="w q">${esc(x)}</span>`}))};
+}
+function orderable(es) {
+  const t = parse(es), ws = t.filter(isWord);
+  const paren = k => /^[()]+$/.test(k.t);
+  const inner = t.slice(t[0] && !isWord(t[0]) ? 1 : 0, t.length && !isWord(t[t.length - 1]) ? -1 : undefined);
+  return ws.length >= 3 && ws.length <= 9 && inner.every(k => isWord(k) || paren(k));
+}
+function exOrder(es, fr, ctx) {
+  const t = parse(es), ws = t.filter(isWord).map((k, i) => Object.assign({}, k, {i}));
+  let sh; do { sh = shuffle(ws); } while (ws.length > 1 && sh.every((k, j) => k.i === j));
+  const ends = k => k && !isWord(k) && !/^[()]+$/.test(k.t) ? k.t.replace(/[()]/g, '') : '';
+  return {type:'order', ctx:ctx ? sHTML(ctx) : '', fr, pre:ends(t[0]), post:ends(t[t.length - 1]),
+    chips:sh, target:ws.map(k => k.t), placed:[], say:speakText(es), es};
+}
+const chipTxt = k => k.r === 'O' ? `(${k.t})` : k.t;
+function exCard(it, dir) {
+  const p = it.img ? `<span class="pic q-pic">${pic(it.img)}</span>` : '';
+  const es = `<div class="q-es">${it.t === 'p' ? sHTML(it.es) : esc(it.es)}</div>`;
+  if (dir === 'es') return {type:'card', ask:p + es, say0:speakText(it.es), hint:'Qu’est-ce que ça veut dire ? Réponds dans ta tête, puis vérifie.', reveal:`<div class="q-fr">${esc(it.fr)}</div>`, say:''};
+  return {type:'card', ask:`${p}<div class="q-fr">${esc(it.fr)}</div>`, hint:'Dis-le en espagnol (dans ta tête ou à voix haute), puis vérifie.', reveal:`<div class="q-es">${it.t === 'p' ? sHTML(it.es) : esc(it.es)}</div>`, say:speakText(it.es)};
+}
+function exCardQA(it) {
+  return {type:'card', ask:`<div class="q-es">${sHTML(it.q.es)}</div><div class="q-sub">${esc(it.q.fr)}</div>`, say0:speakText(it.q.es), hint:'Réponds à voix haute, puis vérifie.', reveal:`<div class="q-es">${sHTML(it.a.es)}</div>`, say:speakText(it.a.es)};
+}
+function exLetra(it, dir) {
+  const ds = pickN(ALFA.filter(a => a[0] !== it.l), 2);
+  if (dir === 'l2n') return {type:'choice', ask:`<div class="q-letter">${it.l.toUpperCase()}</div>`, hint:'Comment s’appelle cette lettre ?', opts:shuffle([[it.l, it.es], ...ds.map(a => [a[0], a[1]])]).map(a => ({ok:a[0] === it.l, html:`la ${esc(a[1])}`}))};
+  return {type:'choice', ask:`<div class="q-es">la ${esc(it.es)}</div>`, say:it.es, hint:'Quelle est cette lettre ?', opts:shuffle([it.l, ...ds.map(a => a[0])]).map(l => ({ok:l === it.l, html:`<b style="font-size:1.6rem">${l.toUpperCase()}</b>`}))};
+}
+function veoPool() { return lessons().filter(L => (L.id === 'espana' || L.id === 'materias') && visible(L)).flatMap(trainable).filter(x => (x._l === 'espana' || x._l === 'materias') && x.t === 'w' && x.img && !x.img.startsWith('sw:') && !/clase/.test(x.es)); }
+function exVeo(it) {
+  const ini = initial(it.es), name = ALFA_NAME[ini] || ini;
+  const others = [], used = new Set([ini]);
+  for (const x of shuffle(veoPool())) { const i2 = initial(x.es); if (x.id !== it.id && !used.has(i2) && x.img !== it.img) { used.add(i2); others.push(x); if (others.length === 3) break; } }
+  return {type:'veo', ask:`<div class="veo-q">Veo, veo… una cosita…<br>Empieza por la « <b>${esc(name)}</b> ».</div>`, say:`Veo, veo. Una cosita. Empieza por la ${name}.`,
+    hint:'Touche la bonne image.', opts:shuffle([it, ...others]).map(x => ({ok:x === it, html:pic(x.img), label:x.es})), show:`¡Es ${it.es}!`};
+}
+function gen(it, easy) {
+  const b = easy ? 0 : box(it.id), sens = S.set.sens;
+  const canVeo = () => veoPool().some(x => x.id === it.id) && Math.random() < 0.4;
+  if (it.t === 'l') return exLetra(it, b <= 1 ? 'l2n' : 'n2l');
+  if (it.t === 'w') {
+    if (it.num) return exW(it, sens === 'es' ? 'es2fr' : sens === 'fr' ? 'fr2es' : b <= 1 ? 'es2fr' : 'fr2es');
+    if (sens === 'es') return b >= 4 ? exCard(it, 'es') : exW(it, 'es2fr');
+    if (sens === 'fr') return b >= 4 ? exCard(it, 'fr') : (b >= 2 && canVeo()) ? exVeo(it) : exW(it, 'fr2es');
+    if (b === 0) return exW(it, 'es2fr');
+    if (b === 1) return exW(it, 'fr2es');
+    if (b <= 3) return canVeo() ? exVeo(it) : exW(it, 'fr2es');
+    return exCard(it, 'fr');
+  }
+  if (it.t === 'p') {
+    if (b <= 1) return orderable(it.es) ? exOrder(it.es, it.fr) : exW(it, sens === 'fr' ? 'fr2es' : 'es2fr');
+    if (b <= 3) return exW(it, sens === 'es' ? 'es2fr' : 'fr2es');
+    return exCard(it, sens === 'es' ? 'es' : 'fr');
+  }
+  if (it.t === 'qa') {
+    if (b <= 1) return exQA(it);
+    if (b <= 3) return parse(it.q.es).some(k => k.r === 'Q') && Math.random() < 0.6 ? exHueco(it) : orderable(it.a.es) ? exOrder(it.a.es, it.a.fr, it.q.es) : exQA(it);
+    return exCardQA(it);
+  }
+  return exW(it, 'es2fr');
+}
+function introOf(it) {
+  if (it.t === 'qa') return `<div class="q-es">${sHTML(it.q.es)}</div><div class="q-sub">${esc(it.q.fr)}</div><div class="down">↓</div><div class="q-es">${sHTML(it.a.es)}</div><div class="q-sub">${esc(it.a.fr)}</div>`;
+  if (it.t === 'l') return `<div class="q-letter">${it.l.toUpperCase()}</div><div class="q-es">la ${esc(it.es)}</div>`;
+  return `${it.img ? `<span class="pic q-pic">${pic(it.img)}</span>` : ''}<div class="q-es">${it.t === 'p' ? sHTML(it.es) : esc(it.es)}</div><div class="q-fr" style="font-weight:500;color:var(--ink2)">${esc(it.fr)}</div>`;
+}
+const sayOf = it => it.t === 'qa' ? speakText(it.q.es) + '. ' + speakText(it.a.es) : it.t === 'l' ? it.es : speakText(it.es);
+function buildSession(key, list) {
+  let steps = [];
+  const t = today();
+  if (list) steps = shuffle(list).map(it => ({kind:'q', it, ex:gen(it, true), retry:true}));
+  else if (key === '_veo') {
+    steps = pickN(veoPool(), 8).map(it => ({kind:'q', it, ex:exVeo(it)}));
+  } else {
+    const pool = key === '_repaso' ? allTrain() : (getLesson(key) ? trainable(getLesson(key)) : []);
+    const due = shuffle(pool.filter(it => isDue(it.id))).sort((a, b) => box(a.id) - box(b.id)).slice(0, key === '_repaso' ? 12 : 10);
+    const fresh = key === '_repaso' ? [] : pool.filter(it => !seen(it.id)).slice(0, Math.min(5, 10 - due.length));
+    let extra = [];
+    if (key !== '_repaso' && due.length + fresh.length < 6) extra = shuffle(pool.filter(it => seen(it.id) && !isDue(it.id))).sort((a, b) => box(a.id) - box(b.id)).slice(0, 8 - due.length - fresh.length);
+    steps = shuffle(due.concat(extra)).map(it => ({kind:'q', it, ex:gen(it)}));
+    const pend = [];
+    fresh.forEach(it => { steps.push({kind:'intro', it}); pend.push(it); if (pend.length >= 2) { const x = pend.shift(); steps.push({kind:'q', it:x, ex:gen(x)}); } });
+    pend.forEach(x => steps.push({kind:'q', it:x, ex:gen(x)}));
+  }
+  return {key, steps, i:0, ans:null, first:0, total:steps.filter(s => s.kind === 'q').length, errs:[], date:t, practice:!!list};
+}
+function vSesion(key) {
+  if (!SES || SES.key !== key) SES = buildSession(key);
+  const back = (getLesson(key) && !key.startsWith('_')) ? `l/${key}` : 'entrenar';
+  const close = `<button class="ib" data-act="quit" data-back="${back}" aria-label="Arrêter">${I.close}</button>`;
+  if (!SES.steps.length) return bar('S’entraîner', back) + `<p class="okmsg">Il n’y a rien à travailler ici pour l’instant.</p>`;
+  if (SES.i >= SES.steps.length) return vFin(back);
+  const st = SES.steps[SES.i], n = SES.i, N = SES.steps.length;
+  let h = `<div class="ses-top">${close}<div class="ses-prog"><i style="width:${Math.round(100 * n / N)}%"></i></div><span class="ses-n">${n + 1} / ${N}</span></div><div class="ex">`;
+  if (st.kind === 'intro') {
+    h += `<span class="tag">Nouveau</span>${introOf(st.it)}${sayBtn(sayOf(st.it), 'Écouter')}
+      ${st.it.note ? `<div class="note">💡 ${esc(st.it.note)}</div>` : ''}</div><div class="cont" style="margin:0 auto"><button class="btn wide" data-act="next">J’ai compris</button></div>`;
+    return h;
+  }
+  const ex = st.ex, A = SES.ans;
+  h += (ex.ask || '') + (ex.say && canSay() ? sayBtn(ex.say, 'Écouter') : (ex.say0 && canSay() ? sayBtn(ex.say0, 'Écouter') : '')) + `<div class="hint">${ex.hint || ''}</div>`;
+  if (ex.type === 'choice') {
+    h += `<div class="opts">${ex.opts.map((o, i) => {
+      let c = 'opt'; if (A) c += o.ok ? ' ok' : (A.pick === i ? ' ko' : ' dim');
+      return `<button class="${c}" data-act="pick" data-i="${i}" ${A ? 'disabled' : ''}>${o.html}</button>`;
+    }).join('')}</div>`;
+  } else if (ex.type === 'veo') {
+    h += `<div class="veo-g">${ex.opts.map((o, i) => {
+      let c = 'veo-t pic'; if (A) c += o.ok ? ' ok' : (A.pick === i ? ' ko' : '');
+      return `<button class="${c}" data-act="pick" data-i="${i}" ${A ? 'disabled' : ''} aria-label="${esc(o.label)}">${o.html}</button>`;
+    }).join('')}</div>`;
+  } else if (ex.type === 'order') {
+    if (ex.ctx) h = h.replace('<div class="hint">', `<div class="q-es" style="font-size:1.4rem">${ex.ctx}</div><div class="hint">`);
+    h += `<div class="q-fr" style="font-size:1.25rem;font-weight:500">« ${esc(ex.fr)} »</div>
+      <div class="slots" aria-label="Ta phrase">${ex.pre ? `<span class="pu">${esc(ex.pre)}</span>` : ''}${ex.placed.map((ci, j) => `<button class="chip" data-act="odel" data-j="${j}" ${A ? 'disabled' : ''}><span class="w ${(ex.chips[ci].r || '').toLowerCase()}">${esc(chipTxt(ex.chips[ci]))}</span></button>`).join('')}${ex.post && ex.placed.length === ex.chips.length ? `<span class="pu">${esc(ex.post)}</span>` : ''}</div>
+      <div class="chips">${ex.chips.map((k, ci) => `<button class="chip${ex.placed.includes(ci) ? ' used' : ''}" data-act="oadd" data-i="${ci}" ${A || ex.placed.includes(ci) ? 'disabled' : ''}><span class="w ${(k.r || '').toLowerCase()}">${esc(chipTxt(k))}</span></button>`).join('')}</div>`;
+    if (!A) h = h.replace(`<div class="hint">${ex.hint || ''}</div>`, `<div class="hint">Touche les mots dans le bon ordre.</div>`);
+  } else if (ex.type === 'card') {
+    if (!A) h += ex.open ? `<div class="reveal">${ex.reveal}${sayBtn(ex.say, 'Écouter')}</div>` : '';
+  }
+  h += '</div>';
+  if (A) {
+    const okTxt = ['¡Muy bien!', '¡Genial!', '¡Perfecto!', '¡Bravo!'][SES.i % 4];
+    const it = st.it;
+    const sol = ex.type === 'veo' ? sHTML(ex.show) : ex.type === 'order' ? sHTML(ex.es) : it.t === 'qa' ? sHTML(it.q.es) + '<br>' + sHTML(it.a.es) : it.t === 'l' ? `<b>${it.l.toUpperCase()}</b> = la ${esc(it.es)}` : `${it.t === 'p' ? sHTML(it.es) : `<b>${esc(it.es)}</b>`} = ${esc(it.fr)}`;
+    const sayS = ex.type === 'veo' ? speakText(ex.show) : ex.type === 'order' ? ex.say : sayOf(it);
+    h += `<div class="ex" style="padding:0"><div class="fb ${A.ok ? 'ok' : 'ko'}"><div class="fb-t">${A.ok ? I.check + ' ' + okTxt : 'Presque ! La bonne réponse :'}</div><div>${sol}</div>${sayBtn(sayS, 'Écouter')}</div>
+      <div class="cont"><button class="btn wide" data-act="next">Continuer</button></div></div>`;
+  } else if (ex.type === 'card') {
+    h += ex.open ? `<div class="ex" style="padding:0"><div class="cont"><button class="btn ghost" data-act="card" data-ok="0">${I.redo} Pas encore</button><button class="btn" data-act="card" data-ok="1">${I.check} Je savais</button></div></div>`
+      : `<div class="ex" style="padding:0"><div class="cont"><button class="btn wide" data-act="reveal">Voir la réponse</button></div></div>`;
+  }
+  return h;
+}
+function answer(ok, pick) {
+  const st = SES.steps[SES.i];
+  SES.ans = {ok, pick};
+  const firstTry = !st.retry || (SES.practice && !st.again);
+  if (firstTry) { if (ok) SES.first++; else SES.errs.push(st.it); }
+  if (!st.retry) { record(st.it, ok); snapshot(); save(); }
+  if (!ok) SES.steps.push({kind:'q', it:st.it, ex:gen(st.it, true), retry:true, again:true});
+  render();
+  if (ok && canSay()) { const ex = st.ex; Voz.say(ex.type === 'veo' ? speakText(ex.show) : ex.type === 'order' ? ex.say : st.it.t === 'qa' ? speakText(st.it.a.es) : ''); }
+}
+function vFin(back) {
+  const t = SES.total, f = SES.first, errs = [...new Map(SES.errs.map(e => [e.id, e])).values()];
+  return `<div class="end"><div class="pic" style="font-size:64px">🎉</div><h2>¡Terminado!</h2>
+    <div class="score">${f} bonne${f > 1 ? 's' : ''} réponse${f > 1 ? 's' : ''} du premier coup, sur ${t}.</div>
+    ${errs.length ? `<div class="errs"><h3 class="sec-t">À revoir</h3><div class="stack">${errs.map(e => `<div class="srow">${e.t === 'qa' ? sHTML(e.q.es) + '<span class="ans">' + sHTML(e.a.es) + '</span>' : e.t === 'l' ? `<b>${e.l.toUpperCase()}</b> = la ${esc(e.es)}` : (e.t === 'p' ? sHTML(e.es) : `<b>${esc(e.es)}</b>`)}<small>${esc(e.t === 'qa' ? e.a.fr : e.fr)}</small></div>`).join('')}</div></div>` : '<p class="okmsg">Tout juste du premier coup !</p>'}
+    <div class="btn-row" style="width:100%;max-width:660px">${errs.length ? `<button class="btn ghost" data-act="again">${I.redo} Revoir les erreurs</button>` : ''}<button class="btn" data-act="quit" data-back="${back}">Terminer</button></div></div>`;
+}
+
+/* --- Réglages --- */
+function vAjustes() {
+  const tg = (k, t, s) => `<button class="set" data-act="tset" data-k="${k}" role="switch" aria-checked="${!!S.set[k]}"><span><b>${t}</b>${s ? `<small>${s}</small>` : ''}</span><span class="tg${S.set[k] ? ' on' : ''}"></span></button>`;
+  const web = /^https?:/.test(location.protocol);
+  const seg = (k, opts) => `<div class="seg" role="group">${opts.map(([v, t]) => `<button class="${S.set[k] === v ? 'on' : ''}" data-act="sset" data-k="${k}" data-v="${v}" aria-pressed="${S.set[k] === v}">${t}</button>`).join('')}</div>`;
+  const tge = (k, t, s) => `<button class="set" data-act="etg" data-k="${k}" role="switch" aria-checked="${!!S.eleve[k]}"><span><b>${t}</b>${s ? `<small>${s}</small>` : ''}</span><span class="tg${S.eleve[k] ? ' on' : ''}"></span></button>`;
+  return bar('Réglages et ajouts', '') + `
+  <div class="card"><h3>Mode d’emploi en 4 points</h3>
+    <p style="margin:4px 0"><b>1. En cours</b> : « Leçons » → touchez une phrase → elle s’affiche en grand. Touchez un mot pour son sens ; « FR » montre la traduction ; pour une question, « Comment répondre ? » montre ce qui change. En haut : « Cases » cache les mots (il reste les cadres) ; « Mot à mot » écrit le sens sous chaque mot.</p>
+    <p style="margin:4px 0"><b>2. Pour mémoriser</b> : « S’entraîner », 10 questions, un peu chaque jour. L’appli redonne les mots au bon moment.</p>
+    <p style="margin:4px 0"><b>3. Après chaque cours</b> : « Ajouter » les nouveaux mots et phrases (ci-dessous).</p>
+    <p style="margin:4px 0"><b>4. De temps en temps</b> : « Enregistrer une sauvegarde ».</p></div>
+  <div class="card"><h3>Comment l’élève apprend</h3>
+    <div class="field"><span class="flab">Les mots et les phrases sont montrés d’abord</span>${seg('sens', [['es', 'en espagnol'], ['fr', 'en français'], ['mix', 'les deux']])}
+      <small>${{es:'Il voit l’espagnol et cherche le sens en français (le plus facile).', fr:'Il voit le français et cherche l’espagnol (plus difficile).', mix:'Progressif : d’abord l’espagnol, puis le français quand le mot est mieux connu.'}[S.set.sens]}</small></div>
+    <div class="field"><span class="flab">Aide des couleurs</span>${seg('couleurs', [['douces', 'Douces'], ['vives', 'Vives'], ['sans', 'Sans']])}
+      <div class="box" style="margin:6px 0 0;text-align:center"><span style="font-size:1.5rem">${sHTML('¿{Q:Cómo} {P:te} {V:llamas}? {P:Me} {V:llamo} Mateo.')}</span></div></div>
+    ${tg('grande', 'Texte plus grand', '')}
+    ${Voz.ok ? tg('voz', 'Écouter l’espagnol', 'Bouton haut-parleur (voix de la tablette)') + (S.set.voz ? tg('lento', 'Voix lente', '') : '') : '<p class="muted" style="margin:8px 0 0">Aucune voix espagnole n’est installée sur cet appareil : les boutons « écouter » sont cachés. Tout le reste fonctionne.</p>'}
+  </div>
+  <div class="card"><h3>Mode élève (tablette prêtée ou QR code)</h3>
+    <p>L’élève ne voit que les leçons choisies. Les réglages et les ajouts sont cachés. Pour revenir ici : le cadenas, puis votre code.</p>
+    <div class="field"><span class="flab">Leçons montrées</span>
+      <div class="lchips">${lessons().map(L => `<button class="${!S.eleve.lecons || S.eleve.lecons.includes(L.id) ? 'on' : ''}" data-act="lchip" data-id="${L.id}">${esc(L.icon || '')} ${esc(L.es)}</button>`).join('')}</div>
+      <div class="btn-row"><button class="btn ghost sm" data-act="lall">Toutes</button><button class="btn ghost sm" data-act="lnone">Aucune</button></div></div>
+    ${tge('memo', 'Montrer le Mémo', '')}${tge('sos', 'Montrer « En classe »', '')}${tge('fr', 'Traduction en français permise', 'Le bouton « FR » et « Voir le français »')}
+    <div class="field"><label for="ecode">Votre code (4 chiffres)</label><input type="password" inputmode="numeric" pattern="[0-9]*" id="ecode" data-ecode maxlength="4" autocomplete="off" style="max-width:160px" placeholder="${S.eleve.k ? '••••' : ''}">
+      <small id="codeok">${S.eleve.k ? '✓ Un code est enregistré. Tapez-en un autre pour le changer.' : 'Choisissez un code : il servira à sortir du mode élève.'}</small></div>
+    <div class="btn-row"><button class="btn" data-act="eleveOn">${I.lock} Passer en mode élève</button><button class="btn ghost" data-go="qr">${I.qr} QR code pour les tablettes du collège</button></div>
+    <p class="muted" style="font-size:.85rem;margin:10px 0 0">Code oublié : maintenez le cadenas appuyé 5 secondes.</p>
+  </div>
+  <div class="card"><h3>Mon collège</h3><p>Le prénom, la classe, les professeurs, les jours de cours : l’appli écrit les vraies réponses de l’élève (leçon « Yo y mi colegio »).</p>
+    <button class="btn ghost wide" data-go="perso">${I.edit} Remplir « Mon collège »</button></div>
+  <div class="card"><h3>Ajouter le cours suivant</h3><p>Nouveaux mots, nouvelles phrases, nouvelles questions : ils rejoignent une leçon et l’entraînement.</p>
+    <div class="btn-row"><button class="btn" data-go="anadir">${I.plus} Ajouter</button><button class="btn ghost" data-go="mios">Mes ajouts (${S.user.items.length})</button></div></div>
+  <div class="card"><h3>Sauvegarde</h3><p>Tout est enregistré sur cet appareil seulement. Faites une sauvegarde de temps en temps (fichier à garder), surtout après des ajouts.</p>
+    <div class="btn-row"><button class="btn ghost" data-act="export">${I.down} Enregistrer une sauvegarde</button><button class="btn ghost" data-act="import">${I.up} Restaurer</button></div>
+    <input type="file" id="fileIn" accept=".json,application/json" hidden></div>
+  ${web ? `<div class="card"><h3>Utiliser sans internet</h3><p>Installez l’appli sur l’écran d’accueil une fois (avec internet) : elle marchera ensuite sans connexion.</p>
+    <p class="muted" style="margin:0"><b>Android (Chrome)</b> : menu ⋮ → « Installer l’application » (ou « Ajouter à l’écran d’accueil »).<br><b>iPhone, iPad (Safari)</b> : bouton Partager → « Sur l’écran d’accueil ».</p></div>` : ''}
+  <div class="card"><h3>Progression</h3><p>${knownTotal()} mots et phrases sus.</p><button class="btn ghost danger" data-act="reset">${I.trash} Remettre la progression à zéro</button></div>
+  <p class="muted" style="text-align:center;font-size:.85rem">Español 5e · version ${VERSION}</p>`;
+}
+function vPerso() {
+  const p = S.perso;
+  const opt = (v, t, sel) => `<option value="${esc(v)}"${sel === v ? ' selected' : ''}>${esc(t)}</option>`;
+  const withProf = MATERIAS.filter(m => p.profs[m.k] && cleanName(p.profs[m.k].n));
+  return bar('Mon collège', 'ajustes') + `<div class="card"><p>🔒 Ces informations restent <b>seulement sur cette tablette</b>. Elles ne sont envoyées nulle part. Enregistrement automatique.</p>
+    <div class="field"><label for="pf-prenom">Prénom de l’élève <small>(facultatif)</small></label><input type="text" id="pf-prenom" data-pf="prenom" value="${esc(p.prenom)}" autocomplete="off"></div>
+    <div class="field"><span class="flab">L’élève est</span><div class="seg"><button class="${p.genero !== 'chica' ? 'on' : ''}" data-act="pset" data-k="genero" data-v="chico">un chico (garçon)</button><button class="${p.genero === 'chica' ? 'on' : ''}" data-act="pset" data-k="genero" data-v="chica">una chica (fille)</button></div></div>
+    <div class="field"><label for="pf-grupo">Lettre de la classe <small>(5e B → B)</small></label><input type="text" id="pf-grupo" data-pf="grupo" value="${esc(p.grupo)}" maxlength="3" style="max-width:120px"></div>
+    <div class="field"><label for="pf-colegio">Nom du collège</label><input type="text" id="pf-colegio" data-pf="colegio" value="${esc(p.colegio)}" autocomplete="off"></div>
+    <div class="field"><label for="pf-materia">Matière préférée</label><select id="pf-materia" data-pf="materia">${opt('', '—', p.materia)}${MATERIAS.map(m => opt(m.k, m.fav, p.materia)).join('')}</select></div>
+    <div class="field"><label for="pf-color">Couleur préférée</label><select id="pf-color" data-pf="color">${opt('', '—', p.color)}${COLORES.map(c => opt(c.es, `${c.es} (${c.fr})`, p.color)).join('')}</select></div></div>
+  <div class="card"><h3>Les professeurs</h3><p>Remplir seulement ceux dont l’élève a besoin. Les jours servent pour « ¿Qué día tienes clase de…? ».</p>
+    ${MATERIAS.map(m => { const pr = p.profs[m.k] || {}; return `<div class="prow"><div class="pm"><b>${esc(m.es)}</b><small>prof ${esc(m.de)}</small></div>
+      <div class="pin"><select data-pf="profs.${m.k}.t" aria-label="Madame ou monsieur">${opt('la señora', 'la señora', pr.t || 'la señora')}${opt('el señor', 'el señor', pr.t || 'la señora')}</select>
+      <input type="text" data-pf="profs.${m.k}.n" value="${esc(pr.n || '')}" placeholder="Nom" aria-label="Nom du professeur ${esc(m.de)}" autocomplete="off">
+      <div class="dchips" role="group" aria-label="Jours de cours">${DIAS_CLASE.map((d, i) => `<button class="${(pr.dias || []).includes(d) ? 'on' : ''}" data-act="pday" data-k="${m.k}" data-d="${d}" aria-pressed="${(pr.dias || []).includes(d)}">${DIAS_CLASE_FR[i]}</button>`).join('')}</div></div></div>`; }).join('')}
+    <div class="field"><label for="pf-tutor">Professeur principal</label><select id="pf-tutor" data-pf="tutor">${opt('', '—', p.tutor)}${withProf.map(m => opt(m.k, `${p.profs[m.k].t || 'la señora'} ${cleanName(p.profs[m.k].n)} (${m.es})`, p.tutor)).join('')}</select></div></div>
+  <button class="btn wide" data-go="l/perso" ${persoLesson() ? '' : 'disabled'}>Voir les phrases de l’élève</button>`;
+}
+function vQR() {
+  if (!S.eleve.k) return bar('QR code pour l’élève', 'ajustes') + `<div class="card"><p>Choisissez d’abord votre code à 4 chiffres (Réglages → Mode élève) : il protège les réglages sur les tablettes du collège.</p><button class="btn" data-go="ajustes">Retour aux réglages</button></div>`;
+  AFTER = buildQR;
+  const n = (S.eleve.lecons || lessons().map(l => l.id)).filter(id => id !== 'perso').length;
+  return bar('QR code pour l’élève', 'ajustes') + `<div class="card" style="text-align:center">
+    <p>L’élève vise ce code avec l’appareil photo d’une tablette du collège (connectée à internet). L’appli s’ouvre en <b>mode élève</b>, avec vos réglages (${n} leçon${n > 1 ? 's' : ''})${S.user.items.length ? ' et vos ajouts' : ''}.</p>
+    <div class="qr" id="qrbox"><p class="muted">Fabrication du code…</p></div><div id="qrinfo"></div></div>
+  <div class="card"><h3>Bon à savoir</h3>
+    <p>• « Mon collège » (les vrais noms) n’est <b>jamais</b> mis dans le QR code : il reste sur votre tablette.</p>
+    <p>• Sur une tablette du collège, la progression de l’élève reste sur cette tablette-là.</p>
+    <p>• Après avoir changé un réglage ou ajouté des mots, revenez ici : le QR code est refait.</p></div>`;
+}
+async function buildQR() {
+  const box = $('#qrbox'), info = $('#qrinfo'); if (!box) return;
+  try {
+    const url = appURL() + '#e=' + await packPayload(payloadObj());
+    const q = QR.make(url);
+    if (!q) { box.innerHTML = '<p>Trop de contenu pour un seul QR code : choisissez moins de leçons.</p>'; return; }
+    box.innerHTML = QR.svg(q);
+    info.innerHTML = `${q.ver > 25 ? '<p class="note">Code très dense : s’il ne se lit pas, choisissez moins de leçons.</p>' : ''}
+      <details style="text-align:left"><summary class="muted">Voir le lien</summary><div class="linkbox">${esc(url)}</div></details>
+      <div class="btn-row" style="margin-top:10px;justify-content:center"><button class="btn ghost sm" data-act="copy" data-t="${esc(url)}">Copier le lien</button></div>`;
+    box.dataset.ver = q.ver;
+  } catch (e) { box.innerHTML = '<p>Impossible de fabriquer le code sur cet appareil.</p>'; }
+}
+function showPad(err) {
+  const ov = $('#ov');
+  ov.innerHTML = `<div class="kp${err ? ' err' : ''}"><h3>Espace adulte</h3><p class="muted" style="margin:4px 0 0">Tapez votre code à 4 chiffres.</p>
+    <div class="dots">${[0, 1, 2, 3].map(i => `<i class="${UI.pin.length > i ? 'on' : ''}"></i>`).join('')}</div>
+    <div class="keys">${[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => `<button data-act="pad" data-n="${n}">${n}</button>`).join('')}
+    <button data-act="padx" aria-label="Fermer">${I.close}</button><button data-act="pad" data-n="0">0</button><button data-act="padb" aria-label="Effacer">⌫</button></div></div>`;
+  ov.classList.add('on');
+}
+function leaveEleve() { S.eleve.on = false; save(); $('#ov').classList.remove('on'); UI.pin = ''; go('ajustes'); toast('Mode élève terminé'); }
+function setPath(obj, path, val) { const ks = path.split('.'); let o = obj; ks.slice(0, -1).forEach(k => { o[k] = o[k] && typeof o[k] === 'object' ? o[k] : {}; o = o[k]; }); o[ks[ks.length - 1]] = val; }
+
+/* --- Ajouter / modifier du contenu --- */
+const ROLE_CYCLE = [null, 'V', 'Q', 'P'];
+const MAMF = {es:'mam', qes:'qmam', aes:'amam'};
+const autoMam = src => mamOf(parse(stripMarks(UI.form[src]))).join(' / ');
+const toArr = s => String(s || '').trim() ? String(s).split('/').map(x => x.trim()) : undefined;
+function newForm(lessonId) { return {t:'w', l:lessonId || S.last || 'clase', es:'', fr:'', img:'', qes:'', qfr:'', aes:'', afr:'', note:'', mam:'', qmam:'', amam:'', ov:{}, nl:{es:'', fr:'', icon:'📘', u:'u2', nu:''}, id:null}; }
+function formRole(f, field, toks, i) { const k = field + ':' + low(toks[i].t); return k in f.ov ? (f.ov[k] === 'none' ? null : f.ov[k]) : autoRole(toks, i); }
+function serialize(f, field) {
+  const toks = parse(stripMarks(f[field]));
+  return toks.map((k, i) => (k.sp && i ? ' ' : '') + (isWord(k) && formRole(f, field, toks, i) ? `{${formRole(f, field, toks, i)}:${k.t}}` : k.t)).join('');
+}
+function chipsEd(field) {
+  const f = UI.form, toks = parse(stripMarks(f[field]));
+  const out = toks.map((k, i) => isWord(k) ? `<button class="chip ed" data-act="cyc" data-f="${field}" data-i="${i}"><span class="w ${(formRole(f, field, toks, i) || '').toLowerCase()}">${esc(k.t)}</span></button>` : '').join('');
+  return out || '<span class="muted">La phrase apparaîtra ici.</span>';
+}
+function vAnadir(q) {
+  if (!UI.form || (q.get('id') && UI.form.id !== q.get('id')) || (q.get('l') && !q.get('id') && UI.form.l !== q.get('l') && !UI.form.dirty)) {
+    UI.form = newForm(q.get('l'));
+    const it = q.get('id') && S.user.items.find(x => x.id === q.get('id'));
+    if (it) {
+      const f = UI.form; f.id = it.id; f.t = it.t; f.l = it.l; f.note = it.note || ''; f.img = it.img || '';
+      const load = (field, marked) => { f[field] = stripMarks(marked); parse(marked).forEach(k => { if (isWord(k)) f.ov[field + ':' + low(k.t)] = k.r || 'none'; }); };
+      if (it.t === 'qa') { load('qes', it.q.es); f.qfr = it.q.fr; load('aes', it.a.es); f.afr = it.a.fr; f.qmam = (it.q.mam || []).join(' / '); f.amam = (it.a.mam || []).join(' / '); }
+      else { load('es', it.es); f.fr = it.fr; f.mam = (it.mam || []).join(' / '); }
+    }
+  }
+  const f = UI.form;
+  const lsOpts = units().map(u => { const ls = lessons().filter(l => l.u === u.id && !l.perso); return ls.length ? `<optgroup label="${esc(u.es)}">${ls.map(l => `<option value="${l.id}"${f.l === l.id ? ' selected' : ''}>${esc(l.es)}</option>`).join('')}</optgroup>` : ''; }).join('');
+  const inp = (fld, label, ph, extra) => `<div class="field"><label for="f-${fld}">${label}</label><input type="text" id="f-${fld}" data-f="${fld}" value="${esc(f[fld])}" placeholder="${esc(ph || '')}" autocomplete="off" autocapitalize="sentences"${extra || ''}></div>`;
+  const chips = fld => `<div class="field"><span class="flab">Couleurs <small class="muted">— touchez un mot pour changer : rien → verbe → mot-question → petit mot</small></span><div class="chips" id="ch-${fld}" style="justify-content:flex-start">${chipsEd(fld)}</div></div>`;
+  let h = bar(f.id ? 'Modifier' : 'Ajouter au cours', f.id ? 'mios' : 'ajustes');
+  h += `<div class="card"><div class="field"><label for="f-l">Dans quelle leçon ?</label><select id="f-l" data-f="l">${lsOpts}<option value="_new"${f.l === '_new' ? ' selected' : ''}>+ Nouvelle leçon…</option></select></div>`;
+  if (f.l === '_new') {
+    h += `<div class="two">${['es', 'fr'].map(k => `<div class="field"><label for="nl-${k}">Titre ${k === 'es' ? 'en espagnol' : 'en français'}</label><input type="text" id="nl-${k}" data-nl="${k}" value="${esc(f.nl[k])}" placeholder="${k === 'es' ? 'Mi familia' : 'Ma famille'}"></div>`).join('')}</div>
+    <div class="two"><div class="field"><label for="nl-u">Unité</label><select id="nl-u" data-nl="u">${units().map(u => `<option value="${u.id}"${f.nl.u === u.id ? ' selected' : ''}>${esc(u.es)}</option>`).join('')}<option value="_new"${f.nl.u === '_new' ? ' selected' : ''}>+ Nouvelle unité…</option></select></div>
+    <div class="field"><label for="nl-icon">Image (émoji)</label><input type="text" id="nl-icon" data-nl="icon" value="${esc(f.nl.icon)}" maxlength="8" style="max-width:120px"></div></div>
+    ${f.nl.u === '_new' ? `<div class="field"><label for="nl-nu">Nom de la nouvelle unité</label><input type="text" id="nl-nu" data-nl="nu" value="${esc(f.nl.nu)}" placeholder="Unidad 3 · Mi familia"></div>` : ''}`;
+  }
+  h += `</div><div class="card"><div class="field"><span class="flab">Quoi ?</span><div class="seg">
+    <button class="${f.t === 'w' ? 'on' : ''}" data-act="ftype" data-t="w">Un mot</button><button class="${f.t === 'p' ? 'on' : ''}" data-act="ftype" data-t="p">Une phrase</button><button class="${f.t === 'qa' ? 'on' : ''}" data-act="ftype" data-t="qa">Une question et sa réponse</button></div></div>`;
+  if (f.t === 'w') h += inp('es', 'En espagnol', 'la familia') + inp('fr', 'En français', 'la famille') + inp('img', 'Image (émoji, facultatif)', '👨‍👩‍👧', ' style="max-width:160px"');
+  const mamField = (src, fld) => `<div class="field"><label for="f-${fld}">Mot à mot <small class="muted">— facultatif : un sens par mot, séparés par « / » (si vide, l’appli propose celui en gris)</small></label><input type="text" id="f-${fld}" data-f="${fld}" value="${esc(f[fld] || '')}" placeholder="${esc(autoMam(src))}" autocomplete="off"></div>`;
+  if (f.t === 'p') h += inp('es', 'La phrase en espagnol', '¿Cómo se llama tu madre?') + chips('es') + mamField('es', 'mam') + inp('fr', 'En français', 'Comment s’appelle ta mère ?');
+  if (f.t === 'qa') h += inp('qes', 'La question en espagnol', '¿Cuántos años tienes?') + chips('qes') + mamField('qes', 'qmam') + inp('qfr', 'La question en français', 'Quel âge as-tu ?') +
+    inp('aes', 'La réponse en espagnol', 'Tengo doce años.') + chips('aes') + mamField('aes', 'amam') + inp('afr', 'La réponse en français', 'J’ai douze ans.');
+  if (f.t !== 'w') h += inp('note', 'Astuce à afficher (facultatif)', 'tienes devient tengo');
+  h += `<p class="muted" style="font-size:.88rem">Conseil : écrivez « (yo) » entre parenthèses quand on peut l’enlever. Pensez aux ¿ et ¡.</p>
+    <div class="btn-row"><button class="btn" data-act="fsave">${I.check} ${f.id ? 'Enregistrer' : 'Ajouter'}</button>${f.id ? `<button class="btn ghost danger" data-act="fdel" data-id="${f.id}">${I.trash} Supprimer</button>` : ''}</div></div>`;
+  return h;
+}
+function saveForm() {
+  const f = UI.form, req = f.t === 'qa' ? ['qes', 'qfr', 'aes', 'afr'] : ['es', 'fr'];
+  if (req.some(k => !String(f[k]).trim())) { toast('Remplissez l’espagnol et le français.'); return; }
+  let l = f.l;
+  if (l === '_new') {
+    if (!f.nl.es.trim()) { toast('Donnez un titre à la nouvelle leçon.'); return; }
+    let u = f.nl.u;
+    if (u === '_new') { if (!f.nl.nu.trim()) { toast('Donnez un nom à la nouvelle unité.'); return; } u = 'mu' + Date.now().toString(36); S.user.units.push({id:u, es:f.nl.nu.trim(), fr:''}); }
+    l = 'ml' + Date.now().toString(36);
+    S.user.lessons.push({id:l, u, icon:f.nl.icon || '📘', es:f.nl.es.trim(), fr:f.nl.fr.trim()});
+  }
+  const it = {id:f.id || 'mi' + Date.now().toString(36) + Math.floor(Math.random() * 1e4), l, t:f.t, note:f.note.trim()};
+  if (f.t === 'w') Object.assign(it, {es:f.es.trim(), fr:f.fr.trim(), img:f.img.trim()});
+  else if (f.t === 'p') Object.assign(it, {es:serialize(f, 'es').trim(), fr:f.fr.trim(), mam:toArr(f.mam)});
+  else Object.assign(it, {q:{es:serialize(f, 'qes').trim(), fr:f.qfr.trim(), mam:toArr(f.qmam)}, a:{es:serialize(f, 'aes').trim(), fr:f.afr.trim(), mam:toArr(f.amam)}});
+  const i = S.user.items.findIndex(x => x.id === it.id);
+  if (i >= 0) S.user.items[i] = it; else S.user.items.push(it);
+  save(); invalidate();
+  const L = getLesson(l);
+  toast(`${f.id ? 'Modifié' : 'Ajouté'} dans « ${L ? L.es : ''} »`);
+  if (f.id) { UI.form = null; go('mios'); return; }
+  const keep = {t:f.t, l};
+  UI.form = Object.assign(newForm(l), keep);
+  render();
+  const first = $('#f-' + (f.t === 'qa' ? 'qes' : 'es')); if (first) first.focus();
+}
+function vMios() {
+  let h = bar('Mes ajouts', 'ajustes');
+  const its = S.user.items;
+  const ls = lessons().filter(L => L.mine || its.some(x => x.l === L.id));
+  if (!ls.length && !S.user.lessons.length) return h + `<p class="muted">Rien pour l’instant.</p><button class="btn" data-go="anadir">${I.plus} Ajouter</button>`;
+  ls.forEach(L => {
+    const mine = its.filter(x => x.l === L.id);
+    h += `<div class="card"><h3>${esc(L.icon || '')} ${esc(L.es)}</h3>${L.mine ? `<p>Leçon créée ici · <button class="link danger" data-act="ldel" data-id="${L.id}">supprimer la leçon</button></p>` : ''}
+      ${mine.map(x => `<div class="irow"><div>${x.t === 'qa' ? sHTML(x.q.es) + '<small>' + esc(x.q.fr) + '</small>' : x.t === 'p' ? sHTML(x.es) + '<small>' + esc(x.fr) + '</small>' : `<b>${esc(x.img || '')} ${esc(x.es)}</b><small>${esc(x.fr)}</small>`}</div>
+      <button class="ib" data-go="anadir?id=${x.id}" aria-label="Modifier">${I.edit}</button></div>`).join('') || '<p class="muted">Aucun élément.</p>'}
+      <button class="btn ghost sm" data-go="anadir?l=${L.id}">${I.plus} Ajouter ici</button></div>`;
+  });
+  return h;
+}
+
+/* ------------------------------------------------ QR code (norme ISO 18004) */
+const QR = (() => {
+  // niveaux de correction : 0 = L, 1 = M, 2 = Q, 3 = H
+  const ECW = [
+    [-1,7,10,15,20,26,18,20,24,30,18,20,24,26,30,22,24,28,30,28,28,28,28,30,30,26,28,30,30,30,30,30,30,30,30,30,30,30,30,30,30],
+    [-1,10,16,26,18,24,16,18,22,22,26,30,22,22,24,24,28,28,26,26,26,26,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28],
+    [-1,13,22,18,26,18,24,18,22,20,24,28,26,24,20,30,24,28,28,26,30,28,30,30,30,30,28,30,30,30,30,30,30,30,30,30,30,30,30,30,30],
+    [-1,17,28,22,16,22,28,26,26,24,28,24,28,22,24,24,30,28,28,26,28,30,24,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30]];
+  const NB = [
+    [-1,1,1,1,1,1,2,2,2,2,4,4,4,4,4,6,6,6,6,7,8,8,9,9,10,12,12,12,13,14,15,16,17,18,19,19,20,21,22,24,25],
+    [-1,1,1,1,2,2,4,4,4,5,5,5,8,9,9,10,10,11,13,14,16,17,17,18,20,21,23,25,26,28,29,31,33,35,37,38,40,43,45,47,49],
+    [-1,1,1,2,2,4,4,6,6,8,8,8,10,12,16,12,17,16,18,21,20,23,23,25,27,29,34,34,35,38,40,43,45,48,51,53,56,59,62,65,68],
+    [-1,1,1,2,4,4,4,5,6,8,8,11,11,16,16,18,16,19,21,25,25,25,34,30,32,35,37,40,42,45,48,51,54,57,60,63,66,70,74,77,81]];
+  const FMT = [1, 0, 3, 2];
+  const rawMods = v => { let r = (16 * v + 128) * v + 64; if (v >= 2) { const n = Math.floor(v / 7) + 2; r -= (25 * n - 10) * n - 55; if (v >= 7) r -= 36; } return r; };
+  const dataCW = (v, e) => Math.floor(rawMods(v) / 8) - ECW[e][v] * NB[e][v];
+  const gmul = (x, y) => { let z = 0; for (let i = 7; i >= 0; i--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((y >>> i) & 1) * x; } return z; };
+  const rsDiv = deg => { const r = new Array(deg - 1).fill(0).concat([1]); let root = 1; for (let i = 0; i < deg; i++) { for (let j = 0; j < r.length; j++) { r[j] = gmul(r[j], root); if (j + 1 < r.length) r[j] ^= r[j + 1]; } root = gmul(root, 2); } return r; };
+  const rsRem = (data, div) => { const r = div.map(() => 0); for (const b of data) { const f = b ^ r.shift(); r.push(0); div.forEach((c, i) => { r[i] ^= gmul(c, f); }); } return r; };
+  const MASKS = [(x, y) => (x + y) % 2 === 0, (x, y) => y % 2 === 0, (x, y) => x % 3 === 0, (x, y) => (x + y) % 3 === 0,
+    (x, y) => (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0, (x, y) => x * y % 2 + x * y % 3 === 0,
+    (x, y) => (x * y % 2 + x * y % 3) % 2 === 0, (x, y) => ((x + y) % 2 + x * y % 3) % 2 === 0];
+  function penalty(M, n) {
+    let p = 0;
+    const line = g => {
+      let run = 1;
+      for (let i = 1; i <= n; i++) { if (i < n && g(i) === g(i - 1)) run++; else { if (run >= 5) p += run - 2; run = 1; } }
+      for (let i = 0; i + 7 <= n; i++) if (g(i) && !g(i + 1) && g(i + 2) && g(i + 3) && g(i + 4) && !g(i + 5) && g(i + 6)) {
+        const pre = [1, 2, 3, 4].every(k => i - k < 0 || !g(i - k)), post = [1, 2, 3, 4].every(k => i + 6 + k >= n || !g(i + 6 + k));
+        if (pre || post) p += 40;
+      }
+    };
+    for (let y = 0; y < n; y++) line(i => M[y][i]);
+    for (let x = 0; x < n; x++) line(i => M[i][x]);
+    let dark = 0;
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+      if (M[y][x]) dark++;
+      if (y < n - 1 && x < n - 1 && M[y][x] === M[y][x + 1] && M[y][x] === M[y + 1][x] && M[y][x] === M[y + 1][x + 1]) p += 3;
+    }
+    return p + Math.max(0, Math.ceil(Math.abs(dark * 20 - n * n * 10) / (n * n)) - 1) * 10;
+  }
+  function encode(bytes, ver, e, mask) {
+    const bb = [], app = (val, len) => { for (let i = len - 1; i >= 0; i--) bb.push((val >>> i) & 1); };
+    app(4, 4); app(bytes.length, ver <= 9 ? 8 : 16); bytes.forEach(b => app(b, 8));
+    const cap = dataCW(ver, e) * 8;
+    if (bb.length > cap) return null;
+    app(0, Math.min(4, cap - bb.length)); app(0, (8 - bb.length % 8) % 8);
+    for (let pd = 0xEC; bb.length < cap; pd ^= 0xEC ^ 0x11) app(pd, 8);
+    const data = []; for (let i = 0; i < bb.length; i += 8) { let x = 0; for (let j = 0; j < 8; j++) x = (x << 1) | bb[i + j]; data.push(x); }
+    const nb = NB[e][ver], el = ECW[e][ver], raw = Math.floor(rawMods(ver) / 8), nShort = nb - raw % nb, shortLen = Math.floor(raw / nb);
+    const div = rsDiv(el), blocks = [];
+    for (let i = 0, k = 0; i < nb; i++) { const dat = data.slice(k, k + shortLen - el + (i < nShort ? 0 : 1)); k += dat.length; const ecc = rsRem(dat, div); if (i < nShort) dat.push(0); blocks.push(dat.concat(ecc)); }
+    const all = []; for (let i = 0; i < blocks[0].length; i++) blocks.forEach((b, j) => { if (i !== shortLen - el || j >= nShort) all.push(b[i]); });
+    const size = ver * 4 + 17, M = [], F = [];
+    for (let y = 0; y < size; y++) { M.push(new Array(size).fill(false)); F.push(new Array(size).fill(false)); }
+    const setF = (x, y, d) => { M[y][x] = d; F[y][x] = true; };
+    for (let i = 0; i < size; i++) { setF(6, i, i % 2 === 0); setF(i, 6, i % 2 === 0); }
+    const finder = (cx, cy) => { for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) { const d = Math.max(Math.abs(dx), Math.abs(dy)), x = cx + dx, y = cy + dy; if (x >= 0 && x < size && y >= 0 && y < size) setF(x, y, d !== 2 && d !== 4); } };
+    finder(3, 3); finder(size - 4, 3); finder(3, size - 4);
+    const al = [];
+    if (ver > 1) { const n = Math.floor(ver / 7) + 2, step = Math.floor((ver * 8 + n * 3 + 5) / (n * 4 - 4)) * 2; al.push(6); for (let p = size - 7; al.length < n; p -= step) al.splice(1, 0, p); }
+    al.forEach((a, i) => al.forEach((b, j) => {
+      if ((i === 0 && j === 0) || (i === 0 && j === al.length - 1) || (i === al.length - 1 && j === 0)) return;
+      for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) setF(a + dx, b + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1);
+    }));
+    const fmt = m => {
+      const d = FMT[e] << 3 | m; let r = d; for (let i = 0; i < 10; i++) r = (r << 1) ^ ((r >>> 9) * 0x537);
+      const bits = (d << 10 | r) ^ 0x5412, g = i => ((bits >>> i) & 1) === 1;
+      for (let i = 0; i <= 5; i++) setF(8, i, g(i));
+      setF(8, 7, g(6)); setF(8, 8, g(7)); setF(7, 8, g(8));
+      for (let i = 9; i < 15; i++) setF(14 - i, 8, g(i));
+      for (let i = 0; i < 8; i++) setF(size - 1 - i, 8, g(i));
+      for (let i = 8; i < 15; i++) setF(8, size - 15 + i, g(i));
+      setF(8, size - 8, true);
+    };
+    fmt(0);
+    if (ver >= 7) {
+      let r = ver; for (let i = 0; i < 12; i++) r = (r << 1) ^ ((r >>> 11) * 0x1F25);
+      const bits = ver << 12 | r;
+      for (let i = 0; i < 18; i++) { const d = ((bits >>> i) & 1) === 1, a = size - 11 + i % 3, b = Math.floor(i / 3); setF(a, b, d); setF(b, a, d); }
+    }
+    let bi = 0;
+    for (let right = size - 1; right >= 1; right -= 2) {
+      if (right === 6) right = 5;
+      for (let v = 0; v < size; v++) for (let j = 0; j < 2; j++) {
+        const x = right - j, up = ((right + 1) & 2) === 0, y = up ? size - 1 - v : v;
+        if (!F[y][x] && bi < all.length * 8) { M[y][x] = ((all[bi >>> 3] >>> (7 - (bi & 7))) & 1) === 1; bi++; }
+      }
+    }
+    const apply = m => { for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (!F[y][x] && MASKS[m](x, y)) M[y][x] = !M[y][x]; };
+    let best = mask;
+    if (best == null) { let min = Infinity; for (let m = 0; m < 8; m++) { apply(m); fmt(m); const pn = penalty(M, size); if (pn < min) { min = pn; best = m; } apply(m); } }
+    apply(best); fmt(best);
+    return {size, M, ver, e, mask:best};
+  }
+  function make(text) {
+    const bytes = Array.from(new TextEncoder().encode(text));
+    for (const e of [1, 0]) for (let v = 1; v <= 40; v++) if (bytes.length * 8 + 4 + (v <= 9 ? 8 : 16) <= dataCW(v, e) * 8) return encode(bytes, v, e);
+    return null;
+  }
+  function svg(q) {
+    const n = q.size + 8; let d = '';
+    for (let y = 0; y < q.size; y++) for (let x = 0; x < q.size; x++) if (q.M[y][x]) d += `M${x + 4} ${y + 4}h1v1h-1z`;
+    return `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" role="img" aria-label="QR code"><rect width="${n}" height="${n}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+  }
+  return {make, encode, svg};
+})();
+
+/* Lien du QR code : réglages de l’élève + ajouts de l’adulte (jamais « Mon collège ») */
+const PUBLIC_URL = 'https://jooxlaur.github.io/espanol-5e/';
+const appURL = () => /^https?:/.test(location.protocol) && !/^(localhost|127\.)/.test(location.hostname) ? location.origin + location.pathname : PUBLIC_URL;
+const b64u = bytes => { let s = ''; for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); };
+const unb64u = s => { s = s.replace(/-/g, '+').replace(/_/g, '/'); while (s.length % 4) s += '='; const b = atob(s), u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
+async function packPayload(o) {
+  const raw = new TextEncoder().encode(JSON.stringify(o));
+  if (raw.length > 400 && window.CompressionStream) {
+    const buf = new Uint8Array(await new Response(new Blob([raw]).stream().pipeThrough(new CompressionStream('deflate'))).arrayBuffer());
+    return 'z' + b64u(buf);
+  }
+  return 'j' + b64u(raw);
+}
+async function unpackPayload(s) {
+  let raw = unb64u(s.slice(1));
+  if (s[0] === 'z') raw = new Uint8Array(await new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream('deflate'))).arrayBuffer());
+  return JSON.parse(new TextDecoder().decode(raw));
+}
+function payloadObj() {
+  const sel = S.eleve.lecons, inSel = id => !sel || sel.includes(id);
+  const lessonsU = S.user.lessons.filter(L => inSel(L.id)).map(L => ({id:L.id, u:L.u, icon:L.icon, es:L.es, fr:L.fr}));
+  const uids = new Set(lessonsU.map(L => L.u));
+  return {v:1, e:{l:sel ? sel.filter(id => id !== 'perso') : null, s:S.set.sens, c:S.set.couleurs, g:S.set.grande ? 1 : 0, z:S.set.voz ? 1 : 0,
+      f:S.eleve.fr ? 1 : 0, m:S.eleve.memo ? 1 : 0, o:S.eleve.sos ? 1 : 0, k:S.eleve.k},
+    u:{units:S.user.units.filter(u => uids.has(u.id)), lessons:lessonsU, items:S.user.items.filter(x => inSel(x.l)).map(x => {
+      const o = {}; for (const k in x) if (x[k] !== '' && x[k] != null && !(Array.isArray(x[k]) && !x[k].length)) o[k] = x[k];
+      return o; })}};
+}
+async function importLink(packed) {
+  const o = await unpackPayload(packed);
+  if (!o || o.v !== 1 || !o.e) throw new Error('format');
+  const e = o.e, str = v => typeof v === 'string' ? v.slice(0, 400) : '';
+  Object.assign(S.set, {sens:['es', 'fr', 'mix'].includes(e.s) ? e.s : 'mix', couleurs:['douces', 'vives', 'sans'].includes(e.c) ? e.c : 'douces', grande:!!e.g, voz:e.z !== 0});
+  S.eleve = {on:true, lecons:Array.isArray(e.l) ? e.l.map(str) : null, memo:!!e.m, sos:!!e.o, fr:!!e.f, k:str(e.k)};
+  const u = o.u || {}, side = x => x && typeof x === 'object' ? {es:str(x.es), fr:str(x.fr), mam:Array.isArray(x.mam) ? x.mam.map(str) : undefined} : {es:'', fr:''};
+  const put = (arr, list, clean) => (Array.isArray(list) ? list : []).forEach(x => { if (!x || !x.id) return; x = clean(x); const i = arr.findIndex(y => y.id === x.id); if (i >= 0) arr[i] = x; else arr.push(x); });
+  put(S.user.units, u.units, x => ({id:str(x.id), es:str(x.es), fr:str(x.fr)}));
+  put(S.user.lessons, u.lessons, x => ({id:str(x.id), u:str(x.u), icon:str(x.icon), es:str(x.es), fr:str(x.fr)}));
+  put(S.user.items, u.items, x => {
+    const t = ['w', 'p', 'qa'].includes(x.t) ? x.t : 'w', it = {id:str(x.id), l:str(x.l), t, note:str(x.note)};
+    if (t === 'qa') Object.assign(it, {q:side(x.q), a:side(x.a)}); else Object.assign(it, {es:str(x.es), fr:str(x.fr), img:str(x.img), mam:Array.isArray(x.mam) ? x.mam.map(str) : undefined});
+    return it;
+  });
+  save(); invalidate();
+}
+
+/* -------------------------------------------------------- actions */
+const ACT = {
+  say(el) { Voz.say(el.dataset.t); },
+  fr() { UI.fr = !UI.fr; render(); },
+  step(el) { UI.step[el.dataset.k] = +el.dataset.n; render(); },
+  tok(el) {
+    const k = el.dataset.k, i = +el.dataset.i, tok = (UI.toks[k] || [])[i]; if (!tok) return;
+    if (el.classList.contains('hid')) { const r = UI.rev[UI.key + ':' + k] || (UI.rev[UI.key + ':' + k] = {}); r[i] = true; el.classList.remove('hid'); el.removeAttribute('aria-label'); }
+    document.querySelectorAll('.w.sel').forEach(x => x.classList.remove('sel')); el.classList.add('sel');
+    const g = $('#gloss'); if (g) g.innerHTML = `<div>${glossFor(tok)}</div>`;
+    Voz.say(tok.t);
+  },
+  es() { UI.es = !UI.es; render(); },
+  vue(el) { UI.vue = el.dataset.v; UI.rev = {}; render(); },
+  revall() { ['s', 'q', 'a'].forEach(k => { const t = UI.toks[k]; if (t) { const r = UI.rev[UI.key + ':' + k] = {}; t.forEach((x, i) => { r[i] = true; }); } }); render(); },
+  hideall() { ['s', 'q', 'a'].forEach(k => { delete UI.rev[UI.key + ':' + k]; }); render(); },
+  alfa(el) { UI.alfa = el.dataset.l; render(); const a = ALFA.find(x => x[0] === UI.alfa); if (a) Voz.say(a[1]); },
+  dmode(el) { const st = UI.dlg[el.dataset.k]; st.mode = el.dataset.m; st.n = 1; st.open = {}; render(); },
+  drol(el) { const st = UI.dlg[el.dataset.k]; st.rol = el.dataset.w; st.open = {}; render(); },
+  dnext(el) {
+    const st = UI.dlg[el.dataset.k], [lid, idx] = el.dataset.k.split(':'), lines = getLesson(lid).items[+idx].lines;
+    if (st.n >= lines.length) return;
+    st.n++; render(); Voz.say(speakText(lines[st.n - 1].es));
+    const b = document.querySelectorAll('.bub'), last = b[b.length - 1];
+    if (last && last.scrollIntoView) last.scrollIntoView({block:'center', behavior:'smooth'});
+  },
+  dline(el) {
+    const st = UI.dlg[el.dataset.k], i = +el.dataset.i;
+    const [lid, idx] = el.dataset.k.split(':'), lines = getLesson(lid).items[+idx].lines, line = lines[i];
+    if (st.mode === 'paso' && i === st.n - 1 && st.n < lines.length) { ACT.dnext(el); return; }
+    if (st.mode === 'rol' && st.rol === line.w && !st.open[i]) st.open[i] = true;
+    else if (!isEleve() || S.eleve.fr) st.fr[i] = !st.fr[i];
+    render(); Voz.say(speakText(line.es));
+  },
+  start(el) { SES = buildSession(el.dataset.k); go('s/' + el.dataset.k); },
+  quit(el) { SES = null; go(el.dataset.back || 'entrenar'); },
+  next() { SES.i++; SES.ans = null; render(); window.scrollTo(0, 0); },
+  pick(el) { if (SES.ans) return; const ex = SES.steps[SES.i].ex, i = +el.dataset.i; answer(ex.opts[i].ok, i); },
+  oadd(el) {
+    const ex = SES.steps[SES.i].ex, ci = +el.dataset.i; if (SES.ans || ex.placed.includes(ci)) return;
+    ex.placed.push(ci);
+    if (ex.placed.length === ex.chips.length) answer(ex.placed.map(c => ex.chips[c].t).join(' ') === ex.target.join(' '));
+    else render();
+  },
+  odel(el) { const ex = SES.steps[SES.i].ex; if (SES.ans) return; ex.placed.splice(+el.dataset.j, 1); render(); },
+  reveal() { const ex = SES.steps[SES.i].ex; ex.open = true; render(); Voz.say(ex.say); },
+  card(el) { const ex = SES.steps[SES.i].ex; ex.open = false; answer(el.dataset.ok === '1'); },
+  again() { const errs = [...new Map(SES.errs.map(e => [e.id, e])).values()]; const k = SES.key; SES = buildSession(k, errs); render(); },
+  tset(el) { const k = el.dataset.k; S.set[k] = !S.set[k]; save(); render(); },
+  sset(el) { S.set[el.dataset.k] = el.dataset.v; save(); render(); },
+  etg(el) { const k = el.dataset.k; S.eleve[k] = !S.eleve[k]; save(); render(); },
+  lchip(el) {
+    const all = lessons().map(l => l.id), id = el.dataset.id;
+    let sel = S.eleve.lecons ? S.eleve.lecons.filter(x => all.includes(x)) : all.slice();
+    sel = sel.includes(id) ? sel.filter(x => x !== id) : sel.concat(id);
+    S.eleve.lecons = sel.length === all.length ? null : sel; save(); render();
+  },
+  lall() { S.eleve.lecons = null; save(); render(); },
+  lnone() { S.eleve.lecons = []; save(); render(); },
+  eleveOn() {
+    if (!S.eleve.k) { toast('Choisissez d’abord un code à 4 chiffres.'); const c = $('#ecode'); if (c) c.focus(); return; }
+    if (S.eleve.lecons && !S.eleve.lecons.length) { toast('Choisissez au moins une leçon.'); return; }
+    S.eleve.on = true; save(); invalidate(); go(''); toast('Mode élève activé');
+  },
+  lock() { if (Date.now() - (UI.longAt || 0) < 2000) return; if (!S.eleve.k) { leaveEleve(); return; } UI.pin = ''; showPad(); },
+  pad(el) {
+    if (UI.pin.length >= 4) return;
+    UI.pin += el.dataset.n; showPad();
+    if (UI.pin.length === 4) setTimeout(() => { if (hashCode(UI.pin) === S.eleve.k) leaveEleve(); else { UI.pin = ''; showPad(true); } }, 150);
+  },
+  padb() { UI.pin = UI.pin.slice(0, -1); showPad(); },
+  padx() { UI.pin = ''; $('#ov').classList.remove('on'); },
+  copy(el) {
+    const t = el.dataset.t;
+    const done = () => toast('Lien copié');
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, () => window.prompt('Copiez ce lien :', t));
+    else window.prompt('Copiez ce lien :', t);
+  },
+  pset(el) { S.perso[el.dataset.k] = el.dataset.v; save(); invalidate(); render(); },
+  pday(el) { const pr = S.perso.profs[el.dataset.k] || (S.perso.profs[el.dataset.k] = {t:'la señora', n:'', dias:[]}); pr.dias = pr.dias || []; const d = el.dataset.d; pr.dias = pr.dias.includes(d) ? pr.dias.filter(x => x !== d) : pr.dias.concat(d); save(); invalidate(); render(); },
+  ftype(el) { UI.form.t = el.dataset.t; render(); },
+  cyc(el) {
+    const f = UI.form, field = el.dataset.f, toks = parse(stripMarks(f[field])), i = +el.dataset.i;
+    const cur = formRole(f, field, toks, i), nx = ROLE_CYCLE[(ROLE_CYCLE.indexOf(cur) + 1) % ROLE_CYCLE.length];
+    f.ov[field + ':' + low(toks[i].t)] = nx || 'none'; f.dirty = true;
+    $('#ch-' + field).innerHTML = chipsEd(field);
+  },
+  fsave() { saveForm(); },
+  fdel(el) { if (!confirm('Supprimer cet élément ?')) return; S.user.items = S.user.items.filter(x => x.id !== el.dataset.id); save(); invalidate(); UI.form = null; toast('Supprimé'); go('mios'); },
+  ldel(el) {
+    const id = el.dataset.id, n = S.user.items.filter(x => x.l === id).length;
+    if (!confirm(`Supprimer cette leçon et ses ${n} élément(s) ?`)) return;
+    S.user.lessons = S.user.lessons.filter(l => l.id !== id); S.user.items = S.user.items.filter(x => x.l !== id); save(); invalidate(); render();
+  },
+  export() {
+    const blob = new Blob([JSON.stringify({app:'espanol-5e', v:1, fecha:new Date().toISOString(), data:S}, null, 1)], {type:'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `espanol-5e-sauvegarde-${today()}.json`;
+    document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+    toast('Sauvegarde enregistrée');
+  },
+  import() { const inp = $('#fileIn'); if (inp) inp.click(); },
+  reset() { if (!confirm('Effacer toute la progression ? (Les ajouts et « Mon collège » sont gardés.)')) return; S.prog = {}; S.hist = {}; save(); render(); toast('Progression remise à zéro'); },
+};
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-go],[data-act]');
+  if (!a || a.disabled) return;
+  if (a.dataset.go !== undefined) { go(a.dataset.go); return; }
+  const fn = ACT[a.dataset.act]; if (fn) { e.preventDefault(); fn(a, e); }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.matches && e.target.matches('[data-act="tok"]')) { ACT.tok(e.target); return; }
+  if (e.target.matches && e.target.matches('input,select,textarea')) return;
+  if (UI.nav && current && current.fn === vFocus) {
+    if (e.key === 'ArrowRight' && UI.nav.next) go(UI.nav.next);
+    if (e.key === 'ArrowLeft' && UI.nav.prev) go(UI.nav.prev);
+  }
+});
+// cadenas : un appui de 5 secondes fait sortir du mode élève (si le code est oublié)
+let longT = null;
+document.addEventListener('pointerdown', e => {
+  if (!e.target.closest || !e.target.closest('[data-act="lock"]')) return;
+  clearTimeout(longT); longT = setTimeout(() => { UI.longAt = Date.now(); leaveEleve(); }, 5000);
+});
+['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => document.addEventListener(ev, () => clearTimeout(longT)));
+$('#ov').addEventListener('click', e => { if (e.target.id === 'ov') ACT.padx(); });
+document.addEventListener('input', e => {
+  const el = e.target;
+  if (el.dataset.ecode !== undefined) {
+    el.value = el.value.replace(/\D/g, '').slice(0, 4);
+    if (el.value.length === 4) { S.eleve.k = hashCode(el.value); save(); const ok = $('#codeok'); if (ok) ok.textContent = '✓ Code enregistré. Notez-le quelque part.'; }
+    return;
+  }
+  if (el.dataset.pf !== undefined) { setPath(S.perso, el.dataset.pf, el.value); save(); invalidate(); if (el.tagName === 'SELECT') render(); return; }
+  if (!UI.form) return;
+  if (el.dataset.f !== undefined) {
+    UI.form[el.dataset.f] = el.value; UI.form.dirty = true;
+    if (el.dataset.f === 'l') { render(); return; }
+    const c = $('#ch-' + el.dataset.f); if (c) c.innerHTML = chipsEd(el.dataset.f);
+    const mf = MAMF[el.dataset.f] && $('#f-' + MAMF[el.dataset.f]); if (mf) mf.placeholder = autoMam(el.dataset.f);
+  }
+  if (el.dataset.nl !== undefined) { UI.form.nl[el.dataset.nl] = el.value; if (el.dataset.nl === 'u') render(); }
+});
+document.addEventListener('change', e => {
+  const el = e.target;
+  if (el.id === 'fileIn' && el.files && el.files[0]) {
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        const o = JSON.parse(r.result);
+        if (!o || o.app !== 'espanol-5e' || !o.data) throw new Error('format');
+        if (!confirm('Remplacer les données de cet appareil par cette sauvegarde ?')) return;
+        localStorage.setItem(KEY, JSON.stringify(o.data)); S = load(); invalidate(); render(); toast('Sauvegarde restaurée');
+      } catch (err) { toast('Ce fichier n’est pas une sauvegarde de l’appli.'); }
+    };
+    r.readAsText(el.files[0]); el.value = '';
+  }
+});
+document.addEventListener('visibilitychange', () => { if (!document.hidden && current && current.fn === vHome) render(); });
+window.addEventListener('hashchange', route);
+
+/* ------------------------------------------- hors ligne (si servi en ligne) */
+if (/^https?:/.test(location.protocol)) {
+  const m = document.createElement('link'); m.rel = 'manifest'; m.href = 'manifest.webmanifest'; document.head.appendChild(m);
+  if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+Voz.init();
+(async () => {
+  const m = location.hash.match(/^#e=([jz][A-Za-z0-9_-]+)/);
+  if (m) {
+    try { await importLink(m[1]); setTimeout(() => toast('C’est prêt ! Bon travail.'), 300); }
+    catch (e) { setTimeout(() => toast('Ce lien ne fonctionne pas sur cet appareil.'), 300); }
+    history.replaceState(null, '', location.pathname + location.search + '#/');
+  }
+  route();
+})();
+window.__esp = {QR, payloadObj, packPayload, importLink, ses:() => SES, lessons, gen, parse, pairQA, persoLesson, buildSession, S:() => S, plain, initial, veoPool, VERBOS, CORR, LEX, FORMS};
+</script>
+</body>
+</html>
