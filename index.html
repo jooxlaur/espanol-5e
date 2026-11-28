@@ -216,7 +216,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .ses-top{display:flex;align-items:center;gap:14px;margin:6px 0 14px}
 .ses-prog{flex:1;height:10px;background:var(--line);border-radius:10px;overflow:hidden}
 .ses-prog i{display:block;height:100%;background:var(--brand);border-radius:10px;transition:width .25s}
-.ses-n{font-weight:700;color:var(--ink2);font-size:.95rem;min-width:56px;text-align:right}
+.ses-n{font-weight:700;color:var(--ink2);font-size:.95rem;min-width:56px;text-align:right;white-space:nowrap}
+.twin{font-size:.9rem;color:var(--ink2);margin:4px 0 2px}
 .ex{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:4px 0 20px}
 .tag{font-size:.78rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--brand);background:var(--brand-soft);border-radius:999px;padding:4px 12px}
 .q-pic{font-size:clamp(64px,11vw,92px)}
@@ -483,7 +484,7 @@ input[type=text],select{padding:11px 14px;border:1px solid var(--line2);border-r
    2. Outils de langue       5. Écrans
    3. Données de l’appareil  6. Exercices
    ====================================================================== */
-const VERSION = '1.5 — 28/11/2026';
+const VERSION = '1.6 — 28/11/2026';
 
 /* ---------------------------------------------------------------- 1. COURS */
 const UNIDADES = [
@@ -711,8 +712,10 @@ const LECCIONES = [
      'tu devient mi. « es » ne change pas : on parle du prénom.'),
   QA('¿{Q:De dónde} {V:vienes}?', 'D’où viens-tu ?', '{V:Vengo} de Cataluña.', 'Je viens de Catalogne.', 'vienes devient vengo.'),
   P('{P:Su} nombre {V:es} Mateo.', 'Son prénom est Mateo.'),
-  P('Mateo {V:es} un chico. Mateo {V:es} español y {V:viene} de Andalucía.', 'Mateo est un garçon. Mateo est espagnol et il vient d’Andalousie.'),
-  P('Lucía {V:es} una chica. Lucía {V:es} española y {V:viene} de Cataluña.', 'Lucía est une fille. Lucía est espagnole et elle vient de Catalogne.'),
+  P('Mateo {V:es} un chico.', 'Mateo est un garçon.', 'Pour un garçon : un chico.'),
+  P('Mateo {V:es} español y {V:viene} de Andalucía.', 'Mateo est espagnol et il vient d’Andalousie.', 'Pour un garçon : español.'),
+  P('Lucía {V:es} una chica.', 'Lucía est une fille.', 'Pour une fille : una chica (avec a).'),
+  P('Lucía {V:es} española y {V:viene} de Cataluña.', 'Lucía est espagnole et elle vient de Catalogne.', 'Pour une fille : española (avec a).'),
   W('español', 'espagnol (un garçon)', 'svg:es'),
   W('española', 'espagnole (une fille)'),
   W('el nombre', 'le prénom'),
@@ -919,7 +922,7 @@ function glossFor(tok) {
   const f = FORMS[w];
   if (f) return `<b>${esc(tok.t)}</b> = ${esc(f.fr)}<small>verbe <b>${f.inf}</b> (${esc(f.infFr)}) · avec <b>${PERS[f.p]}</b></small>`;
   if (LEX[w]) return `<b>${esc(tok.t)}</b> = ${esc(LEX[w])}`;
-  return `<b>${esc(tok.t)}</b>`;
+  return `<b>${esc(tok.t)}</b><small>regarde la phrase en français pour ce mot</small>`;
 }
 /* Mot à mot : un sens court sous chaque mot espagnol (la personne du verbe entre parenthèses) */
 const MAM = {
@@ -1323,9 +1326,9 @@ function vFocus(lid, idx) {
   } else if (it.t === 'p') {
     sayT = speakText(it.es);
     const t = parse(it.es); UI.toks.s = t;
-    const showEs = !frFirst || UI.es || vue !== 'phrase';
+    const showEs = !frFirst || UI.es || vue !== 'phrase', tw = vue !== 'cases' ? twin(it) : null;
     body = (frFirst ? `<div class="big fr1">${esc(it.fr)}</div>` : '')
-      + (showEs ? `<div class="big"><span class="s">${renderS(t, opts('s', t, it.mam))}</span></div><div class="gloss" id="gloss">${tip}</div>` : '<div class="frbox"></div>')
+      + (showEs ? `<div class="big"><span class="s">${renderS(t, opts('s', t, it.mam, tw ? {hl:diffHL(t, tw.es)} : null))}</span></div>${twinNote(tw)}<div class="gloss" id="gloss">${tip}</div>` : '<div class="frbox"></div>')
       + (!frFirst ? `<div class="frbox">${UI.fr && frOk ? `<div class="fr">${esc(it.fr)}</div>` : ''}</div>` : '')
       + (it.note ? `<div class="note">💡 ${esc(it.note)}</div>` : '');
   } else {
@@ -1751,7 +1754,7 @@ function exVeo(it) {
     hint:'Touche la bonne image.', opts:shuffle([it, ...others]).map(x => ({ok:x === it, it:x, html:pic(x.img), label:x.es})), show:`¡Es ${it.es}!`};
 }
 /* petites séances sur mesure (depuis une leçon, un dialogue ou le Mémo) : elles reviennent là d’où on vient */
-function customSession(key, back, steps) { G.sessXp = 0; return {key, back, steps:shuffle(steps), i:0, ans:null, first:0, total:steps.length, errs:[], date:today(), combo:0}; }
+function customSession(key, back, steps) { G.sessXp = 0; return {key, back, steps:spread(shuffle(steps)), i:0, ans:null, first:0, total:steps.length, errs:[], date:today(), combo:0}; }
 function startCustom(key, back, steps) { if (!steps.length) { toast('Rien à travailler ici pour l’instant.'); return; } UI.plan = null; SES = customSession(key, back, steps); go('s/' + key); }
 const stepOf = (it, make) => ({kind:'q', it, ex:make(), make});
 // depuis le grand écran d’une leçon : cet élément et ses voisins
@@ -1831,10 +1834,71 @@ function gen(it, easy) {
   }
   return exW(it, 'es2fr');
 }
-function introOf(it) {
-  if (it.t === 'qa') return `<div class="q-es">${sHTML(it.q.es)}</div><div class="q-sub">${esc(it.q.fr)}</div><div class="down">↓</div><div class="q-es">${sHTML(it.a.es)}</div><div class="q-sub">${esc(it.a.fr)}</div>`;
-  if (it.t === 'l') return `<div class="q-letter">${it.l.toUpperCase()}</div><div class="q-es">la ${esc(it.es)}</div>`;
-  return `${it.img ? `<span class="pic q-pic">${pic(it.img)}</span>` : ''}<div class="q-es">${it.t === 'p' ? sHTML(it.es) : esc(it.es)}</div><div class="q-fr" style="font-weight:500;color:var(--ink2)">${esc(it.fr)}</div>`;
+/* Éléments qui se ressemblent (« un chico » / « una chica ») : on compare les mots sans leur fin (o, a, os, as) */
+const stem = w => w.length >= 3 ? w.replace(/(as|os|a|o)$/, '') : w;
+const wordsLow = es => parse(es).filter(isWord).map(k => low(k.t));
+const esMain = it => it.t === 'qa' ? it.q.es + ' ' + it.a.es : it.es || '';
+// on ne compte pas les petits mots (el, la, un…) : « la música » et « la lengua » ne se ressemblent pas
+const ART = new Set(['el', 'la', 'los', 'las', 'un', 'una', 'unos', 'unas', 'de', 'del', 'y']);
+function sim(a, b) { const f = s => wordsLow(s).filter(w => !ART.has(w)).map(stem), A = f(a), B = new Set(f(b)); return !A.length || !B.size ? 0 : A.filter(w => B.has(w)).length / Math.max(A.length, B.size); }
+const similar = (a, b) => a && b && a.id !== b.id && (a.t === 'p' || a.t === 'w') && a.t === b.t && sim(esMain(a), esMain(b)) >= 0.5;
+// le voisin juste avant dans la leçon qui ressemble à cet élément, mais avec des mots différents
+function twin(it) {
+  const L = it && getLesson(it._l); if (!L || (it.t !== 'p' && it.t !== 'w')) return null;
+  const i = L.items.findIndex(x => x.id === it.id);
+  for (let j = i - 1; j >= Math.max(0, i - 4); j--) { const x = L.items[j]; if (similar(it, x) && Object.keys(diffHL(parse(it.es), x.es)).length) return x; }
+  return null;
+}
+// en jaune : les mots qui changent ; si seule la fin change (chico → chica), seulement la fin
+function diffHL(toks, ref) {
+  const R = wordsLow(ref), hl = {};
+  toks.forEach((k, i) => {
+    const w = low(k.t); if (!isWord(k) || R.includes(w)) return;
+    const r = R.find(x => stem(x) === stem(w)); let n = 0;
+    if (r) while (n < w.length && w[n] === r[n]) n++;
+    hl[i] = r && n > 0 && n < w.length ? n : 0;
+  });
+  return hl;
+}
+const twinNote = x => x ? `<div class="twin">En jaune : ce qui change par rapport à « ${esc(plain(x.es))} »</div>` : '';
+// ne pas enchaîner deux éléments presque pareils (on échange avec une question plus loin)
+// on garde l'ordre prévu, mais on prend l'étape suivante qui ne ressemble pas à la précédente ;
+// un élément est toujours présenté (« Nouveau ») avant ses questions
+function spread(steps) {
+  if (G.noSpread) return steps;
+  const rest = steps.slice(), out = [], seen = new Set(), intro = new Set(steps.filter(s => s.kind === 'intro').map(s => s.it.id));
+  const ok = s => s.kind === 'intro' || !intro.has(s.it.id) || seen.has(s.it.id);
+  while (rest.length) {
+    const prev = out[out.length - 1];
+    let k = rest.findIndex(s => ok(s) && !(prev && similar(s.it, prev.it))), back = k < 0;
+    if (k < 0) k = rest.findIndex(ok);
+    if (k < 0) k = 0;
+    const s = rest.splice(k, 1)[0]; if (s.kind === 'intro') seen.add(s.it.id);
+    // plus rien de différent à la fin : on glisse l'étape plus haut, entre deux étapes qui ne lui ressemblent pas
+    let at = out.length;
+    if (back && s.kind === 'q') {
+      const from = out.findIndex(x => x.kind === 'intro' && x.it.id === s.it.id) + 1;
+      for (let p = out.length - 1; p >= Math.max(1, from); p--) if (!similar(s.it, out[p - 1].it) && !similar(s.it, out[p].it)) { at = p; break; }
+    }
+    out.splice(at, 0, s);
+  }
+  steps.splice(0, steps.length, ...out);
+  return steps;
+}
+/* Écran « Nouveau » : l'espagnol d'abord, une phrase par ligne, chaque mot touchable ; le français sur demande */
+function introOf(it, showFr) {
+  UI.toks = {}; UI.key = 'intro:' + it.id;
+  const frOk = !isEleve() || S.eleve.fr;
+  const line = (es, k, hl) => { const t = parse(es); UI.toks[k] = t; return `<span class="s">${renderS(t, {tap:k, hl})}</span>`; };
+  const lines = (es, k, ref) => es.split(/(?<=[.!?…])\s+/).map((s, i) => `<div class="q-es">${line(s, k + i, ref ? diffHL(parse(s), ref) : null)}</div>`).join('');
+  const fr = t => showFr && frOk ? `<div class="q-sub">${esc(t)}</div>` : '';
+  const tw = twin(it);
+  let h;
+  if (it.t === 'qa') h = lines(it.q.es, 'q') + fr(it.q.fr) + `<div class="down">↓</div>` + lines(it.a.es, 'a') + fr(it.a.fr);
+  else if (it.t === 'l') return `<div class="q-letter">${it.l.toUpperCase()}</div><div class="q-es">la ${esc(it.es)}</div>`;
+  else h = (it.img ? `<span class="pic q-pic">${pic(it.img)}</span>` : '') + lines(it.es, 's', tw && tw.es) + fr(it.fr);
+  return h + twinNote(tw) + `<div class="gloss" id="gloss"><span class="tip">Touchez un mot pour voir ce qu’il veut dire.</span></div>`
+    + (frOk ? `<button class="btn ghost" data-act="ifr">${showFr ? 'Cacher le français' : 'Voir en français'}</button>` : '');
 }
 const sayOf = it => it.t === 'qa' ? speakText(it.q.es) + '. ' + speakText(it.a.es) : it.t === 'l' ? it.es : speakText(it.es);
 function buildSession(key, list) {
@@ -1854,6 +1918,7 @@ function buildSession(key, list) {
     fresh.forEach(it => { steps.push({kind:'intro', it}); pend.push(it); if (pend.length >= 2) { const x = pend.shift(); steps.push({kind:'q', it:x, ex:gen(x)}); } });
     pend.forEach(x => steps.push({kind:'q', it:x, ex:gen(x)}));
   }
+  spread(steps);
   return {key, steps, i:0, ans:null, first:0, total:steps.filter(s => s.kind === 'q').length, errs:[], date:t, practice:!!list};
 }
 function vSesion(key) {
@@ -1864,10 +1929,12 @@ function vSesion(key) {
   const close = `<button class="ib" data-act="quit" data-back="${back}" aria-label="Arrêter">${I.close}</button>`;
   if (!SES.steps.length) return bar('Apprendre', back) + `<p class="okmsg">Il n’y a rien à travailler ici pour l’instant.</p>`;
   if (SES.i >= SES.steps.length) return key === '_mision' && jeu() ? vFinMision() : vFin(back);
-  const st = SES.steps[SES.i], n = SES.i, N = SES.steps.length;
-  let h = `<div class="ses-top">${close}<div class="ses-prog"><i style="width:${Math.round(100 * n / N)}%"></i></div><span class="ses-n">${n + 1} / ${N}</span></div><div class="ex">`;
+  const st = SES.steps[SES.i];
+  // le compteur ne compte que les questions (un écran « Nouveau » n'est pas une question)
+  const N = SES.steps.filter(s => s.kind === 'q').length, n = SES.steps.slice(0, SES.i).filter(s => s.kind === 'q').length;
+  let h = `<div class="ses-top">${close}<div class="ses-prog"><i style="width:${N ? Math.round(100 * n / N) : 0}%"></i></div><span class="ses-n">${st.kind === 'q' ? `Question ${n + 1} / ${N}` : ''}</span></div><div class="ex">`;
   if (st.kind === 'intro') {
-    h += `<span class="tag">Nouveau</span>${introOf(st.it)}${sayBtn(sayOf(st.it), 'Écouter')}
+    h += `<span class="tag">Nouveau</span>${introOf(st.it, st.fr)}${sayBtn(sayOf(st.it), 'Écouter')}
       ${st.it.note ? `<div class="note">💡 ${esc(st.it.note)}</div>` : ''}</div><div class="cont" style="margin:0 auto"><button class="btn wide" data-act="next">J’ai compris</button></div>`;
     return h;
   }
@@ -1994,7 +2061,7 @@ function vAprender(lid, q) {
 function buildActSession(kind, lid, list) {
   const L = getLesson(lid), pool = list || (L ? prioritize(actPool(kind, L)).slice(0, 10) : []);
   const make = it => () => kind === 'verbo' ? exVerbo(it) : it.t === 'qa' ? exOrder(it.a.es, it.a.fr, it.q.es) : exOrder(it.es, it.fr);
-  const steps = shuffle(pool).map(it => ({kind:'q', it, ex:make(it)(), make:make(it), retry:!!list}));
+  const steps = spread(shuffle(pool).map(it => ({kind:'q', it, ex:make(it)(), make:make(it), retry:!!list})));
   return {key:`act:${kind}:${lid}`, kind, lid, steps, i:0, ans:null, first:0, total:steps.length, errs:[], date:today(), practice:!!list};
 }
 let AV = null;   // activité en cours : cartes, écrire ou associer
@@ -2290,6 +2357,7 @@ function buildMision() {
   fresh.forEach(it => { steps.push({kind:'intro', it}); pend.push(it); if (pend.length >= 2) { const x = pend.shift(); steps.push({kind:'q', it:x, ex:gen(x)}); } });
   pend.forEach(x => steps.push({kind:'q', it:x, ex:gen(x)}));
   G.sessXp = 0;
+  spread(steps);
   return {key:'_mision', steps, i:0, ans:null, first:0, total:steps.filter(s => s.kind === 'q').length, errs:[], date:today(), combo:0, bestCombo:0};
 }
 function finMision() {
@@ -2707,6 +2775,7 @@ const ACT = {
     Voz.say(tok.t);
   },
   es() { UI.es = !UI.es; render(); },
+  ifr() { const st = SES && SES.steps[SES.i]; if (st) { st.fr = !st.fr; render(); } },
   vue(el) { UI.vue = el.dataset.v; UI.rev = {}; render(); },
   revall() { ['s', 'q', 'a'].forEach(k => { const t = UI.toks[k]; if (t) { const r = UI.rev[UI.key + ':' + k] = {}; t.forEach((x, i) => { r[i] = true; }); } }); render(); },
   hideall() { ['s', 'q', 'a'].forEach(k => { delete UI.rev[UI.key + ':' + k]; }); render(); },
@@ -2976,7 +3045,7 @@ Voz.init();
   }
   route();
 })();
-window.__esp = {
+window.__esp = {twin, spread, similar, diffHL, introOf,
   why, memoSteps, focoSteps, dlgSteps,
   llama, gainXP, G:() => G, buildMision, lvlOf, LV, OBJ, CULTURA, tirage,
   av:() => AV, actPool, writeParts, writable, buildAV, ACTS,
