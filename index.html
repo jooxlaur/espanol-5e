@@ -285,7 +285,9 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .wword{display:flex;gap:4px}
 .wbox{min-width:1.05em;height:1.45em;border-bottom:3px solid var(--line2);display:grid;place-items:center;line-height:1;padding:0 1px}
 .wbox.cur{border-color:var(--brand);background:var(--brand-soft);border-radius:6px 6px 0 0}
-.wbox.f{border-color:var(--ok)}
+.wbox.f{border-color:var(--ink2)}
+button.wbox{font:inherit;color:inherit;background:none;border:0;border-bottom:3px solid var(--ink2);cursor:pointer}
+.wbox.bad{color:#B42318;border-color:#B42318;background:#FDECEA;border-radius:6px 6px 0 0}
 .wgiven{color:var(--ink2);font-weight:500;padding-bottom:.15em}
 .ltiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:660px}
 .lt{min-width:58px;height:58px;padding:0 6px;border-radius:14px;background:var(--card);border:1px solid var(--line2);box-shadow:0 2px 0 var(--line2);font-size:1.6rem;font-weight:700;text-align:center}
@@ -301,6 +303,61 @@ input.winput{font-size:1.7rem;text-align:center;max-width:440px;min-height:64px;
 .pb.sel{border-color:var(--brand);background:var(--brand-soft)}
 .pb.ok{border-color:var(--ok);background:var(--okbg);opacity:.55}
 .pb.ko{border-color:var(--ko);background:var(--kobg);animation:shake .35s}
+
+/* jeu : Llamita, mission, coffre, album */
+.llama{display:block;width:100%;height:auto}
+.hero{display:grid;grid-template-columns:minmax(140px,36%) 1fr;gap:16px;align-items:center;background:linear-gradient(135deg,#FFF7EA,#FDEFE3 60%,#F7EEF9);border:1px solid #F0E2CF;border-radius:24px;padding:16px 18px;margin-bottom:16px;box-shadow:var(--sh)}
+.hero-ll{position:relative;padding-top:34px}
+.hero-ll .llama{animation:bob 3.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.bubble{position:absolute;top:0;left:50%;transform:translateX(-50%);background:#fff;border:1px solid #EBDDC8;border-radius:14px;padding:5px 12px;font-weight:700;font-size:.92rem;white-space:nowrap;box-shadow:0 3px 10px rgba(0,0,0,.06);color:#5A3E1B}
+.bubble::after{content:"";position:absolute;bottom:-6px;left:40%;border:6px solid transparent;border-top-color:#fff;border-bottom:0}
+.hero-r{display:flex;flex-direction:column;gap:8px;min-width:0}
+.lvl{display:flex;justify-content:space-between;align-items:baseline}
+.lvl b{font-size:1.3rem;color:#5A3E1B}
+.lvl span{font-size:.85rem;color:var(--ink2);font-weight:600}
+.xpbar{height:12px;border-radius:12px;background:#F0E2CF;overflow:hidden}
+.xpbar i{display:block;height:100%;border-radius:12px;background:linear-gradient(90deg,#F5B83B,#F08A3B)}
+.week{display:flex;gap:6px}
+.wd{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;font-weight:800;color:#B9A58B;background:#fff;border:2px solid #EBDDC8}
+.wd.on{background:#2BA39A;border-color:#2BA39A;color:#fff}
+.wd.today{border-color:#F08A3B}
+.wk{font-size:.86rem;margin-top:-2px}
+.btn.mision{background:linear-gradient(135deg,#F08A3B,#E5484D);border:0;font-size:1.1rem;min-height:58px}
+.glow{animation:glow 2.2s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(240,138,59,.45)}50%{box-shadow:0 0 0 10px rgba(240,138,59,0)}}
+#cel{position:fixed;inset:0;background:rgba(30,25,20,.45);display:none;align-items:center;justify-content:center;z-index:90;padding:20px}
+#cel.on{display:flex}
+.cel-card{position:relative;overflow:hidden;background:#fff;border-radius:26px;padding:22px 24px;width:min(420px,100%);text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.25);animation:popin .35s cubic-bezier(.2,1.4,.4,1)}
+.cel-card h2{margin:2px 0 6px;font-size:2rem;color:#5A3E1B}
+.cel-ll,.end-ll{width:170px;margin:0 auto}
+@keyframes popin{from{transform:scale(.7);opacity:0}to{transform:none;opacity:1}}
+.confetti{position:absolute;inset:0;pointer-events:none}
+.confetti i{position:absolute;top:-12px;width:9px;height:14px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{top:110%;transform:rotate(540deg)}}
+.chest{width:min(240px,70%);overflow:visible}
+.chest .rays{opacity:0;transform-origin:90px 70px;transition:opacity .4s}
+.chest.open .rays{opacity:1;animation:spin 8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.chest .lid{transform-origin:28px 74px;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.chest.open .lid{transform:rotate(-24deg) translate(-6px,-8px)}
+.chest.shake{animation:shk .12s linear 7}
+@keyframes shk{25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+.rew{display:flex;flex-direction:column;align-items:center;gap:6px;background:#FFFBF2;border:2px solid #F5D78A;border-radius:20px;padding:16px;max-width:420px;width:100%;animation:popin .4s cubic-bezier(.2,1.4,.4,1)}
+.rew b{font-size:1.3rem}
+.rew span{color:var(--ink2)}
+.pill{background:#FFF3D6;color:#7A4B00;border-radius:999px;padding:6px 14px;font-weight:700}
+.alb-top{display:flex;gap:16px;align-items:center;background:linear-gradient(135deg,#FFF7EA,#F7EEF9);border:1px solid #F0E2CF;border-radius:22px;padding:14px 18px}
+.alb-ll{width:130px;flex:none}
+.alb{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
+.ccard{aspect-ratio:.78;border-radius:14px;background:#fff;border:2px solid #E7DCCB;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px;text-align:center;box-shadow:0 2px 0 #E7DCCB}
+.ccard .pic{font-size:34px}
+.ccard b{font-size:.9rem;line-height:1.2}
+.ccard.no{background:repeating-linear-gradient(45deg,#FBF8F3,#FBF8F3 8px,#F4EFE7 8px,#F4EFE7 16px);border-style:dashed;box-shadow:none;color:#C9BBA6;font-size:1.6rem;font-weight:800}
+.alb.gold .ccard{border-color:#F2C14E;box-shadow:0 2px 0 #E2AE33;background:#FFFCF2}
+.combo{display:inline-block;background:#FFF3D6;color:#7A4B00;border-radius:999px;padding:2px 10px;font-weight:800;font-size:.9rem;margin-left:6px}
+.fifty{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 12px;border-radius:12px;border:1px solid #E7D4F7;background:#F8F1FE;color:#5B2B8C;font-weight:700;font-size:.92rem}
+@media (max-width:560px){.hero{grid-template-columns:120px 1fr;padding:12px}.wd{width:28px;height:28px}.alb-ll{width:96px}}
 
 /* mémo */
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -393,6 +450,7 @@ input[type=text],select{padding:11px 14px;border:1px solid var(--line2);border-r
 <div id="app" class="app"></div>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="ov" role="dialog" aria-modal="true" aria-label="Code de l’adulte"></div>
+<div id="cel" role="dialog" aria-modal="true" aria-live="polite"></div>
 <script>
 'use strict';
 /* ======================================================================
@@ -401,7 +459,7 @@ input[type=text],select{padding:11px 14px;border:1px solid var(--line2);border-r
    2. Outils de langue       5. Écrans
    3. Données de l’appareil  6. Exercices
    ====================================================================== */
-const VERSION = '1.3 — 27/11/2026';
+const VERSION = '1.4 — 28/11/2026';
 
 /* ---------------------------------------------------------------- 1. COURS */
 const UNIDADES = [
@@ -547,8 +605,8 @@ const LECCIONES = [
   W('el deporte', 'le sport (l’EPS)', '🏃'),
   W('la física y la química', 'la physique-chimie', '🧪'),
   W('la tecnología', 'la technologie', '💻'),
-  W('el inglés', 'l’anglais', '🇬🇧'),
-  W('el español', 'l’espagnol', '🇪🇸'),
+  W('el inglés', 'l’anglais', 'svg:gb'),
+  W('el español', 'l’espagnol', 'svg:es'),
   W('la clase de sociales', 'le cours d’histoire-géo', '🌍'),
   W('la clase', 'le cours', '🏫'),
   W('la materia', 'la matière', '📚'),
@@ -615,7 +673,7 @@ const LECCIONES = [
   W('una alumna', 'une élève (fille)'),
   W('el colegio', 'le collège', '🏫'),
  ]},
-{id:'mateo', u:'u2', icon:'🇪🇸', es:'Mateo y Lucía', fr:'Doc 1 · ¡Soy español!',
+{id:'mateo', u:'u2', icon:'👫', es:'Mateo y Lucía', fr:'Doc 1 · ¡Soy español!',
  items:[
   D('Mateo y Lucía', [
     ['Mateo', '¡Buenas! {P:Mi} nombre {V:es} Mateo, se {V:escribe} M-A-T-E-O.', 'Salut ! Mon prénom est Mateo, ça s’écrit M-A-T-E-O.'],
@@ -631,7 +689,7 @@ const LECCIONES = [
   P('{P:Su} nombre {V:es} Mateo.', 'Son prénom est Mateo.'),
   P('Mateo {V:es} un chico. Mateo {V:es} español y {V:viene} de Andalucía.', 'Mateo est un garçon. Mateo est espagnol et il vient d’Andalousie.'),
   P('Lucía {V:es} una chica. Lucía {V:es} española y {V:viene} de Cataluña.', 'Lucía est une fille. Lucía est espagnole et elle vient de Catalogne.'),
-  W('español', 'espagnol (un garçon)', '🇪🇸'),
+  W('español', 'espagnol (un garçon)', 'svg:es'),
   W('española', 'espagnole (une fille)'),
   W('el nombre', 'le prénom'),
   W('el apellido', 'le nom de famille'),
@@ -725,6 +783,8 @@ const DIAS_CLASE_FR = ['lun.','mar.','mer.','jeu.','ven.'];
 /* Petits dessins (quand il n’existe pas d’émoji) */
 const SVGPIC = {
  abanico:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 50 6 27a34 34 0 0 1 52 0Z" fill="#E4572E"/><path d="M32 50 6 27a34 34 0 0 1 52 0Z" fill="none" stroke="#9E2A12" stroke-width="2"/><g stroke="#FCE38A" stroke-width="2"><path d="M32 50 12 21"/><path d="M32 50 22 15"/><path d="M32 50V13"/><path d="M32 50 42 15"/><path d="M32 50 52 21"/></g><rect x="29" y="47" width="6" height="12" rx="2" fill="#7B4A2A"/></svg>',
+ es:'<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="14" width="56" height="36" rx="4" fill="#C60B1E"/><rect x="4" y="23" width="56" height="18" fill="#FFC400"/><rect x="4" y="14" width="56" height="36" rx="4" fill="none" stroke="rgba(0,0,0,.15)"/></svg>',
+ gb:'<svg viewBox="0 0 64 64" aria-hidden="true"><clipPath id="gbc"><rect x="4" y="14" width="56" height="36" rx="4"/></clipPath><g clip-path="url(#gbc)"><rect x="4" y="14" width="56" height="36" fill="#012169"/><path d="M4 14l56 36M60 14L4 50" stroke="#fff" stroke-width="7"/><path d="M4 14l56 36M60 14L4 50" stroke="#C8102E" stroke-width="3"/><path d="M32 14v36M4 32h56" stroke="#fff" stroke-width="11"/><path d="M32 14v36M4 32h56" stroke="#C8102E" stroke-width="6"/></g></svg>',
  piramide:'<svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#C9A66B" stroke="#8C6B35" stroke-width="1.5"><rect x="6" y="48" width="52" height="9"/><rect x="12" y="39" width="40" height="9"/><rect x="18" y="30" width="28" height="9"/><rect x="24" y="21" width="16" height="9"/><rect x="27" y="11" width="10" height="10"/></g><rect x="29" y="21" width="6" height="36" fill="#8C6B35"/></svg>',
 };
 
@@ -912,8 +972,9 @@ const KEY = 'espanol5e';
 const DEF = () => ({v:1, prog:{}, hist:{}, last:null,
   user:{units:[], lessons:[], items:[]},
   perso:{prenom:'', genero:'chico', grupo:'B', colegio:'', materia:'', color:'', tutor:'', profs:{}},
-  set:{voz:true, lento:false, grande:false, couleurs:'douces', sens:'mix', ecrire:'letras', blocs:true},
-  eleve:{on:false, lecons:null, memo:true, sos:true, fr:true, k:''}});
+  set:{voz:true, lento:false, grande:false, couleurs:'douces', sens:'mix', ecrire:'letras', blocs:true, jeu:true},
+  eleve:{on:false, lecons:null, memo:true, sos:true, fr:true, k:''},
+  game:{xp:0, days:{}, items:[], wear:{}, cards:[], b5050:2, best:0, chest:0}});
 function load() {
   const d = DEF();
   try {
@@ -1028,12 +1089,16 @@ const seen = id => !!S.prog[id];
 const isDue = id => seen(id) && S.prog[id].d <= today();
 const known = it => box(it.id) >= 3;
 function record(it, ok) {
+  const before = S.prog[it.id] ? S.prog[it.id].b : 0;
   const t = today(), p = S.prog[it.id] || {b:0, d:t, n:0};
   const due = !S.prog[it.id] || p.d <= t;
   p.n = (p.n || 0) + 1;
   if (ok) { if (due) { p.b = Math.min(5, p.b + 1); p.d = addDays(t, INT[p.b]); } }
   else { p.b = 1; p.d = t; }
   S.prog[it.id] = p;
+  // jeu : des points seulement pour une réussite (jamais pour un clic) ; un mot su = une carte d’album
+  if (ok) gainXP(10);
+  if (ok && before < 3 && p.b >= 3) { gainXP(20); G.newCards.push(it); }
 }
 function knownTotal() { return allTrain().filter(known).length; }
 function dueItems() { return allTrain().filter(it => isDue(it.id)); }
@@ -1098,13 +1163,13 @@ function pic(img) {
 
 /* ---------------------------------------------------------- 5. ÉCRANS */
 const app = $('#app');
-let current = null, UI = {fr:false, es:false, vue:'phrase', rev:{}, step:{}, dlg:{}, toks:{}, alfa:null, form:null, pin:''};
+let current = null, UI = {fr:false, es:false, vue:'phrase', rev:{}, step:{}, dlg:{}, toks:{}, alfa:null, form:null, pin:'', pick:{}, plan:null};
 const routes = [
   [/^$/, vHome], [/^lecciones$/, vLecciones], [/^l\/([^/]+)$/, vLeccion], [/^f\/([^/]+)\/(\d+)$/, vFocus],
   [/^d\/([^/]+)\/(\d+)$/, vDialogo], [/^entrenar$/, vEntrenar], [/^s\/([^/]+)$/, vSesion], [/^memo$/, vMemo],
   [/^memo\/([^/]+)$/, vMemoSec], [/^verbo\/([^/]+)$/, vVerbo], [/^fecha$/, vFecha], [/^sos$/, vSos], [/^sos\/(\d+)$/, vSosUno],
   [/^ajustes$/, vAjustes], [/^perso$/, vPerso], [/^anadir$/, vAnadir], [/^mios$/, vMios], [/^qr$/, vQR],
-  [/^aprender\/([^/]+)$/, vAprender], [/^act\/(cartes|escribir|asociar)\/([^/]+)$/, vActividad],
+  [/^aprender\/([^/]+)$/, vAprender], [/^album$/, vAlbum], [/^cofre$/, vCofre], [/^act\/(cartes|escribir|asociar)\/([^/]+)$/, vActividad],
 ];
 function go(path) { if (location.hash === '#/' + path) route(); else location.hash = '#/' + path; }
 function route() {
@@ -1125,6 +1190,8 @@ function render() {
   AFTER = null;
   app.innerHTML = current.fn(...current.args, current.q);
   if (AFTER) AFTER();
+  if (G.newCards.length && jeu()) { const c = G.newCards.splice(0); toast(`📒 Nouvelle carte dans ton album : ${c.map(it => plain(it.t === 'qa' ? it.q.es : it.es)).join(', ')}`); }
+  if (G.cel.length) setTimeout(showCel, 400);
 }
 const bar = (title, back, extra) => `<header class="bar">${back != null ? `<button class="ib" data-go="${back}" aria-label="Retour">${I.back}</button>` : ''}<h1>${title}</h1>${extra || ''}</header>`;
 let toastT;
@@ -1140,6 +1207,7 @@ function vHome() {
   const tile = (go, icn, t, s, badge) => `<button class="tile" data-go="${go}"><span class="ti">${icn}</span><b>${t}</b><small>${s}</small>${badge ? `<span class="badge">${badge}</span>` : ''}</button>`;
   return `<div class="brand"><div class="logo" aria-hidden="true">¡Ñ!</div><div><div class="brand-t">Español 5e</div>${E ? '<span class="mode-e">Mode élève</span>' : '<div class="brand-s">Mon cours d’espagnol</div>'}</div>
     ${E ? `<button class="ib" data-act="lock" aria-label="Espace adulte (code)">${I.lock}</button>` : `<button class="ib" data-go="ajustes" aria-label="Réglages">${I.set}</button>`}</div>
+  ${heroHTML()}
   <button class="fecha-card" data-go="fecha"><span class="ic">${I.cal}</span><span><span class="lab">Fecha · la date du jour</span><span class="fecha-txt">${fechaTxt(d)}</span><span class="fecha-fr">${fechaFr(d)}</span></span></button>
   <div class="tiles">
     ${tile('lecciones', I.book, 'Leçons', 'Comprendre les phrases et les mots du cours')}
@@ -1586,10 +1654,11 @@ function buildSession(key, list) {
 function vSesion(key) {
   const act = key.startsWith('act:') ? key.split(':') : null;
   if (!SES || SES.key !== key) SES = act ? buildActSession(act[1], act[2]) : buildSession(key);
-  const back = act ? `aprender/${act[2]}` : (getLesson(key) && !key.startsWith('_')) ? `aprender/${key}` : 'entrenar';
+  if (key === '_mision' && (!SES || SES.key !== key)) SES = buildMision();
+  const back = key === '_mision' ? '' : act ? `aprender/${act[2]}` : (getLesson(key) && !key.startsWith('_')) ? `aprender/${key}` : 'entrenar';
   const close = `<button class="ib" data-act="quit" data-back="${back}" aria-label="Arrêter">${I.close}</button>`;
   if (!SES.steps.length) return bar('Apprendre', back) + `<p class="okmsg">Il n’y a rien à travailler ici pour l’instant.</p>`;
-  if (SES.i >= SES.steps.length) return vFin(back);
+  if (SES.i >= SES.steps.length) return key === '_mision' && jeu() ? vFinMision() : vFin(back);
   const st = SES.steps[SES.i], n = SES.i, N = SES.steps.length;
   let h = `<div class="ses-top">${close}<div class="ses-prog"><i style="width:${Math.round(100 * n / N)}%"></i></div><span class="ses-n">${n + 1} / ${N}</span></div><div class="ex">`;
   if (st.kind === 'intro') {
@@ -1601,9 +1670,11 @@ function vSesion(key) {
   h += (ex.ask || '') + (ex.say && canSay() ? sayBtn(ex.say, 'Écouter') : (ex.say0 && canSay() ? sayBtn(ex.say0, 'Écouter') : '')) + `<div class="hint">${ex.hint || ''}</div>`;
   if (ex.type === 'choice') {
     h += `<div class="opts">${ex.opts.map((o, i) => {
+      if (!A && ex.hid === i) return '';
       let c = 'opt'; if (A) c += o.ok ? ' ok' : (A.pick === i ? ' ko' : ' dim');
       return `<button class="${c}" data-act="pick" data-i="${i}" ${A ? 'disabled' : ''}>${o.html}</button>`;
     }).join('')}</div>`;
+    if (!A && jeu() && S.game.b5050 > 0 && ex.opts.length >= 3 && ex.hid == null) h += `<button class="fifty" data-act="fifty">🪄 Aide 50/50 · reste ${S.game.b5050}</button>`;
   } else if (ex.type === 'veo') {
     h += `<div class="veo-g">${ex.opts.map((o, i) => {
       let c = 'veo-t pic'; if (A) c += o.ok ? ' ok' : (A.pick === i ? ' ko' : '');
@@ -1618,7 +1689,7 @@ function vSesion(key) {
   }
   h += '</div>';
   if (A) {
-    const okTxt = ['¡Muy bien!', '¡Genial!', '¡Perfecto!', '¡Bravo!'][SES.i % 4];
+    const okTxt = PEP[SES.i % PEP.length] + (A.ok && jeu() && (SES.combo || 0) >= 3 ? `<span class="combo">⚡ ¡${SES.combo} seguidas!</span>` : '');
     const it = st.it;
     const sol = ex.type === 'veo' ? sHTML(ex.show) : ex.type === 'order' ? sHTML(ex.es) : it.t === 'qa' ? sHTML(it.q.es) + '<br>' + sHTML(it.a.es) : it.t === 'l' ? `<b>${it.l.toUpperCase()}</b> = la ${esc(it.es)}` : `${it.t === 'p' ? sHTML(it.es) : `<b>${esc(it.es)}</b>`} = ${esc(it.fr)}`;
     const sayS = ex.type === 'veo' ? speakText(ex.show) : ex.type === 'order' ? ex.say : sayOf(it);
@@ -1635,6 +1706,9 @@ function answer(ok, pick) {
   SES.ans = {ok, pick};
   const firstTry = !st.retry || (SES.practice && !st.again);
   if (firstTry) { if (ok) SES.first++; else SES.errs.push(st.it); }
+  SES.combo = ok ? (SES.combo || 0) + 1 : 0;
+  SES.bestCombo = Math.max(SES.bestCombo || 0, SES.combo);
+  if (SES.combo > (S.game.best || 0)) S.game.best = SES.combo;
   if (!st.retry) { record(st.it, ok); snapshot(); save(); }
   if (!ok) SES.steps.push({kind:'q', it:st.it, ex:st.make ? st.make() : gen(st.it, true), make:st.make, retry:true, again:true});
   render();
@@ -1645,7 +1719,7 @@ function vFin(back) {
   return `<div class="end"><div class="pic" style="font-size:64px">🎉</div><h2>¡Terminado!</h2>
     <div class="score">${f} bonne${f > 1 ? 's' : ''} réponse${f > 1 ? 's' : ''} du premier coup, sur ${t}.</div>
     ${errs.length ? `<div class="errs"><h3 class="sec-t">À revoir</h3><div class="stack">${errs.map(e => `<div class="srow">${e.t === 'qa' ? sHTML(e.q.es) + '<span class="ans">' + sHTML(e.a.es) + '</span>' : e.t === 'l' ? `<b>${e.l.toUpperCase()}</b> = la ${esc(e.es)}` : (e.t === 'p' ? sHTML(e.es) : `<b>${esc(e.es)}</b>`)}<small>${esc(e.t === 'qa' ? e.a.fr : e.fr)}</small></div>`).join('')}</div></div>` : '<p class="okmsg">Tout juste du premier coup !</p>'}
-    <div class="btn-row" style="width:100%;max-width:660px">${errs.length ? `<button class="btn ghost" data-act="again">${I.redo} Revoir les erreurs</button>` : ''}<button class="btn" data-act="quit" data-back="${back}">Terminer</button></div></div>`;
+    <div class="btn-row" style="width:100%;max-width:660px">${errs.length ? `<button class="btn ghost" data-act="again">${I.redo} Revoir les erreurs</button>` : ''}${UI.plan ? planBtn() : `<button class="btn" data-act="quit" data-back="${back}">Terminer</button>`}</div></div>`;
 }
 
 /* ------------------------------------------------ 7. APPRENDRE : les activités */
@@ -1668,6 +1742,18 @@ function writeParts(it) {
   toks.forEach((k, i) => { if (k.r === 'O') give.add(i); });
   const todo = ws.filter(([, i]) => !give.has(i)).map(([, i]) => i);
   return {toks, give, todo, letters:todo.flatMap(i => [...toks[i].t]), answer:todo.map(i => toks[i].t).join(' ')};
+}
+function startKind(k, lid) {
+  if (k === 'mix') { SES = buildSession(lid); go('s/' + lid); }
+  else if (k === 'veo') { SES = buildSession('_veo'); go('s/_veo'); }
+  else if (k === 'armar' || k === 'verbo') { SES = buildActSession(k, lid); go(`s/act:${k}:${lid}`); }
+  else { AV = buildAV(k, lid); go(`act/${k}/${lid}`); }
+}
+// bouton « exercice suivant » quand l’élève enchaîne plusieurs exercices
+function planBtn() {
+  const P = UI.plan; if (!P) return '';
+  const nx = ACTS.find(a => a.k === P.list[P.i + 1]);
+  return nx ? `<button class="btn" data-act="pnext">${nx.icon} Exercice suivant : ${nx.t}</button>` : `<button class="btn" data-act="pnext">${I.check} J’ai fini mes exercices</button>`;
 }
 function writable(it) {
   if (it.t !== 'w' && it.t !== 'p') return false;
@@ -1692,7 +1778,12 @@ function vAprender(lid, q) {
   return bar('Apprendre', back) + `<div class="lh"><span class="pic">${esc(L.icon || '📘')}</span><div style="flex:1"><h2>${esc(L.es)}</h2><p>${k} / ${tr.length} sus</p>${pbar(k, tr.length)}</div></div>
     <p class="muted" style="margin:0 0 12px">Choisis ta façon d’apprendre :</p>
     <div class="agrid2">${ACTS.map(a => actPool(a.k, L).length < MIN_N[a.k] ? '' :
-      `<button class="acard${a.k === 'mix' ? ' rec' : ''}" data-act="astart" data-k="${a.k}" data-l="${lid}"><span class="pic">${a.icon}</span><b>${a.t}</b><small>${a.d}</small>${a.k === 'mix' ? '<span class="rbadge">Conseillé</span>' : ''}</button>`).join('')}</div>`;
+      `<button class="acard${a.k === 'mix' ? ' rec' : ''}" data-act="astart" data-k="${a.k}" data-l="${lid}"><span class="pic">${a.icon}</span><b>${a.t}</b><small>${a.d}</small>${a.k === 'mix' ? '<span class="rbadge">Conseillé</span>' : ''}</button>`).join('')}</div>
+    <h3 class="sec-t">Enchaîner plusieurs exercices</h3>
+    <div class="box"><p style="margin:0 0 6px">Coche les exercices que tu veux faire, dans l’ordre de la liste :</p>
+      <div class="lchips">${ACTS.filter(a => actPool(a.k, L).length >= MIN_N[a.k]).map(a => { const on = (UI.pick[lid] || []).includes(a.k);
+        return `<button class="${on ? 'on' : ''}" data-act="apick" data-k="${a.k}" data-l="${lid}" aria-pressed="${on}">${on ? '✓ ' : ''}${a.icon} ${a.t}</button>`; }).join('')}</div>
+      <button class="btn wide" data-act="plan" data-l="${lid}" ${(UI.pick[lid] || []).length ? '' : 'disabled'}>${I.play} Commencer${(UI.pick[lid] || []).length ? ` (${UI.pick[lid].length} exercice${UI.pick[lid].length > 1 ? 's' : ''})` : ''}</button></div>`;
 }
 // « Assembler » et « Le bon verbe » passent par le moteur des séances (mêmes écrans, mêmes contrôles)
 function buildActSession(kind, lid, list) {
@@ -1708,7 +1799,7 @@ function newW(it) {
   const wp = writeParts(it), extra = [];
   for (const ch of shuffle(wp.letters)) { const c = CONF[low(ch)]; if (c && !extra.includes(c)) extra.push(c); if (extra.length === 3) break; }
   while (extra.length < 2) extra.push('aeo'[extra.length]);
-  return {it, wp, pos:0, errors:0, hints:0, tiles:shuffle(wp.letters.concat(extra)).map((ch, id) => ({ch, id, used:false})), done:false, ok:false, kb:'', accent:false};
+  return {it, wp, pos:0, placed:[], bad:new Set(), errors:0, hints:0, tiles:shuffle(wp.letters.concat(extra)).map((ch, id) => ({ch, id, used:false})), done:false, ok:false, kb:'', accent:false};
 }
 function buildAV(kind, lid) {
   const L = getLesson(lid), pool = L && visible(L) ? actPool(kind, L) : [];
@@ -1718,8 +1809,9 @@ function buildAV(kind, lid) {
   if (kind === 'asociar') {
     const seenEs = new Set(), seenFr = new Set(), deck = [];
     for (const it of prioritize(pool)) { const e = low(plain(it.es)), f = low(it.fr); if (seenEs.has(e) || seenFr.has(f)) continue; seenEs.add(e); seenFr.add(f); deck.push(it); if (deck.length === 15) break; }
-    const rounds = []; for (let i = 0; i < deck.length; i += 5) rounds.push(deck.slice(i, i + 5));
-    if (rounds.length > 1 && rounds[rounds.length - 1].length < 3) rounds[rounds.length - 2].push(...rounds.pop());
+    // séries de 4 paires (5 au plus) : moins de lecture d’un coup
+    const rounds = []; for (let i = 0; i < deck.length; i += 4) rounds.push(deck.slice(i, i + 4));
+    if (rounds.length > 1 && rounds[rounds.length - 1].length < 2) rounds[rounds.length - 2].push(...rounds.pop());
     return Object.assign(A, {rounds, r:0, total:deck.length, dir:S.set.sens === 'fr' ? 'fr' : 'es', wrong:new Set(), errors:0}, newRound(rounds[0] || []));
   }
   return A;
@@ -1731,7 +1823,7 @@ function actTop(A, done, total) {
 function actFin(A, line, list) {
   return `<div class="end"><div class="pic" style="font-size:64px">🎉</div><h2>¡Terminado!</h2><div class="score">${line}</div>
     ${list.length ? `<div class="errs"><h3 class="sec-t">À revoir</h3><div class="stack">${list.map(e => `<div class="srow">${e.t === 'qa' ? sHTML(e.q.es) + '<span class="ans">' + sHTML(e.a.es) + '</span>' : e.t === 'l' ? `<b>${e.l.toUpperCase()}</b> = la ${esc(e.es)}` : `<b>${e.t === 'p' ? sHTML(e.es) : esc(e.es)}</b>`}<small>${esc(e.t === 'qa' ? e.a.fr : e.fr)}</small></div>`).join('')}</div></div>` : '<p class="okmsg">Tout juste du premier coup !</p>'}
-    <div class="btn-row" style="width:100%;max-width:660px"><button class="btn ghost" data-act="astart" data-k="${A.kind}" data-l="${A.lid}">${I.redo} Recommencer</button><button class="btn" data-go="aprender/${A.lid}">Autre activité</button></div></div>`;
+    <div class="btn-row" style="width:100%;max-width:660px"><button class="btn ghost" data-act="astart" data-k="${A.kind}" data-l="${A.lid}">${I.redo} Recommencer</button>${UI.plan ? planBtn() : `<button class="btn" data-go="aprender/${A.lid}">Autre activité</button>`}</div></div>`;
 }
 function vActividad(kind, lid) {
   if (!AV || AV.key !== kind + ':' + lid) AV = buildAV(kind, lid);
@@ -1754,7 +1846,7 @@ function vCartes(A) {
   return actTop(A, A.total - new Set(A.queue.map(x => x.id)).size, A.total) + `<div class="ex">
     ${both ? `<div class="seg" role="group" aria-label="Côté visible"><button class="${A.dir === 'es' ? 'on' : ''}" data-act="cdir" data-d="es">Espagnol d’abord</button><button class="${A.dir === 'fr' ? 'on' : ''}" data-act="cdir" data-d="fr">Français d’abord</button></div>` : ''}
     <div class="flip${A.flip ? ' on' : ''}" data-act="cflip" role="button" tabindex="0" aria-label="Retourner la carte">
-      <div class="flip-in"><div class="face">${front}<span class="turn">touche pour retourner ↻</span></div><div class="face back">${back}</div></div></div>
+      <div class="flip-in"><div class="face">${front}<span class="turn">touche pour retourner ↻</span></div><div class="face back">${back}${it.t === 'w' || it.t === 'p' ? `<div class="q-sub" style="margin-top:6px">${esc(fwd ? plain(it.es) : it.fr)}</div>` : ''}</div></div></div>
     ${sayT ? sayBtn(sayT, 'Écouter') : ''}
     <div class="cont" style="position:static">${A.flip ? `<button class="btn ghost" data-act="cknow" data-ok="0">${I.redo} À revoir</button><button class="btn" data-act="cknow" data-ok="1">${I.check} Je savais</button>`
       : `<button class="btn wide" data-act="cflip">Retourner la carte</button>`}</div>
@@ -1767,7 +1859,11 @@ function wSlots(W) {
   W.wp.toks.forEach((k, i) => {
     if (k.sp && i > 0) flush();
     if (!isWord(k) || W.wp.give.has(i)) { chunk += `<span class="wgiven">${esc(k.t)}</span>`; return; }
-    chunk += `<span class="wword">${[...k.t].map(ch => { const n = p++, f = n < W.pos || W.done; return `<span class="wbox${f ? ' f' : ''}${n === W.pos && !W.done ? ' cur' : ''}">${f ? esc(ch) : ''}</span>`; }).join('')}</span>`;
+    chunk += `<span class="wword">${[...k.t].map(ch => {
+      const n = p++, f = n < W.pos || W.done, shown = W.done ? ch : f ? W.tiles.find(t => t.id === W.placed[n]).ch : '';
+      return W.done || !f ? `<span class="wbox${f ? ' f' : ''}${n === W.pos && !W.done ? ' cur' : ''}">${esc(shown)}</span>`
+        : `<button class="wbox f${W.bad.has(n) ? ' bad' : ''}" data-act="wdel" data-n="${n}" aria-label="Effacer à partir d’ici">${esc(shown)}</button>`;
+    }).join('')}</span>`;
   });
   flush();
   return `<div class="wslots" aria-label="Le mot à écrire">${out}</div>`;
@@ -1781,8 +1877,10 @@ function vEscribir(A) {
     ${it.img ? `<span class="pic q-pic">${pic(it.img)}</span>` : ''}<div class="q-sub">Écris en espagnol :</div><div class="q-fr">« ${esc(it.fr)} »</div>`;
   if (!kb) {
     h += wSlots(W);
-    if (!W.done) h += `<div class="ltiles">${W.tiles.map(t => `<button class="lt${t.used ? ' used' : ''}" data-act="wtile" data-i="${t.id}" ${t.used ? 'disabled' : ''}>${esc(t.ch)}</button>`).join('')}</div>
-      <div class="btn-row" style="justify-content:center">${sayBtn(speakText(it.es), 'Écouter')}<button class="say" data-act="whint">💡 Une lettre</button></div>`;
+    if (!W.done) h += `${W.bad.size ? '<div class="note">Les lettres en rouge ne vont pas. Touche une lettre pour effacer à partir d’elle, puis corrige.</div>' : ''}
+      <div class="ltiles">${W.tiles.map(t => `<button class="lt${t.used ? ' used' : ''}" data-act="wtile" data-i="${t.id}" ${t.used ? 'disabled' : ''}>${esc(t.ch)}</button>`).join('')}</div>
+      <div class="btn-row" style="justify-content:center"><button class="say" data-act="wback" ${W.placed.length ? '' : 'disabled'}>⌫ Effacer</button><button class="say" data-act="wclear" ${W.placed.length ? '' : 'disabled'}>Tout effacer</button>
+      <button class="say" data-act="whint">💡 Une lettre</button>${sayBtn(speakText(it.es), 'Écouter')}</div>`;
   } else {
     h += `<div class="wslots">${given ? `<span class="wgiven">${esc(given)}</span>` : ''}${W.done ? `<span>${esc(W.kb)}</span>` : ''}</div>`;
     if (!W.done) h += `<input type="text" id="kbin" class="winput" value="${esc(W.kb)}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Ta réponse">
@@ -1795,6 +1893,18 @@ function vEscribir(A) {
       <div class="cont"><button class="btn wide" data-act="wnext">Continuer</button></div></div>`;
   if (kb && !W.done) AFTER = () => { const i = $('#kbin'); if (i) i.focus(); };
   return h;
+}
+function wCut(n, quiet) {
+  const W = AV.W; if (W.done || n < 0) return;
+  W.placed.splice(n).forEach(id => { W.tiles.find(t => t.id === id).used = false; });
+  W.pos = W.placed.length; W.bad = new Set(); if (!quiet) render();
+}
+function wCheck() {
+  const W = AV.W;
+  if (W.placed.length < W.wp.letters.length) { render(); return; }
+  W.placed.forEach((id, n) => { if (W.tiles.find(t => t.id === id).ch !== W.wp.letters[n]) W.bad.add(n); });
+  if (!W.bad.size) { wFinish(W.errors <= 1 && W.hints === 0); return; }
+  W.errors++; render();
 }
 function wFinish(ok, accent) {
   const A = AV, W = A.W; W.done = true; W.ok = ok; W.accent = !!accent;
@@ -1819,6 +1929,220 @@ function vAsociar(A) {
     <div class="pairs"><div class="pcol">${A.L.map(id => btn('l', id, left(byId(id)))).join('')}</div><div class="pcol">${A.R.map(id => btn('r', id, right(byId(id)))).join('')}</div></div></div>`;
 }
 
+/* ------------------------------------------------ 8. LE JEU : Llamita, niveaux, mission, coffre, album
+   Règles (d’après Octalysis) : surtout du « White Hat » (progrès, possession, curiosité douce) ;
+   des points seulement pour une réussite ; on ne perd jamais rien ; pas de classement entre élèves. */
+const G = {newCards:[], cel:[]};
+const jeu = () => S.set.jeu !== false;
+const LV = [0, 0]; for (let n = 2; n <= 60; n++) LV[n] = LV[n - 1] + Math.round(50 * Math.pow(1.35, n - 2));
+const lvlOf = xp => { let n = 1; while (n < 60 && xp >= LV[n + 1]) n++; return n; };
+// objets de Llamita : gagnés aux niveaux (lv) ou dans les coffres (cofre)
+const OBJ = {
+  sombrero:{t:'el sombrero', fr:'le sombrero', slot:'cabeza', lv:2},
+  bufanda:{t:'la bufanda', fr:'l’écharpe', slot:'cuello', lv:3},
+  gafas:{t:'las gafas de sol', fr:'les lunettes de soleil', slot:'cara', lv:4},
+  flor:{t:'la flor', fr:'la fleur', slot:'cabeza', lv:5},
+  poncho:{t:'el poncho', fr:'le poncho', slot:'cuerpo', lv:6},
+  maracas:{t:'las maracas', fr:'les maracas', slot:'mano', lv:7},
+  guitarra:{t:'la guitarra', fr:'la guitare', slot:'mano', lv:9},
+  corona:{t:'la corona', fr:'la couronne', slot:'cabeza', lv:12},
+  gorra:{t:'la gorra', fr:'la casquette', slot:'cabeza', cofre:1},
+  pajarita:{t:'la pajarita', fr:'le nœud papillon', slot:'cuello', cofre:1},
+  abanico:{t:'el abanico', fr:'l’éventail', slot:'mano', cofre:1},
+};
+// cartes de culture (vraies, simples), gagnées dans les coffres
+const CULTURA = [
+  ['💃', 'el flamenco', 'Le flamenco est une danse et une musique du sud de l’Espagne : l’Andalousie, la région de Mateo !'],
+  ['💀', 'el Día de los Muertos', 'Au Mexique, début novembre, on fête le Jour des morts. La Catrina est son personnage le plus connu (comme Catrinita !).'],
+  ['🏛️', 'Chichén Itzá', 'Une ancienne cité maya au Mexique. Sa grande pyramide s’appelle « El Castillo ».'],
+  ['🌎', 'el español', 'L’espagnol est la langue officielle de plus de 20 pays, en Europe et en Amérique.'],
+  ['🦙', 'la llama', 'Les lamas vivent dans les Andes, de grandes montagnes d’Amérique du Sud (Pérou, Bolivie…).'],
+  ['🎨', 'Frida Kahlo', 'Une très grande peintre mexicaine. Elle est sur ta fiche de l’alphabet, à la lettre K !'],
+  ['🖌️', 'Picasso', 'Pablo Picasso est un peintre espagnol très célèbre, né à Malaga, en Andalousie.'],
+  ['🍅', 'la Tomatina', 'À Buñol, en Espagne, une fois par an, des milliers de personnes se lancent des tomates !'],
+  ['🥘', 'la paella', 'Un plat de riz de la région de Valence, en Espagne, cuit dans une grande poêle.'],
+  ['🌮', 'los tacos', 'Au Mexique, les tacos sont des galettes de maïs (tortillas) garnies.'],
+  ['🍫', 'el cacao', 'Le chocolat vient d’Amérique : les Aztèques buvaient déjà du cacao. Tu l’as vu à la lettre C !'],
+  ['📚', 'Don Quijote', 'Un livre espagnol très célèbre, écrit par Cervantes. Tu l’as vu à la lettre Q !'],
+  ['🏰', 'la Alhambra', 'Un magnifique palais à Grenade, en Andalousie.'],
+  ['🏔️', 'el Aconcagua', 'En Argentine : la plus haute montagne d’Amérique.'],
+  ['⚽', 'el fútbol', 'Le football est le sport préféré en Espagne et dans beaucoup de pays d’Amérique latine.'],
+  ['❓', '¿ y ¡', 'En espagnol, on met aussi un signe à l’envers au début : ¿Qué tal? ¡Hola!'],
+];
+const PEP = ['¡Muy bien!', '¡Genial!', '¡Perfecto!', '¡Bravo!', '¡Qué bien!', '¡Fenomenal!'];
+function gainXP(n) {
+  const g = S.game, l0 = lvlOf(g.xp);
+  g.xp += n; G.sessXp = (G.sessXp || 0) + n;
+  const d = g.days[today()] || (g.days[today()] = {m:0, xp:0}); d.xp += n;
+  const l1 = lvlOf(g.xp);
+  if (l1 > l0 && jeu()) for (let l = l0 + 1; l <= l1; l++) {
+    const it = Object.keys(OBJ).find(k => OBJ[k].lv === l);
+    if (it && !g.items.includes(it)) g.items.push(it);
+    g.b5050 = (g.b5050 || 0) + 1;
+    G.cel.push({type:'nivel', l, it});
+  }
+}
+// silhouette de Llamita en deux parties (corps, puis cou et tête), redessinée dessous avec un trait pour faire un contour doux
+const LL_BODY = '<circle cx="178" cy="136" r="12" fill="url(#llw)"/><ellipse cx="126" cy="148" rx="58" ry="38" fill="url(#llw)"/><g fill="#FFF8EE"><circle cx="88" cy="124" r="15"/><circle cx="106" cy="116" r="17"/><circle cx="128" cy="114" r="17"/><circle cx="150" cy="118" r="16"/><circle cx="168" cy="128" r="13"/></g>';
+const LL_HEAD = '<rect x="52" y="60" width="38" height="96" rx="19" fill="url(#llw)"/><g fill="#FFF8EE"><circle cx="54" cy="96" r="7"/><circle cx="88" cy="100" r="7"/><circle cx="56" cy="122" r="7"/></g><ellipse cx="54" cy="26" rx="7.5" ry="18" fill="#F3E6D3" transform="rotate(-16 54 26)"/><ellipse cx="84" cy="24" rx="7.5" ry="18" fill="#F3E6D3" transform="rotate(16 84 24)"/><ellipse cx="68" cy="58" rx="33" ry="28" fill="url(#llw)"/><g fill="#FFFDF8"><circle cx="58" cy="36" r="9"/><circle cx="68" cy="32" r="10"/><circle cx="78" cy="36" r="9"/></g>';
+/* Llamita, dessinée à la main (SVG) — wear = objets portés, mood = happy | joy | sleepy */
+function llama(o) {
+  o = o || {}; const w = o.wear || S.game.wear || {}, mood = o.mood || 'happy', on = k => Object.values(w).includes(k);
+  const eyes = mood === 'joy' ? '<path d="M50 55q6-7 12 0M74 55q6-7 12 0" stroke="#3A2E26" stroke-width="3.2" fill="none" stroke-linecap="round"/>'
+    : mood === 'sleepy' ? '<path d="M50 54q6 5 12 0M74 54q6 5 12 0" stroke="#3A2E26" stroke-width="3" fill="none" stroke-linecap="round"/><text x="96" y="22" font-size="16" font-weight="700" fill="#8A93A5" font-family="system-ui">z</text><text x="108" y="12" font-size="12" font-weight="700" fill="#8A93A5" font-family="system-ui">z</text>'
+    : '<circle cx="56" cy="54" r="5.6" fill="#3A2E26"/><circle cx="80" cy="54" r="5.6" fill="#3A2E26"/><circle cx="58" cy="52" r="1.9" fill="#fff"/><circle cx="82" cy="52" r="1.9" fill="#fff"/>';
+  const head = on('sombrero') ? '<ellipse cx="68" cy="31" rx="47" ry="10" fill="#E2A63E"/><path d="M48 31q2-28 20-29q18 1 20 29z" fill="#F2C35E"/><path d="M49 25q19 8 38 0l-1-6q-18 7-36 0z" fill="#D64933"/><ellipse cx="68" cy="31" rx="47" ry="10" fill="none" stroke="#C9882A" stroke-width="2"/><g fill="#D64933"><circle cx="30" cy="31" r="2.2"/><circle cx="44" cy="37" r="2.2"/><circle cx="68" cy="40" r="2.2"/><circle cx="92" cy="37" r="2.2"/><circle cx="106" cy="31" r="2.2"/></g>'
+    : on('gorra') ? '<path d="M44 34q2-22 24-23q22 1 24 23z" fill="#2F6FD6"/><path d="M44 34q-14 2-20 8q16 2 30-4z" fill="#1F55AD"/><circle cx="68" cy="12" r="3" fill="#1F55AD"/>'
+    : on('corona') ? '<path d="M52 30l-2-20 10 9 8-13 8 13 10-9-2 20z" fill="#F5C33B" stroke="#D9A21E" stroke-width="2" stroke-linejoin="round"/><circle cx="68" cy="22" r="3" fill="#E5484D"/><circle cx="57" cy="24" r="2" fill="#3BA3E5"/><circle cx="79" cy="24" r="2" fill="#3BA3E5"/>'
+    : on('flor') ? '<g transform="translate(88 30)"><circle cx="0" cy="-6" r="5.5" fill="#F07AA8"/><circle cx="6" cy="-2" r="5.5" fill="#F07AA8"/><circle cx="4" cy="5" r="5.5" fill="#F07AA8"/><circle cx="-4" cy="5" r="5.5" fill="#F07AA8"/><circle cx="-6" cy="-2" r="5.5" fill="#F07AA8"/><circle r="4" fill="#F7C948"/></g>' : '';
+  const cuello = on('bufanda') ? '<path d="M50 98q20 12 40 0v12q-20 12-40 0z" fill="#D64933"/><path d="M50 103q20 12 40 0v3q-20 12-40 0z" fill="#F3C766"/><path d="M78 108h12v30l-6 4-6-4z" fill="#D64933"/><path d="M78 118h12v4H78zM78 128h12v4H78z" fill="#F3C766"/>'
+    : on('pajarita') ? '<path d="M70 104l-14-8v18zM70 104l14-8v18z" fill="#7B4BD1"/><circle cx="70" cy="104" r="4" fill="#5E35B1"/>' : '';
+  const cara = on('gafas') ? '<g><circle cx="56" cy="54" r="9.5" fill="#262B33"/><circle cx="80" cy="54" r="9.5" fill="#262B33"/><path d="M65.5 53h5" stroke="#262B33" stroke-width="3"/><path d="M52 50l5-3M76 50l5-3" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></g>' : '';
+  const cuerpo = on('poncho') ? '<clipPath id="llpc"><path d="M82 120q38-20 88 0l6 42q-48 14-98 0z"/></clipPath><g clip-path="url(#llpc)"><rect x="70" y="100" width="120" height="80" fill="#2BA39A"/><rect x="70" y="122" width="120" height="8" fill="#D64933"/><rect x="70" y="136" width="120" height="6" fill="#F3C766"/><rect x="70" y="148" width="120" height="8" fill="#D64933"/></g><path d="M80 162q48 14 96 0" stroke="#F3C766" stroke-width="3" stroke-dasharray="3 4" fill="none"/>' : '';
+  const mano = on('maracas') ? '<g transform="translate(34 150) rotate(-20)"><ellipse cx="0" cy="0" rx="9" ry="11" fill="#E5484D"/><path d="M-6-3h12M-7 3h14" stroke="#F3C766" stroke-width="2"/><rect x="-2" y="10" width="4" height="16" rx="2" fill="#8B5E3C"/></g><g transform="translate(52 158) rotate(12)"><ellipse cx="0" cy="0" rx="9" ry="11" fill="#2BA39A"/><path d="M-6-3h12M-7 3h14" stroke="#F3C766" stroke-width="2"/><rect x="-2" y="10" width="4" height="16" rx="2" fill="#8B5E3C"/></g>'
+    : on('guitarra') ? '<g transform="translate(186 150) rotate(18)"><rect x="-3" y="-52" width="6" height="40" rx="2" fill="#6B4226"/><rect x="-5" y="-60" width="10" height="10" rx="2" fill="#4E2F1A"/><ellipse cx="0" cy="-6" rx="13" ry="12" fill="#D98A3D"/><ellipse cx="0" cy="12" rx="17" ry="16" fill="#D98A3D"/><circle cx="0" cy="2" r="5" fill="#4E2F1A"/></g>'
+    : on('abanico') ? '<g transform="translate(30 150)"><path d="M0 18L-22-6a30 30 0 0 1 44 0z" fill="#E4572E"/><g stroke="#FCE38A" stroke-width="1.6"><path d="M0 18L-14-12M0 18L0-15M0 18L14-12"/></g><rect x="-2" y="16" width="4" height="10" rx="2" fill="#7B4A2A"/></g>' : '';
+  return `<svg class="llama" viewBox="0 0 210 232" role="img" aria-label="Llamita">
+    <defs><linearGradient id="llw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF8EE"/><stop offset="1" stop-color="#EFDFC9"/></linearGradient></defs>
+    <ellipse cx="118" cy="219" rx="66" ry="9" fill="#000" opacity=".07"/>
+    <g fill="#E8D5BC" stroke="#D4BA96" stroke-width="2"><rect x="136" y="158" width="16" height="52" rx="8"/><rect x="156" y="156" width="16" height="52" rx="8"/></g>
+    <g fill="#F3E6D3" stroke="#DCC4A3" stroke-width="2"><rect x="80" y="160" width="16" height="52" rx="8"/><rect x="100" y="160" width="16" height="52" rx="8"/></g>
+    <g fill="#8B6A4E"><rect x="80" y="204" width="16" height="9" rx="4.5"/><rect x="100" y="204" width="16" height="9" rx="4.5"/><rect x="136" y="202" width="16" height="9" rx="4.5"/><rect x="156" y="200" width="16" height="9" rx="4.5"/></g>
+    <g stroke="#DCC4A3" stroke-width="5" stroke-linejoin="round">${LL_BODY}${LL_HEAD}</g>
+    ${LL_BODY}
+    ${cuerpo}
+    ${LL_HEAD}
+    <ellipse cx="54" cy="28" rx="3.6" ry="11" fill="#F4B3AE" transform="rotate(-16 54 28)"/><ellipse cx="84" cy="26" rx="3.6" ry="11" fill="#F4B3AE" transform="rotate(16 84 26)"/>
+    <ellipse cx="66" cy="74" rx="20" ry="14" fill="#FFFDF8"/>
+    <ellipse cx="44" cy="66" rx="6.5" ry="4.2" fill="#F5A3A0" opacity=".6"/><ellipse cx="92" cy="66" rx="6.5" ry="4.2" fill="#F5A3A0" opacity=".6"/>
+    ${eyes}
+    <ellipse cx="61" cy="71" rx="1.8" ry="1.3" fill="#6B5444"/><ellipse cx="71" cy="71" rx="1.8" ry="1.3" fill="#6B5444"/>
+    <path d="M58 78q8 7 16 0" stroke="#6B5444" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    ${cara}${cuello}${head}${mano}
+  </svg>`;
+}
+function chestSvg(open) {
+  return `<svg class="chest${open ? ' open' : ''}" viewBox="0 0 180 160" aria-hidden="true">
+    <g class="rays">${[...Array(10)].map((_, i) => `<path d="M90 70 L${90 + 90 * Math.cos(i * Math.PI / 5)} ${70 + 90 * Math.sin(i * Math.PI / 5)} L${90 + 90 * Math.cos(i * Math.PI / 5 + .22)} ${70 + 90 * Math.sin(i * Math.PI / 5 + .22)}z" fill="#FCE38A" opacity=".55"/>`).join('')}</g>
+    <ellipse cx="90" cy="146" rx="64" ry="8" fill="#000" opacity=".1"/>
+    <rect x="28" y="72" width="124" height="68" rx="10" fill="#A35E2E"/>
+    <path d="M28 92h124M28 112h124" stroke="#86491F" stroke-width="3"/>
+    <rect x="28" y="72" width="12" height="68" rx="4" fill="#F2C14E"/><rect x="140" y="72" width="12" height="68" rx="4" fill="#F2C14E"/>
+    <g class="lid"><path d="M28 74V56q62-36 124 0v18z" fill="#BD7339"/><path d="M28 56q62-36 124 0" stroke="#F2C14E" stroke-width="6" fill="none"/><rect x="28" y="66" width="124" height="8" fill="#F2C14E"/></g>
+    <rect x="78" y="70" width="24" height="24" rx="5" fill="#F2C14E" stroke="#D69E22" stroke-width="2"/><circle cx="90" cy="80" r="3.5" fill="#86491F"/><rect x="88.5" y="80" width="3" height="8" fill="#86491F"/>
+  </svg>`;
+}
+function confetti() {
+  const cols = ['#E5484D', '#F5C33B', '#2BA39A', '#3B82F6', '#F07AA8', '#7B4BD1'];
+  return `<div class="confetti" aria-hidden="true">${[...Array(36)].map((_, i) => `<i style="left:${Math.random() * 100}%;background:${cols[i % 6]};animation-delay:${(Math.random() * .6).toFixed(2)}s;animation-duration:${(1.6 + Math.random()).toFixed(2)}s;transform:rotate(${Math.random() * 360}deg)"></i>`).join('')}</div>`;
+}
+// fête (nouveau niveau, nouvelles cartes) : une à la fois, par-dessus l’écran
+function showCel() {
+  const c = $('#cel'); if (!c || !jeu()) { G.cel = []; return; }
+  if (c.classList.contains('on')) return;
+  const e = G.cel.shift(); if (!e) return;
+  let body = '';
+  if (e.type === 'nivel') {
+    const it = e.it && OBJ[e.it];
+    body = `<div class="cel-ll">${llama({mood:'joy', wear:it ? {[it.slot]:e.it} : S.game.wear})}</div><div class="lab">Nouveau niveau</div><h2>¡Nivel ${e.l}!</h2>
+      ${it ? `<p>Llamita a gagné <b>${it.t}</b> (${it.fr}) !</p>` : '<p>Bravo, tu progresses !</p>'}<p class="muted">+1 aide « 50/50 » pour les questions à choix.</p>
+      <div class="btn-row">${it ? `<button class="btn ghost" data-act="celwear" data-k="${e.it}">Le mettre</button>` : ''}<button class="btn" data-act="celok">¡Genial!</button></div>`;
+  }
+  c.innerHTML = `<div class="cel-card">${confetti()}${body}</div>`; c.classList.add('on');
+  Voz.say(e.type === 'nivel' ? `¡Nivel ${e.l}!` : '');
+}
+function weekDots() {
+  const d = new Date(), dow = (d.getDay() + 6) % 7, mon = new Date(d); mon.setDate(d.getDate() - dow);
+  const L = ['L', 'M', 'X', 'J', 'V', 'S', 'D'], out = []; let n = 0;
+  for (let i = 0; i < 7; i++) { const x = new Date(mon); x.setDate(mon.getDate() + i); const k = ymd(x), on = (S.game.days[k] || {}).m > 0; if (on) n++;
+    out.push(`<span class="wd${on ? ' on' : ''}${k === today() ? ' today' : ''}" title="${JOURS[x.getDay()]}">${on ? '✓' : L[i]}</span>`); }
+  return {html:`<div class="week" aria-label="${n} jours d’espagnol cette semaine">${out.join('')}</div>`, n};
+}
+function heroHTML() {
+  if (!jeu()) return '';
+  const g = S.game, l = lvlOf(g.xp), a = LV[l], b = LV[l + 1], m = (g.days[today()] || {}).m || 0, wk = weekDots();
+  const mood = m >= 2 ? 'sleepy' : m >= 1 ? 'joy' : 'happy';
+  const say = m >= 2 ? 'Llamita duerme… ¡Hasta mañana!' : m === 1 ? '¡Misión cumplida! ¿Una más?' : ['¡Hola! ¿Jugamos?', '¡Vamos! ¿Qué tal?', '¡Hola, amigo!'][new Date().getDate() % 3];
+  const cards = albumCount();
+  return `<div class="hero">
+    <button class="hero-ll" data-go="album" aria-label="Llamita et mon album"><span class="bubble">${say}</span>${llama({mood})}</button>
+    <div class="hero-r">
+      <div class="lvl"><b>Nivel ${l}</b><span>${g.xp - a} / ${b - a}</span></div><div class="xpbar" aria-hidden="true"><i style="width:${Math.round(100 * (g.xp - a) / (b - a))}%"></i></div>
+      ${wk.html}<div class="muted wk">${wk.n >= 5 ? '¡Semana perfecta! 🎉' : `${wk.n} jour${wk.n > 1 ? 's' : ''} d’espagnol cette semaine`}</div>
+      ${m >= 2 ? `<button class="btn ghost wide" data-go="entrenar">Llamita dort 😴 · Apprendre quand même</button>`
+        : `<button class="btn wide mision${m ? '' : ' glow'}" data-act="mision">${m ? '⭐ Mission bonus' : '⭐ Misión del día · 5 min'}</button>`}
+      <button class="say" data-go="album">📒 Mi álbum · ${cards.got} carte${cards.got > 1 ? 's' : ''}</button>
+    </div></div>`;
+}
+function buildMision() {
+  const vis = lessons().filter(visible), pool = vis.flatMap(trainable);
+  const due = prioritize(pool.filter(it => isDue(it.id))).slice(0, 6);
+  const cur = (S.last && getLesson(S.last) && visible(getLesson(S.last)) && trainable(getLesson(S.last)).some(it => !seen(it.id))) ? getLesson(S.last) : vis.find(L => trainable(L).some(it => !seen(it.id)));
+  const fresh = cur ? trainable(cur).filter(it => !seen(it.id)).slice(0, 3) : [];
+  let extra = [];
+  if (due.length + fresh.length < 7) extra = prioritize(pool.filter(it => seen(it.id) && !isDue(it.id) && !due.includes(it))).slice(0, 7 - due.length - fresh.length);
+  const steps = shuffle(due.concat(extra)).map(it => ({kind:'q', it, ex:gen(it)})), pend = [];
+  fresh.forEach(it => { steps.push({kind:'intro', it}); pend.push(it); if (pend.length >= 2) { const x = pend.shift(); steps.push({kind:'q', it:x, ex:gen(x)}); } });
+  pend.forEach(x => steps.push({kind:'q', it:x, ex:gen(x)}));
+  G.sessXp = 0;
+  return {key:'_mision', steps, i:0, ans:null, first:0, total:steps.filter(s => s.kind === 'q').length, errs:[], date:today(), combo:0, bestCombo:0};
+}
+function finMision() {
+  if (SES.rewarded) return; SES.rewarded = true;
+  const d = S.game.days[today()] || (S.game.days[today()] = {m:0, xp:0});
+  d.m++; gainXP(30); S.game.chest = (S.game.chest || 0) + 1; snapshot(); save();
+}
+function vFinMision() {
+  finMision();
+  const t = SES.total, f = SES.first;
+  return `<div class="end"><div class="end-ll">${llama({mood:'joy'})}</div><h2>¡Misión cumplida!</h2>
+    <div class="score">${f} bonne${f > 1 ? 's' : ''} réponse${f > 1 ? 's' : ''} du premier coup sur ${t} · <b>+${G.sessXp || 0} points</b></div>
+    ${SES.bestCombo >= 3 ? `<div class="pill">⚡ Ta meilleure série : ${SES.bestCombo} de suite${SES.bestCombo >= S.game.best ? ' — record !' : ''}</div>` : ''}
+    <button class="btn wide glow" data-go="cofre" style="max-width:420px">🎁 Ouvrir le coffre</button></div>`;
+}
+/* Le coffre surprise : un objet pour Llamita, une carte de culture ou une aide (boîte mystère) */
+function tirage() {
+  const g = S.game, objs = Object.keys(OBJ).filter(k => OBJ[k].cofre && !g.items.includes(k)), cult = CULTURA.map((c, i) => i).filter(i => !g.cards.includes(i));
+  const r = Math.random();
+  if (objs.length && r < 0.25) { const k = objs[Math.floor(Math.random() * objs.length)]; g.items.push(k); return {type:'obj', k}; }
+  if (cult.length && r < 0.75) { const i = cult[Math.floor(Math.random() * cult.length)]; g.cards.push(i); return {type:'cult', i}; }
+  g.b5050 = (g.b5050 || 0) + 2; return {type:'aide'};
+}
+function vCofre() {
+  const g = S.game;
+  if (!UI.cofre && !(g.chest > 0)) return bar('Le coffre', '') + `<div class="end"><div class="end-ll">${llama({mood:'happy'})}</div><p>Pas de coffre à ouvrir. Fais la <b>mission du jour</b> pour en gagner un !</p><button class="btn" data-go="">Retour</button></div>`;
+  const R = UI.cofre;
+  let rew = '';
+  if (R) {
+    if (R.type === 'obj') { const o = OBJ[R.k]; rew = `<div class="rew"><div class="cel-ll">${llama({mood:'joy', wear:{[o.slot]:R.k}})}</div><b>${o.t}</b><span>${o.fr} — pour Llamita !</span><button class="btn ghost sm" data-act="celwear" data-k="${R.k}">Le mettre</button></div>`; }
+    else if (R.type === 'cult') { const c = CULTURA[R.i]; rew = `<div class="rew cultc"><span class="pic" style="font-size:56px">${c[0]}</span><b>${esc(c[1])}</b><span>${esc(c[2])}</span><small class="muted">Nouvelle carte culture dans ton album</small></div>`; }
+    else rew = `<div class="rew"><span class="pic" style="font-size:56px">🪄</span><b>+2 aides « 50/50 »</b><span>Dans une question à choix, elles enlèvent une mauvaise réponse.</span></div>`;
+  }
+  return bar('Le coffre', '') + `<div class="end">${chestSvg(!!R)}${R ? rew + `<button class="btn wide" data-act="cofreok" style="max-width:420px">¡Gracias!</button>`
+    : `<p class="muted">Qu’est-ce qu’il y a dedans ?</p><button class="btn wide glow" data-act="cofreopen" style="max-width:420px">Ouvrir</button>`}</div>`;
+}
+/* L’album : chaque mot su devient une carte ; une leçon complète devient une série dorée */
+function albumCount() { const tr = lessons().filter(visible).flatMap(trainable).filter(it => it.t !== 'l'); return {got:tr.filter(known).length, all:tr.length}; }
+function vAlbum() {
+  const g = S.game, c = albumCount();
+  const wearSlots = Object.entries(OBJ).filter(([k]) => g.items.includes(k));
+  let h = bar('Mi álbum', '') + `<div class="alb-top"><div class="alb-ll">${llama({})}</div><div><h2 style="margin:0">Llamita</h2>
+    <p class="muted" style="margin:2px 0 8px">Nivel ${lvlOf(g.xp)} · ${c.got} / ${c.all} cartes de mots · ${g.cards.length} / ${CULTURA.length} cartes culture</p>
+    ${wearSlots.length ? `<div class="lchips">${wearSlots.map(([k, o]) => { const on = g.wear[o.slot] === k; return `<button class="${on ? 'on' : ''}" data-act="wear" data-k="${k}" aria-pressed="${on}">${on ? '✓ ' : ''}${o.t}</button>`; }).join('')}</div>`
+      : '<p class="muted">Gagne des niveaux pour habiller Llamita (sombrero, écharpe, lunettes…).</p>'}</div></div>`;
+  lessons().filter(visible).forEach(L => {
+    const its = trainable(L).filter(it => it.t !== 'l'); if (!its.length) return;
+    const k = its.filter(known).length, full = k === its.length;
+    h += `<h3 class="sec-t">${esc(L.icon || '')} ${esc(L.es)} · ${k} / ${its.length}${full ? ' · ⭐ ¡Colección completa!' : ''}</h3><div class="alb${full ? ' gold' : ''}">${its.map(it => known(it)
+      ? `<div class="ccard">${it.img ? `<span class="pic">${pic(it.img)}</span>` : ''}<b>${esc(it.t === 'qa' ? plain(it.q.es) : plain(it.es))}</b></div>`
+      : `<div class="ccard no"><span>?</span></div>`).join('')}</div>`;
+  });
+  h += `<h3 class="sec-t">Cartes culture · ${g.cards.length} / ${CULTURA.length}</h3><div class="alb">${CULTURA.map((cu, i) => g.cards.includes(i)
+    ? `<button class="ccard cu" data-act="cult" data-i="${i}"><span class="pic">${cu[0]}</span><b>${esc(cu[1])}</b></button>` : '<div class="ccard no"><span>🎁</span></div>').join('')}</div>
+    <p class="muted" style="font-size:.88rem">Une carte de mot arrive quand le mot est su (réussi 3 fois, des jours différents). Les cartes culture sont dans les coffres de la mission du jour.</p>`;
+  return h;
+}
+
 /* --- Réglages --- */
 function vAjustes() {
   const tg = (k, t, s) => `<button class="set" data-act="tset" data-k="${k}" role="switch" aria-checked="${!!S.set[k]}"><span><b>${t}</b>${s ? `<small>${s}</small>` : ''}</span><span class="tg${S.set[k] ? ' on' : ''}"></span></button>`;
@@ -1837,6 +2161,7 @@ function vAjustes() {
     <div class="field"><span class="flab">Aide des couleurs</span>${seg('couleurs', [['douces', 'Douces'], ['vives', 'Vives'], ['sans', 'Sans']])}
       <div class="box" style="margin:6px 0 0;text-align:center"><span style="font-size:1.5rem">${sHTML('¿{Q:Cómo} {P:te} {V:llamas}? {P:Me} {V:llamo} Mateo.')}</span></div></div>
     ${tg('grande', 'Texte plus grand', '')}
+    <button class="set" data-act="tset" data-k="jeu" role="switch" aria-checked="${jeu()}"><span><b>Jeu : Llamita, niveaux, mission du jour, coffres, album</b><small>Des points seulement pour les bonnes réponses ; rien ne se perd.</small></span><span class="tg${jeu() ? ' on' : ''}"></span></button>
     ${Voz.ok ? tg('voz', 'Écouter l’espagnol', 'Bouton haut-parleur (voix de la tablette)') + (S.set.voz ? tg('lento', 'Voix lente', '') : '') : '<p class="muted" style="margin:8px 0 0">Aucune voix espagnole n’est installée sur cet appareil : les boutons « écouter » sont cachés. Tout le reste fonctionne.</p>'}
   </div>
   <div class="card"><h3>Mode élève (tablette prêtée ou QR code)</h3>
@@ -2199,14 +2524,33 @@ const ACT = {
     render(); Voz.say(speakText(line.es));
   },
   start(el) { SES = buildSession(el.dataset.k); go('s/' + el.dataset.k); },
-  astart(el) {
-    const k = el.dataset.k, lid = el.dataset.l;
-    if (k === 'mix') { SES = buildSession(lid); go('s/' + lid); }
-    else if (k === 'veo') { SES = buildSession('_veo'); go('s/_veo'); }
-    else if (k === 'armar' || k === 'verbo') { SES = buildActSession(k, lid); go(`s/act:${k}:${lid}`); }
-    else { AV = buildAV(k, lid); go(`act/${k}/${lid}`); }
+  astart(el) { UI.plan = null; startKind(el.dataset.k, el.dataset.l); },
+  mision() { SES = buildMision(); go('s/_mision'); },
+  fifty() {
+    const ex = SES.steps[SES.i].ex; if (ex.hid != null || !(S.game.b5050 > 0)) return;
+    const wrong = ex.opts.map((o, i) => o.ok ? -1 : i).filter(i => i >= 0);
+    ex.hid = wrong[Math.floor(Math.random() * wrong.length)]; S.game.b5050--; save(); render();
   },
-  aquit() { const lid = AV && AV.lid; AV = null; go(lid ? `aprender/${lid}` : 'entrenar'); },
+  cofreopen() {
+    const c = $('.chest'); if (c) c.classList.add('shake');
+    setTimeout(() => { S.game.chest = Math.max(0, (S.game.chest || 0) - 1); UI.cofre = tirage(); save(); render(); Voz.say('¡Sorpresa!'); }, 850);
+  },
+  cofreok() { UI.cofre = null; go(''); },
+  celok() { $('#cel').classList.remove('on'); setTimeout(showCel, 250); },
+  celwear(el) { const k = el.dataset.k; S.game.wear[OBJ[k].slot] = k; save(); toast(`Llamita porte ${OBJ[k].t} !`); if ($('#cel').classList.contains('on')) ACT.celok(); else render(); },
+  wear(el) { const k = el.dataset.k, s = OBJ[k].slot; S.game.wear[s] = S.game.wear[s] === k ? null : k; save(); render(); },
+  cult(el) { const c = CULTURA[+el.dataset.i]; $('#cel').innerHTML = `<div class="cel-card"><span class="pic" style="font-size:64px">${c[0]}</span><h2 style="font-size:1.5rem">${esc(c[1])}</h2><p>${esc(c[2])}</p><button class="btn" data-act="celok">Fermer</button></div>`; $('#cel').classList.add('on'); },
+  apick(el) {
+    const s = UI.pick[el.dataset.l] || (UI.pick[el.dataset.l] = []), k = el.dataset.k;
+    UI.pick[el.dataset.l] = s.includes(k) ? s.filter(x => x !== k) : s.concat(k); render();
+  },
+  plan(el) {
+    const lid = el.dataset.l, list = ACTS.map(a => a.k).filter(k => (UI.pick[lid] || []).includes(k));
+    if (!list.length) { toast('Coche au moins un exercice.'); return; }
+    UI.plan = {lid, list, i:0}; startKind(list[0], lid);
+  },
+  pnext() { const P = UI.plan; if (!P) return; P.i++; if (P.i >= P.list.length) { UI.plan = null; go(`aprender/${P.lid}`); return; } startKind(P.list[P.i], P.lid); },
+  aquit() { const lid = AV && AV.lid; AV = null; UI.plan = null; go(lid ? `aprender/${lid}` : 'entrenar'); },
   cflip() {
     const A = AV; if (!A || !A.queue.length) return;
     A.flip = !A.flip; const f = $('.flip');
@@ -2220,19 +2564,24 @@ const ACT = {
     A.flip = false; render();
   },
   wmode(el) { S.set.ecrire = el.dataset.m; save(); if (AV && AV.W && !AV.W.done) AV.W = newW(AV.W.it); render(); },
+  // les lettres se posent librement ; le mot est vérifié quand il est complet ; on peut effacer
   wtile(el) {
-    const W = AV.W; if (W.done) return;
+    const W = AV.W; if (W.done || W.placed.length >= W.wp.letters.length) return;
     const t = W.tiles.find(x => x.id === +el.dataset.i); if (!t || t.used) return;
-    if (t.ch === W.wp.letters[W.pos]) {
-      t.used = true; W.pos++;
-      if (W.pos >= W.wp.letters.length) wFinish(W.errors <= 1 && W.hints === 0); else render();
-    } else { W.errors++; el.classList.remove('ko'); void el.offsetWidth; el.classList.add('ko'); }
+    t.used = true; W.placed.push(t.id); W.pos = W.placed.length; W.bad = new Set();
+    wCheck();
   },
+  wback() { wCut(AV.W.placed.length - 1); },
+  wclear() { wCut(0); },
+  wdel(el) { wCut(+el.dataset.n); },
   whint() {
     const W = AV.W; if (W.done) return;
-    const t = W.tiles.find(x => !x.used && x.ch === W.wp.letters[W.pos]); if (!t) return;
-    t.used = true; W.pos++; W.hints++;
-    if (W.pos >= W.wp.letters.length) wFinish(false); else render();
+    // efface d’abord ce qui est faux, puis pose la bonne lettre suivante
+    const firstBad = W.placed.findIndex((id, n) => W.tiles.find(t => t.id === id).ch !== W.wp.letters[n]);
+    if (firstBad >= 0) wCut(firstBad, true);
+    const need = W.wp.letters[W.pos], t = W.tiles.find(x => !x.used && x.ch === need); if (!t) return;
+    t.used = true; W.placed.push(t.id); W.pos = W.placed.length; W.hints++; W.bad = new Set();
+    wCheck();
   },
   wnext() { const A = AV; A.i++; A.W = A.i < A.deck.length ? newW(A.deck[A.i]) : null; render(); window.scrollTo(0, 0); },
   kbins(el) {
@@ -2270,7 +2619,7 @@ const ACT = {
   },
   pdir(el) { AV.dir = el.dataset.d; AV.selL = AV.selR = null; render(); },
   bcol() { S.set.blocs = S.set.blocs === false; save(); render(); },
-  quit(el) { SES = null; go(el.dataset.back || 'entrenar'); },
+  quit(el) { SES = null; UI.plan = null; go(el.dataset.back || 'entrenar'); },
   next() { SES.i++; SES.ans = null; render(); window.scrollTo(0, 0); },
   pick(el) { if (SES.ans) return; const ex = SES.steps[SES.i].ex, i = +el.dataset.i; answer(ex.opts[i].ok, i); },
   oadd(el) {
@@ -2362,6 +2711,7 @@ document.addEventListener('pointerdown', e => {
 });
 ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => document.addEventListener(ev, () => clearTimeout(longT)));
 $('#ov').addEventListener('click', e => { if (e.target.id === 'ov') ACT.padx(); });
+$('#cel').addEventListener('click', e => { if (e.target.id === 'cel') ACT.celok(); });
 // les boutons d’accents ne font pas perdre le curseur du clavier
 document.addEventListener('pointerdown', e => { if (e.target.closest && e.target.closest('[data-act="kbins"]')) e.preventDefault(); });
 document.addEventListener('input', e => {
@@ -2416,6 +2766,7 @@ Voz.init();
   route();
 })();
 window.__esp = {
+  llama, gainXP, G:() => G, buildMision, lvlOf, LV, OBJ, CULTURA, tirage,
   av:() => AV, actPool, writeParts, writable, buildAV, ACTS,
   // pour les contrôles : affiche un exercice donné, sans toucher à la progression
   testStep:(it, ex) => { SES = {key:'_t', steps:[{kind:'q', it, ex, retry:true}], i:0, ans:null, first:0, total:1, errs:[], practice:false};
