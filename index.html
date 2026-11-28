@@ -503,7 +503,7 @@ input[type=text],select{padding:11px 14px;border:1px solid var(--line2);border-r
    2. Outils de langue       5. Écrans
    3. Données de l’appareil  6. Exercices
    ====================================================================== */
-const VERSION = '1.8 — 28/11/2026';
+const VERSION = '1.9 — 28/11/2026';
 
 /* ---------------------------------------------------------------- 1. COURS */
 const UNIDADES = [
@@ -718,6 +718,7 @@ const LECCIONES = [
   W('el colegio', 'le collège', '🏫'),
  ]},
 {id:'mateo', u:'u2', icon:'👫', es:'Mateo y Lucía', fr:'Doc 1 · ¡Soy español!',
+ intro:'Pour parler de moi : <b>es → soy</b>, <b>viene → vengo</b>, <b>su → mi</b>.',
  items:[
   D('Mateo y Lucía', [
     ['Mateo', '¡Buenas! {P:Mi} nombre {V:es} Mateo, se {V:escribe} M-A-T-E-O.', 'Salut ! Mon prénom est Mateo, ça s’écrit M-A-T-E-O.'],
@@ -735,8 +736,17 @@ const LECCIONES = [
   P('Mateo {V:es} español y {V:viene} de Andalucía.', 'Mateo est espagnol et il vient d’Andalousie.', 'Pour un garçon : español.'),
   P('Lucía {V:es} una chica.', 'Lucía est une fille.', 'Pour une fille : una chica (avec a).'),
   P('Lucía {V:es} española y {V:viene} de Cataluña.', 'Lucía est espagnole et elle vient de Catalogne.', 'Pour une fille : española (avec a).'),
+  P('{P:Su} nombre {V:es} Lucía.', 'Son prénom est Lucía.'),
+  P('{P:Mi} nombre {V:es}…', 'Mon prénom est…', 'Je parle de moi : su devient mi. Je dis mon prénom.'),
+  P('({O:Yo}) {V:soy} un chico.', 'Je suis un garçon.', 'Je parle de moi : es devient soy.'),
+  P('({O:Yo}) {V:soy} una chica.', 'Je suis une fille.', 'Pour une fille : una chica (avec a).'),
+  P('({O:Yo}) {V:soy} francés.', 'Je suis français.', 'Pour un garçon : francés, avec un accent sur le é.'),
+  P('({O:Yo}) {V:soy} francesa.', 'Je suis française.', 'Pour une fille : francesa (avec a), sans accent.'),
+  P('({O:Yo}) {V:vengo} de…', 'Je viens de…', 'Je parle de moi : viene devient vengo. Je dis ma ville.'),
   W('español', 'espagnol (un garçon)', 'svg:es'),
   W('española', 'espagnole (une fille)'),
+  W('francés', 'français (un garçon)', 'svg:fr'),
+  W('francesa', 'française (une fille)'),
   W('el nombre', 'le prénom'),
   W('el apellido', 'le nom de famille'),
   W('la nacionalidad', 'la nationalité'),
@@ -829,6 +839,7 @@ const DIAS_CLASE_FR = ['lun.','mar.','mer.','jeu.','ven.'];
 /* Petits dessins (quand il n’existe pas d’émoji) */
 const SVGPIC = {
  abanico:'<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 50 6 27a34 34 0 0 1 52 0Z" fill="#E4572E"/><path d="M32 50 6 27a34 34 0 0 1 52 0Z" fill="none" stroke="#9E2A12" stroke-width="2"/><g stroke="#FCE38A" stroke-width="2"><path d="M32 50 12 21"/><path d="M32 50 22 15"/><path d="M32 50V13"/><path d="M32 50 42 15"/><path d="M32 50 52 21"/></g><rect x="29" y="47" width="6" height="12" rx="2" fill="#7B4A2A"/></svg>',
+ fr:'<svg viewBox="0 0 64 64" aria-hidden="true"><clipPath id="frc"><rect x="4" y="14" width="56" height="36" rx="4"/></clipPath><g clip-path="url(#frc)"><rect x="4" y="14" width="19" height="36" fill="#002395"/><rect x="23" y="14" width="18" height="36" fill="#fff"/><rect x="41" y="14" width="19" height="36" fill="#ED2939"/></g><rect x="4" y="14" width="56" height="36" rx="4" fill="none" stroke="rgba(0,0,0,.15)"/></svg>',
  es:'<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="14" width="56" height="36" rx="4" fill="#C60B1E"/><rect x="4" y="23" width="56" height="18" fill="#FFC400"/><rect x="4" y="14" width="56" height="36" rx="4" fill="none" stroke="rgba(0,0,0,.15)"/></svg>',
  gb:'<svg viewBox="0 0 64 64" aria-hidden="true"><clipPath id="gbc"><rect x="4" y="14" width="56" height="36" rx="4"/></clipPath><g clip-path="url(#gbc)"><rect x="4" y="14" width="56" height="36" fill="#012169"/><path d="M4 14l56 36M60 14L4 50" stroke="#fff" stroke-width="7"/><path d="M4 14l56 36M60 14L4 50" stroke="#C8102E" stroke-width="3"/><path d="M32 14v36M4 32h56" stroke="#fff" stroke-width="11"/><path d="M32 14v36M4 32h56" stroke="#C8102E" stroke-width="6"/></g></svg>',
  piramide:'<svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#C9A66B" stroke="#8C6B35" stroke-width="1.5"><rect x="6" y="48" width="52" height="9"/><rect x="12" y="39" width="40" height="9"/><rect x="18" y="30" width="28" height="9"/><rect x="24" y="21" width="16" height="9"/><rect x="27" y="11" width="10" height="10"/></g><rect x="29" y="21" width="6" height="36" fill="#8C6B35"/></svg>',
@@ -854,7 +865,7 @@ const LEX = {
  'tutora':'professeure principale','tutor':'professeur principal','señora':'madame','señor':'monsieur','día':'jour',
  'lunes':'lundi','martes':'mardi','miércoles':'mercredi','jueves':'jeudi','viernes':'vendredi','sábado':'samedi','domingo':'dimanche',
  'plástica':'arts plastiques','deporte':'sport (EPS)','biología':'SVT','música':'musique','tecnología':'technologie',
- 'inglés':'anglais','español':'espagnol','española':'espagnole','lengua':'langue (le français)','matemáticas':'maths',
+ 'inglés':'anglais','español':'espagnol','española':'espagnole','francés':'français','francesa':'française','lengua':'langue (le français)','matemáticas':'maths',
  'sociales':'histoire-géo','física':'physique','química':'chimie',
  'chico':'garçon','chica':'fille','alumno':'élève (garçon)','alumna':'élève (fille)','colegio':'collège',
  'nombre':'prénom','apellido':'nom de famille','andalucía':'l’Andalousie (sud de l’Espagne)','cataluña':'la Catalogne (nord-est de l’Espagne)',
@@ -1524,7 +1535,7 @@ function vMemoSecAncien(k) {   // ancienne version, gardée hors service le temp
     <div class="box"><h3>¿ ¡ à l’envers au début</h3><p>On ouvre la question avec <b>¿</b> et l’exclamation avec <b>¡</b>.</p><p>${sHTML('¿{Q:Qué} tal?')} · ${sHTML('¡Hola!')}</p></div>
     <div class="box"><h3>Les accents</h3><p>Les mots-questions ont un accent : ${sHTML('¿{Q:Cómo}? ¿{Q:Quién}? ¿{Q:Cuál}? ¿{Q:Qué}?')}</p><p><b>tú</b> = toi · <b>tu</b> = ton, ta</p></div>
     <div class="box"><h3>La date</h3><p>Jour, nombre (en lettres) <b>de</b> mois — sans majuscule :</p><p class="s" style="font-size:1.3rem">Fecha: jueves, 8 (ocho) de octubre</p><button class="btn ghost sm" data-go="fecha">${I.cal} La date d’aujourd’hui</button></div>
-    <div class="box"><h3>Fille ou garçon</h3><p>${sHTML('un chico → una chica')} · ${sHTML('un alumno → una alumna')} · ${sHTML('español → española')}</p></div>`;
+    <div class="box"><h3>Fille ou garçon</h3><p>${sHTML('un chico → una chica')} · ${sHTML('un alumno → una alumna')} · ${sHTML('español → española')} · ${sHTML('francés → francesa')}</p></div>`;
   if (k === 'fechas') return bar('Jours, mois, nombres', back) + `<div class="list">
     ${visible(getLesson('fecha')) ? `<button class="row" data-go="l/fecha"><span class="pic row-ic">📅</span><span class="row-tx"><b>Los días y la fecha</b><small>${DIAS.slice(1).concat('domingo').join(', ')}</small></span>${I.next}</button>` : ''}
     ${visible(getLesson('numeros')) ? `<button class="row" data-go="l/numeros"><span class="pic row-ic">🔢</span><span class="row-tx"><b>Los números</b><small>uno, dos, tres… treinta y uno</small></span>${I.next}</button>` : ''}
@@ -1650,7 +1661,7 @@ function vMemoSec(k) {
     <div class="box"><h3>¿ ¡ à l’envers au début</h3><p>On ouvre la question avec <b>¿</b> et l’exclamation avec <b>¡</b>.</p>${mx('¿{Q:Qué} tal?', 'Ça va ?')}${mx('¡Hola!', 'Salut !')}</div>
     <div class="box"><h3>Les accents</h3><p>Les mots-questions ont un accent :</p>${mx('¿{Q:Cómo}? ¿{Q:Quién}? ¿{Q:Cuál}? ¿{Q:Qué}?', 'Comment ? Qui ? Quel ? Que ?')}<p><b>tú</b> = toi · <b>tu</b> = ton, ta</p></div>
     <div class="box"><h3>La date</h3><p>Jour, nombre (en lettres) <b>de</b> mois — sans majuscule :</p>${mx('Fecha: jueves, 8 (ocho) de octubre', 'Date : jeudi 8 octobre')}<button class="btn ghost sm" data-go="fecha">${I.cal} La date d’aujourd’hui</button></div>
-    <div class="box"><h3>Fille ou garçon</h3>${mx('un chico → una chica', 'un garçon → une fille')}${mx('un alumno → una alumna', 'un élève → une élève')}${mx('español → española', 'espagnol → espagnole')}</div></div>`;
+    <div class="box"><h3>Fille ou garçon</h3>${mx('un chico → una chica', 'un garçon → une fille')}${mx('un alumno → una alumna', 'un élève → une élève')}${mx('español → española', 'espagnol → espagnole')}${mx('francés → francesa', 'français → française')}</div></div>`;
   if (k === 'fechas') return bar('Jours, mois, nombres', back) + `<div class="list">
     ${visible(getLesson('fecha')) ? `<div class="row"><span class="pic row-ic">📅</span><span class="row-tx"><b>Los días y la fecha</b><small>${DIAS.slice(1).concat('domingo').join(', ')}</small></span><button class="btn ghost sm" data-go="l/fecha">Voir</button><button class="btn ghost sm tbtn" data-act="astart" data-k="mix" data-l="fecha">🎯</button></div>` : ''}
     ${visible(getLesson('numeros')) ? `<div class="row"><span class="pic row-ic">🔢</span><span class="row-tx"><b>Los números</b><small>uno, dos, tres… treinta y uno</small></span><button class="btn ghost sm" data-go="l/numeros">Voir</button><button class="btn ghost sm tbtn" data-act="astart" data-k="mix" data-l="numeros">🎯</button></div>` : ''}
@@ -1686,6 +1697,9 @@ function vEntrenar() {
   h += due ? `<button class="btn wide" data-act="start" data-k="_repaso" style="margin-bottom:6px">${I.redo} Révision du jour · ${due} à revoir</button>`
     : `<p class="okmsg">Rien à revoir aujourd’hui. Choisis une leçon pour apprendre du nouveau.</p>`;
   h += `<p class="muted" style="font-size:.88rem;margin:6px 4px 0">Choisis une leçon, puis ta façon d’apprendre : cartes, écrire, assembler, associer… Un mot est « su » quand il a été réussi 3 fois, à des jours différents.</p>`;
+  // les jeux en haut, pour qu’on les trouve sans faire défiler toutes les leçons
+  h += `<section class="grp"><h2 class="grp-t">Jeux</h2><div class="list"><button class="row" data-act="astart" data-k="naves" data-l="_all"><span class="pic row-ic">🛸</span><span class="row-tx"><b>Les vaisseaux</b><small>Avec tous les mots que tu as déjà vus</small></span>${I.play}</button>`
+    + (veoPool().length >= 4 ? `<button class="row" data-act="start" data-k="_veo"><span class="pic row-ic">👀</span><span class="row-tx"><b>Veo, veo</b><small>Trouver l’image qui commence par la lettre</small></span>${I.play}</button>` : '') + `</div></section>`;
   units().forEach(u => {
     const ls = lessons().filter(l => l.u === u.id && visible(l) && trainable(l).length);
     if (!ls.length) return;
@@ -1694,7 +1708,6 @@ function vEntrenar() {
       return `<button class="row" data-go="aprender/${L.id}?de=entrenar"><span class="pic row-ic">${esc(L.icon || '📘')}</span><span class="row-tx"><b>${esc(L.es)}</b><small>${k} / ${tr.length} sus${d ? ` · ${d} à revoir` : ''}${nw ? ` · ${nw} nouveaux` : ''}</small>${pbar(k, tr.length)}</span>${I.next}</button>`;
     }).join('')}</div></section>`;
   });
-  if (veoPool().length >= 4) h += `<section class="grp"><h2 class="grp-t">Jeu</h2><div class="list"><button class="row" data-act="start" data-k="_veo"><span class="pic row-ic">👀</span><span class="row-tx"><b>Veo, veo</b><small>Trouver l’image qui commence par la lettre</small></span>${I.play}</button></div></section>`;
   return h;
 }
 
@@ -2095,7 +2108,8 @@ function startKind(k, lid) {
   if (k === 'mix') { SES = buildSession(lid); go('s/' + lid); }
   else if (k === 'veo') { SES = buildSession('_veo'); go('s/_veo'); }
   else if (k === 'armar' || k === 'verbo') { SES = buildActSession(k, lid); go(`s/act:${k}:${lid}`); }
-  else if (k === 'naves' && actPool('naves', getLesson(lid)).length < MIN_N.naves) toast('Les vaisseaux, c’est pour les mots déjà vus. Fais d’abord la « Révision intelligente » de cette leçon.');
+  else if (k === 'naves' && (lid === '_all' ? navesAll() : actPool('naves', getLesson(lid))).length < MIN_N.naves)
+    toast(`Les vaisseaux, c’est pour les mots déjà vus. Fais d’abord la « Révision intelligente » ${lid === '_all' ? 'd’une leçon' : 'de cette leçon'}.`);
   else { AV = buildAV(k, lid); go(`act/${k}/${lid}`); }
 }
 // bouton « exercice suivant » quand l’élève enchaîne plusieurs exercices
@@ -2127,6 +2141,13 @@ function navesPool(L) {
   return trainable(L).filter(it => it.t === 'w' || (it.t === 'p' && nWords(it.es) <= 3)).filter(it => {
     const e = low(plain(it.es)), f = low(it.fr); if (es.has(e) || fr.has(f)) return false; es.add(e); fr.add(f); return true; });
 }
+// « Les vaisseaux » depuis l’écran Apprendre : les mots déjà vus de toutes les leçons
+function navesAll() {
+  const es = new Set(), fr = new Set();
+  return lessons().filter(visible).flatMap(navesPool).filter(it => S.prog[it.id]).filter(it => {
+    const e = low(plain(it.es)), f = low(it.fr); if (es.has(e) || fr.has(f)) return false; es.add(e); fr.add(f); return true; });
+}
+const actBack = lid => lid === '_all' ? 'entrenar' : `aprender/${lid}`;
 function vAprender(lid, q) {
   const L = getLesson(lid);
   if (!L || !visible(L)) return bar('Leçon introuvable', 'entrenar');
@@ -2159,7 +2180,7 @@ function newW(it) {
   return {it, wp, pos:0, placed:[], bad:new Set(), errors:0, hints:0, tiles:shuffle(wp.letters.concat(extra)).map((ch, id) => ({ch, id, used:false})), done:false, ok:false, kb:'', accent:false};
 }
 function buildAV(kind, lid) {
-  const L = getLesson(lid), pool = L && visible(L) ? actPool(kind, L) : [];
+  const L = getLesson(lid), pool = lid === '_all' && kind === 'naves' ? navesAll() : L && visible(L) ? actPool(kind, L) : [];
   const A = {key:kind + ':' + lid, kind, lid, res:[], firstOk:0, n:0};
   if (kind === 'cartes') { const deck = prioritize(pool).slice(0, 20); return Object.assign(A, {queue:deck, total:deck.length, flip:false, seen:new Set(), knew:0, dir:S.set.sens === 'fr' ? 'fr' : 'es'}); }
   if (kind === 'escribir') { const deck = prioritize(pool).slice(0, 10); return Object.assign(A, {deck, i:0, W:deck.length ? newW(deck[0]) : null, total:deck.length}); }
@@ -2232,11 +2253,11 @@ function actTop(A, done, total) {
 function actFin(A, line, list) {
   return `<div class="end"><div class="pic" style="font-size:64px">🎉</div><h2>¡Terminado!</h2><div class="score">${line}</div>
     ${list.length ? `<div class="errs"><h3 class="sec-t">À revoir</h3><div class="stack">${list.map(e => `<div class="srow">${e.t === 'qa' ? sHTML(e.q.es) + '<span class="ans">' + sHTML(e.a.es) + '</span>' : e.t === 'l' ? `<b>${e.l.toUpperCase()}</b> = la ${esc(e.es)}` : `<b>${e.t === 'p' ? sHTML(e.es) : esc(e.es)}</b>`}<small>${esc(e.t === 'qa' ? e.a.fr : e.fr)}</small></div>`).join('')}</div></div>` : '<p class="okmsg">Tout juste du premier coup !</p>'}
-    <div class="btn-row" style="width:100%;max-width:660px"><button class="btn ghost" data-act="astart" data-k="${A.kind}" data-l="${A.lid}">${I.redo} Recommencer</button>${UI.plan ? planBtn() : `<button class="btn" data-go="aprender/${A.lid}">Autre activité</button>`}</div></div>`;
+    <div class="btn-row" style="width:100%;max-width:660px"><button class="btn ghost" data-act="astart" data-k="${A.kind}" data-l="${A.lid}">${I.redo} Recommencer</button>${UI.plan ? planBtn() : `<button class="btn" data-go="${actBack(A.lid)}">Autre activité</button>`}</div></div>`;
 }
 function vActividad(kind, lid) {
   if (!AV || AV.key !== kind + ':' + lid) AV = buildAV(kind, lid);
-  if (!AV.total) return bar('Apprendre', `aprender/${lid}`) + '<p class="okmsg">Il n’y a rien pour cette activité dans cette leçon.</p>';
+  if (!AV.total) return bar('Apprendre', actBack(lid)) + '<p class="okmsg">Il n’y a rien pour cette activité dans cette leçon.</p>';
   return kind === 'cartes' ? vCartes(AV) : kind === 'escribir' ? vEscribir(AV) : kind === 'naves' ? vNaves(AV) : vAsociar(AV);
 }
 /* Cartes à retourner */
@@ -2965,7 +2986,7 @@ const ACT = {
     UI.plan = {lid, list, i:0}; startKind(list[0], lid);
   },
   pnext() { const P = UI.plan; if (!P) return; P.i++; if (P.i >= P.list.length) { UI.plan = null; go(`aprender/${P.lid}`); return; } startKind(P.list[P.i], P.lid); },
-  aquit() { const lid = AV && AV.lid; AV = null; UI.plan = null; go(lid ? `aprender/${lid}` : 'entrenar'); },
+  aquit() { const lid = AV && AV.lid; AV = null; UI.plan = null; go(lid ? actBack(lid) : 'entrenar'); },
   cflip() {
     const A = AV; if (!A || !A.queue.length) return;
     A.flip = !A.flip; const f = $('.flip');
