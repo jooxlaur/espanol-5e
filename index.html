@@ -250,6 +250,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .fb.ok .fb-t{color:var(--ok)}
 .fb.ko .fb-t{color:var(--ko)}
 .fb .s{font-size:1.2rem}
+.why{background:#fff;border:1px solid #F0D49A;border-radius:12px;padding:10px 12px;line-height:1.5;color:var(--ink)}
+.why>b:first-child{color:var(--ko)}
 .cont{position:sticky;bottom:0;padding:12px 0 calc(12px + var(--sb));background:linear-gradient(rgba(246,244,240,0),var(--bg) 30%);width:100%;max-width:660px;display:flex;gap:10px}
 .cont .btn{flex:1}
 .reveal{width:100%;max-width:660px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px}
@@ -359,6 +361,28 @@ input.winput{font-size:1.7rem;text-align:center;max-width:440px;min-height:64px;
 .fifty{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 12px;border-radius:12px;border:1px solid #E7D4F7;background:#F8F1FE;color:#5B2B8C;font-weight:700;font-size:.92rem}
 @media (max-width:560px){.hero{grid-template-columns:120px 1fr;padding:12px}.wd{width:28px;height:28px}.alb-ll{width:96px}}
 
+/* mémo : lecture aérée */
+.mex{padding:8px 0;border-bottom:1px solid var(--line)}
+.mex:last-of-type{border-bottom:0}
+.mex .s{font-size:1.2rem}
+.mex small{display:block;color:var(--ink2);font-size:.92rem;margin-top:1px}
+.tbtn{border-color:#E7D4F7;background:#F8F1FE;color:#5B2B8C;margin-top:8px}
+.rulec{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+.rulec>b{font-size:1.8rem;color:var(--v);line-height:1.1}
+.rulec .s{font-size:1.15rem}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--sh)}
+.vh b{font-size:1.4rem;display:block}
+.vh span{color:var(--ink2);font-size:.9rem}
+.vlines{display:flex;flex-direction:column;gap:6px}
+.vlines>div{display:grid;grid-template-columns:76px 1fr;align-items:center;font-size:1.2rem}
+.pp{color:var(--ink2);font-weight:650;font-size:.95rem}
+.qrow{display:grid;grid-template-columns:170px 1fr auto;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:10px 14px}
+.qw .w{font-size:1.5rem}
+.qw small{display:block;color:var(--ink2)}
+.qx .mex{border:0;padding:0}
+.qrow .tbtn,.vcard .tbtn,.row .tbtn{margin:0}
+@media (max-width:560px){.qrow{grid-template-columns:1fr}.vlines>div{grid-template-columns:64px 1fr}}
 /* mémo */
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .mcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:16px;text-align:left;display:flex;flex-direction:column;gap:4px;min-height:104px}
@@ -459,7 +483,7 @@ input[type=text],select{padding:11px 14px;border:1px solid var(--line2);border-r
    2. Outils de langue       5. Écrans
    3. Données de l’appareil  6. Exercices
    ====================================================================== */
-const VERSION = '1.4 — 28/11/2026';
+const VERSION = '1.5 — 28/11/2026';
 
 /* ---------------------------------------------------------------- 1. COURS */
 const UNIDADES = [
@@ -1235,7 +1259,7 @@ function vLecciones() {
 }
 function alfaBlock() {
   const a = UI.alfa && ALFA.find(x => x[0] === UI.alfa);
-  return `<div class="adet">${a ? `<div class="L">${a[0].toUpperCase()}</div><div><b style="font-size:1.3rem">la ${a[1]}</b><small>Exemple : <b>${esc(a[2])}</b>${a[3] ? ' · ' + esc(a[3]) : ''}</small></div>${sayBtn(a[1] + '. ' + a[2])}` : '<span class="muted">Touchez une lettre.</span>'}</div>
+  return `<div class="adet">${a ? `<div class="L">${a[0].toUpperCase()}</div><div><b style="font-size:1.3rem">la ${a[1]}</b><small>Exemple : <b>${esc(a[2])}</b>${frOn() && ALFA_FR[a[2]] ? ` (${esc(ALFA_FR[a[2]])})` : ''}${a[3] ? ' · ' + esc(a[3]) : ''}</small></div>${sayBtn(a[1] + '. ' + a[2])}` : '<span class="muted">Touchez une lettre.</span>'}</div>
   <div class="agrid">${ALFA.map(x => `<button class="at${UI.alfa === x[0] ? ' on' : ''}" data-act="alfa" data-l="${x[0]}"><b>${x[0].toUpperCase()}</b><small>${x[1]}</small></button>`).join('')}</div>
   <div class="two" style="margin-top:14px">
     <div class="box"><h3>Les 5 voyelles</h3><p class="s" style="font-size:1.6rem;letter-spacing:.2em">a e i o u</p><p class="muted">e se dit « é », u se dit « ou ».</p></div>
@@ -1328,7 +1352,8 @@ function vFocus(lid, idx) {
   const tgl = frFirst ? `<button data-act="es" class="${UI.es ? 'on' : ''}" aria-pressed="${!!UI.es}" aria-label="Voir l’espagnol">ES</button>`
     : frOk ? `<button data-act="fr" class="${UI.fr ? 'on' : ''}" aria-pressed="${UI.fr}" aria-label="Traduction en français">FR</button>` : '';
   AFTER = () => { UI.nav = {prev:prev != null ? `f/${lid}/${prev}` : null, next:next != null ? `f/${lid}/${next}` : null}; };
-  return bar(esc(L.es), `l/${lid}`) + vues + `<div class="fx">${body}${legend}</div>
+  const train = `<button class="btn ghost sm" data-act="foco" data-l="${lid}" data-i="${idx}">🎯 M’entraîner sur ceci</button>`;
+  return bar(esc(L.es), `l/${lid}`) + vues + `<div class="fx">${body}${train}${legend}</div>
   <nav class="fbar" aria-label="Navigation">
     <button data-go="f/${lid}/${prev}" ${prev == null ? 'disabled' : ''} aria-label="Précédent">${I.back}</button>
     ${canSay() ? `<button data-act="say" data-t="${esc(sayT)}" aria-label="Écouter">${I.spk}</button>` : ''}
@@ -1353,7 +1378,8 @@ function vDialogo(lid, idx) {
     <button class="${st.mode === 'paso' ? 'on' : ''}" data-act="dmode" data-k="${key}" data-m="paso">Pas à pas</button>
     ${who.length > 1 ? `<button class="${st.mode === 'rol' ? 'on' : ''}" data-act="dmode" data-k="${key}" data-m="rol">Jouer un rôle</button>` : ''}
   </div>` : ''}
-  ${frOk ? `<button class="btn ghost sm" data-act="fr">${UI.fr ? 'Cacher le français' : 'Voir le français'}</button>` : ''}</div>`;
+  ${frOk ? `<button class="btn ghost sm" data-act="fr">${UI.fr ? 'Cacher le français' : 'Voir le français'}</button>` : ''}</div>
+  ${N >= 3 ? `<div class="btn-row" style="margin:-4px 0 14px"><button class="btn ghost sm" data-act="dtrain" data-l="${lid}" data-i="${idx}" data-d="es">🎯 M’entraîner : espagnol → français</button><button class="btn ghost sm" data-act="dtrain" data-l="${lid}" data-i="${idx}" data-d="fr">🎯 M’entraîner : français → espagnol</button></div>` : ''}`;
   if (st.mode === 'rol') h += `<p class="muted" style="margin:0 0 12px">L’élève joue : ${who.map(w => `<button class="btn sm ${st.rol === w ? '' : 'ghost'}" data-act="drol" data-k="${key}" data-w="${esc(w)}">${esc(w)}</button>`).join(' ')}</p>`;
   if (st.mode === 'paso') h += `<p class="muted" style="margin:0 0 12px">Une réplique à la fois : touchez la dernière bulle ou le bouton en bas.</p>`;
   const lines = st.mode === 'paso' ? it.lines.slice(0, st.n) : it.lines;
@@ -1427,7 +1453,7 @@ function vMemo() {
   <h3 class="sec-t">Le code couleur</h3><div class="box"><div class="legend" style="justify-content:flex-start;font-size:1rem">
   <span><span class="w v">verbe</span> encadré</span><span><span class="w q">mot-question</span> souligné</span><span><span class="w p">petit mot</span> entouré</span><span><span class="w o">(yo)</span> facultatif</span></div></div>`;
 }
-function vMemoSec(k) {
+function vMemoSecAncien(k) {   // ancienne version, gardée hors service le temps de la v1.5
   const back = 'memo';
   if (k === 'verbos') return bar('Les verbes', back) + `<div class="box"><h3>La règle à retenir</h3>
     <p>Avec <b>yo</b> (je), le verbe finit par <b>o</b> : ${sHTML('{V:llamo} · {V:tengo} · {V:estudio}')} — ou par <b>oy</b> : ${sHTML('{V:soy} · {V:estoy}')}</p>
@@ -1470,7 +1496,7 @@ function vMemoSec(k) {
     <button class="row" data-go="fecha"><span class="pic row-ic">🗓️</span><span class="row-tx"><b>La date du jour</b><small>${fechaTxt(new Date())}</small></span>${I.next}</button></div>`;
   return vMemo();
 }
-function vVerbo(inf) {
+function vVerboAncien(inf) {
   const v = VERBOS.find(x => x.inf === inf); if (!v) return vMemo();
   const rows = v.f.map(([form, fr], p) => {
     const parts = form.split(' '), core = parts.pop(), pre = parts.length ? `<span class="w p">${parts[0]}</span> ` : '';
@@ -1481,6 +1507,134 @@ function vVerbo(inf) {
   }).join('');
   return bar(`${v.inf} · ${esc(v.fr)}`, 'memo/verbos') + (v.sens ? `<p class="intro">${v.inf} = ${esc(v.fr)} : <b>${esc(v.sens)}</b>.</p>` : '') + rows +
     `<h3 class="sec-t">Dans le cours</h3><div class="stack">${v.ex.map(e => `<div class="srow">${sHTML(e)}</div>`).join('')}</div>`;
+}
+
+/* --- Mémo : pages aérées, exemples traduits, « S’entraîner » sur chaque élément --- */
+const frOn = () => !isEleve() || S.eleve.fr;
+const mx = (es, fr) => `<div class="mex">${sHTML(es)}${fr && frOn() ? `<small>${esc(fr)}</small>` : ''}</div>`;
+const tBtn = (k, label) => `<button class="btn ghost sm tbtn" data-act="mtrain" data-k="${esc(k)}">🎯 ${label || 'S’entraîner'}</button>`;
+const EXFR = {'{V:Soy} un chico.':'Je suis un garçon.', '¿{Q:Quién} {V:eres}?':'Qui es-tu ?', 'Mateo {V:es} español.':'Mateo est espagnol.',
+  'Hoy {V:estoy} bien.':'Aujourd’hui, je vais bien.', '¿{Q:Qué} tal {V:estás}?':'Comment vas-tu ?', '¡No {V:está}!':'Il (elle) n’est pas là !',
+  '¿{Q:Cómo} {P:te} {V:llamas}?':'Comment tu t’appelles ?', '{P:Me} {V:llamo} Lucía.':'Je m’appelle Lucía.', '{P:Mi} profe {P:se} {V:llama} el señor López.':'Mon prof s’appelle monsieur López.',
+  '¿{Q:Qué} día {V:tienes} clase de plástica?':'Quel jour as-tu arts plastiques ?', '{V:Tengo} clase de plástica el jueves.':'J’ai arts plastiques le jeudi.',
+  '¿{Q:En qué} colegio {V:estudias}?':'Dans quel collège étudies-tu ?', '{V:Estudio} en el colegio…':'J’étudie au collège…',
+  '¿{Q:De dónde} {V:vienes}?':'D’où viens-tu ?', '{V:Vengo} de Cataluña.':'Je viens de Catalogne.', 'Mateo {V:viene} de Andalucía.':'Mateo vient d’Andalousie.',
+  '{V:Veo}, {V:veo}.':'Je vois, je vois.', '¿{Q:Qué} {V:ves}?':'Qu’est-ce que tu vois ?', '¿{V:Puedes} repetir?':'Tu peux répéter ?'};
+const ALFA_FR = {apellido:'nom de famille', bandera:'drapeau', cacao:'cacao', diez:'dix', español:'espagnol', flamenco:'flamenco (danse)', garaje:'garage',
+  hablar:'parler', Ibiza:'Ibiza (une île)', Javier:'un prénom', 'Frida Kahlo':'une peintre mexicaine', la:'la', mundo:'monde', no:'non', España:'l’Espagne',
+  once:'onze', pelota:'ballon', Quijote:'Don Quichotte (un livre)', repetir:'répéter', sol:'soleil', toro:'taureau', uno:'un', vaso:'verre', wifi:'wifi',
+  'xilófono':'xylophone', yo:'je, moi', zorro:'renard'};
+const QWS = [['Cómo', 'Comment ?', '¿{Q:Cómo} {P:te} {V:llamas}?'], ['Quién', 'Qui ?', '¿{Q:Quién} {V:eres}?'], ['Cuál', 'Quel, quelle ?', '¿{Q:Cuál} {V:es} {P:tu} color favorito?'],
+  ['Qué', 'Que, quoi ? Quel (jour) ?', '¿{Q:Qué} día {V:tienes} clase de plástica?'], ['En qué', 'Dans quel… ?', '¿{Q:En qué} colegio {V:estudias}?'],
+  ['De dónde', 'D’où ?', '¿{Q:De dónde} {V:vienes}?'], ['De qué color', 'De quelle couleur ?', '¿{Q:De qué color} {V:es} el pantalón?']];
+const PAL = {
+  pos:['À qui ?', [['mon, ma', 'mi'], ['ton, ta', 'tu'], ['son, sa', 'su'], ['mes', 'mis']]],
+  refl:['S’appeler', [['je m’appelle', 'me llamo'], ['tu t’appelles', 'te llamas'], ['il / elle s’appelle', 'se llama']]],
+  pers:['Les personnes', [['je, moi', 'yo'], ['tu, toi', 'tú'], ['il', 'él'], ['elle', 'ella']]],
+  utiles:['Mots utiles', [['le', 'el'], ['la', 'la'], ['un', 'un'], ['une', 'una'], ['et', 'y'], ['au (dans le)', 'en el']]],
+  clase:['En classe', [['aujourd’hui', 'hoy'], ['la date', 'la fecha'], ['le jour', 'el día'], ['le cours', 'la clase']]],
+};
+const TUTU = [['¿Y {X}?', 'Et toi ?', 'tú'], ['¿Cuál es {X} nombre?', 'Quel est ton prénom ?', 'tu'], ['{X} tienes clase el lunes.', 'Toi, tu as cours le lundi.', 'tú'], ['¿Quién es {X} tutora?', 'Qui est ta prof principale ?', 'tu']];
+const SEREST = [['{V:Soy} Mateo.', 'Je suis Mateo.'], ['{V:Estoy} bien.', 'Je vais bien.'], ['{V:Soy} un chico.', 'Je suis un garçon.'], ['{V:Estoy} en primero de ESO.', 'Je suis en 5e.'],
+  ['{V:Soy} español.', 'Je suis espagnol.'], ['Hoy {V:estoy} fenomenal.', 'Aujourd’hui, je vais super bien.'], ['{V:Soy} de Andalucía.', 'Je suis d’Andalousie.'], ['¡{V:Estoy}!', 'Je suis là !']];
+const ESCR = [['¿Qué tal?', ['Qué tal?', '¿Que tal?'], 'Ça va ?', 'Une question s’ouvre avec ¿, et « qué » prend un accent.'],
+  ['¡Hola!', ['Hola!', '¡Hola¡'], 'Salut !', 'On ouvre avec ¡ (à l’envers) et on ferme avec ! (à l’endroit).'],
+  ['¿Cómo te llamas?', ['¿Como te llamas?', 'Cómo te llamas?'], 'Comment tu t’appelles ?', '« Cómo » prend un accent, et la question commence par ¿.'],
+  ['jueves, 8 de octubre', ['Jueves, 8 de Octubre', 'jueves, 8 de Octubre'], 'jeudi 8 octobre', 'Pas de majuscule aux jours et aux mois en espagnol.'],
+  ['¿Y tú?', ['¿Y tu?', 'Y tú?'], 'Et toi ?', '« tú » = toi : avec un accent. Et la question commence par ¿.'],
+  ['una chica', ['un chica', 'una chico'], 'une fille', 'Pour une fille : una, et le mot finit par a.']];
+// fabrique une question à choix pour le Mémo (it = élément fictif, pour la progression et la correction)
+const mq = (id, es, fr, ask, hint, opts, whyF) => ({it:{id:'memo/' + id, t:'p', es, fr}, ask, hint, opts, whyF});
+function memoSteps(k) {
+  const out = [], push = q => out.push(stepOf(q.it, () => ({type:'choice', kind:'memo', ask:q.ask, hint:q.hint, opts:shuffle(q.opts), why:q.whyF})));
+  const vstep = (v, p) => {
+    const f = v.f[p][0], parts = f.split(' '), es = `${PERS[p].split(' / ')[0]} ` + (parts.length > 1 ? `{P:${parts[0]}} {V:${parts[1]}}` : `{V:${f}}`);
+    push(mq(`v/${v.inf}/${p}`, es, v.f[p][1], `<div class="q-sub">Verbe <b>${v.inf}</b> = ${esc(v.fr)}</div><div class="q-es"><span class="w o">${PERS[p]}</span> <span class="blank"></span></div><div class="q-sub">« ${esc(v.f[p][1])} »</div>`,
+      'Choisis la bonne forme du verbe.', v.f.map(([g], q) => ({ok:q === p, w:g, html:`<span class="w v">${esc(g)}</span>`})),
+      o => `<b>${esc(o.w)}</b> va avec <b>${PERS[v.f.findIndex(x => x[0] === o.w)]}</b>. Avec <b>${PERS[p]}</b>, on dit <b>${esc(f)}</b>${p === 0 ? ' (le verbe finit par o ou oy)' : p === 1 ? ' (le verbe finit par s)' : ''}.`));
+  };
+  const lessonVerb = inf => lessons().filter(visible).flatMap(trainable).filter(it => (it.t === 'p' || it.t === 'qa') && (t => t && FORMS[low(t.t[t.i].t)].inf === inf)(verbTarget(it.t === 'qa' ? it.a.es : it.es)));
+  const pairs = (id, list) => list.forEach(([fr, es]) => {
+    const others = pickN(list.filter(x => x[1] !== es), 2);
+    push(mq(`${id}/${es}`, es, fr, `<div class="q-sub">Comment dit-on en espagnol :</div><div class="q-fr">« ${esc(fr)} »</div>`, 'Choisis la bonne réponse.',
+      [[fr, es], ...others].map(([f, e]) => ({ok:e === es, w:e, html:`<b>${esc(e)}</b>`})), o => `<b>${esc(o.w)}</b> = ${esc((list.find(x => x[1] === o.w) || [''])[0])}. « ${esc(fr)} » se dit <b>${esc(es)}</b>.`));
+  });
+  if (k.startsWith('verbo:') || k === 'verbos') {
+    const vs = k === 'verbos' ? pickN(VERBOS, 4) : [VERBOS.find(v => v.inf === k.slice(6))];
+    vs.forEach(v => { [0, 1, 2].forEach(p => vstep(v, p)); pickN(lessonVerb(v.inf), k === 'verbos' ? 1 : 3).forEach(it => out.push(stepOf(it, () => exVerbo(it)))); });
+  } else if (k === 'serestar') SEREST.forEach(([es, fr], n) => {
+    const t = parse(es), i = t.findIndex(x => x.r === 'V'), good = t[i].t, up = good[0] !== low(good)[0], rev = {}; t.forEach((x, j) => { if (j !== i) rev[j] = true; });
+    push(mq(`se/${n}`, es, fr, `<div class="q-es"><span class="s">${renderS(t, {cases:true, rev})}</span></div><div class="q-sub">« ${esc(fr)} »</div>`, 'Soy ou estoy ?',
+      ['soy', 'estoy'].map(w => ({ok:low(good) === w, w, html:`<span class="w v">${up ? cap(w) : w}</span>`})),
+      () => `<b>soy</b> (ser) = qui je suis : mon nom, garçon ou fille, d’où je viens. <b>estoy</b> (estar) = où je suis, comment je vais. Ici, « ${esc(fr)} » → <b>${esc(good)}</b>.`));
+  });
+  else if (k.startsWith('preg')) {
+    const ws = k === 'preguntas' ? QWS : QWS.filter(q => q[0] === k.slice(5));
+    ws.forEach(([w, f]) => {
+      const oth = pickN(QWS.filter(q => q[0] !== w), 2);
+      push(mq(`q/${w}`, `¿{Q:${w}}?`, f, `<div class="q-es"><span class="w q">¿${esc(w)}?</span></div>`, 'Qu’est-ce que ça veut dire ?',
+        [[w, f], ...oth.map(q => [q[0], q[1]])].map(([x, y]) => ({ok:x === w, w:x, html:esc(y)})), o => `¿${esc(o.w)}? = ${esc((QWS.find(q => q[0] === o.w) || [])[1] || '')}. ¿${esc(w)}? = <b>${esc(f)}</b>.`));
+      const qa = lessons().filter(visible).flatMap(trainable).filter(it => it.t === 'qa' && parse(it.q.es).some(x => x.r === 'Q' && low(x.t) === low(w)));
+      pickN(qa, k === 'preguntas' ? 1 : 3).forEach(it => out.push(stepOf(it, () => exHueco(it))));
+    });
+  } else if (k.startsWith('pal:')) {
+    const id = k.slice(4);
+    if (id === 'tutu') TUTU.forEach(([es, fr, good], n) => push(mq(`tt/${n}`, es.replace('{X}', good), fr, `<div class="q-es">${esc(es.replace('{X}', '…'))}</div><div class="q-sub">« ${esc(fr)} »</div>`, 'tú ou tu ?',
+      ['tú', 'tu'].map(w => ({ok:w === good, w, html:`<b style="font-size:1.4rem">${w}</b>`})), () => `<b>tú</b> (avec accent) = toi, tu. <b>tu</b> (sans accent) = ton, ta. Ici : « ${esc(fr)} » → <b>${good}</b>.`)));
+    else pairs('pal/' + id, PAL[id][1]);
+  } else if (k === 'escribir') ESCR.forEach(([good, bad, fr, ex], n) => push(mq(`es/${n}`, good, fr, `<div class="q-sub">Quelle est la bonne écriture de :</div><div class="q-fr">« ${esc(fr)} »</div>`, 'Choisis la phrase bien écrite.',
+    [good, ...bad].map(w => ({ok:w === good, w, html:`<b style="font-size:1.25rem">${esc(w)}</b>`})), () => `${esc(ex)} On écrit : <b>${esc(good)}</b>.`)));
+  return out;
+}
+function vMemoSec(k) {
+  const back = 'memo';
+  if (k === 'verbos') return bar('Les verbes', back) + `
+    <div class="two"><div class="rulec"><span class="lab">Avec yo (je)</span><b>…o / …oy</b>${sHTML('{V:llamo} · {V:tengo} · {V:soy}')}</div>
+    <div class="rulec"><span class="lab">Avec tú (tu)</span><b>…s</b>${sHTML('{V:llamas} · {V:tienes} · {V:eres}')}</div></div>
+    <div class="btn-row" style="margin:12px 0">${tBtn('verbos', 'S’entraîner sur tous les verbes')}</div>
+    <div class="vgrid">${VERBOS.map(v => `<div class="vcard"><div class="vh"><b>${v.inf}</b><span>${esc(v.fr)}${v.sens ? ' · ' + esc(v.sens) : ''}</span></div>
+      <div class="vlines">${v.f.map(([f], p) => `<div><span class="pp">${PERS[p]}</span>${verbForm(f, p)}</div>`).join('')}</div>
+      <div class="btn-row"><button class="btn ghost sm" data-go="verbo/${v.inf}">Voir</button>${tBtn('verbo:' + v.inf)}</div></div>`).join('')}</div>`;
+  if (k === 'ser-estar') return bar('Soy ou estoy ?', back) + `<p class="intro">En français on dit « je suis » dans les deux cas. En espagnol, il y a <b>deux verbes</b>.</p>
+    <div class="two"><div class="box"><h3>🪪 SOY <small class="muted">(ser)</small></h3><p><b>Qui je suis</b> : mon nom, garçon ou fille, d’où je viens.</p>
+      ${mx('{V:Soy} Mateo.', 'Je suis Mateo.')}${mx('{V:Soy} un chico.', 'Je suis un garçon.')}${mx('{V:Soy} español.', 'Je suis espagnol.')}${mx('{V:Soy} de Andalucía.', 'Je suis d’Andalousie.')}</div>
+    <div class="box"><h3>📍 ESTOY <small class="muted">(estar)</small></h3><p><b>Où je suis</b>, <b>comment je vais</b>.</p>
+      ${mx('{V:Estoy} en primero de ESO.', 'Je suis en 5e.')}${mx('Hoy {V:estoy} bien.', 'Aujourd’hui, je vais bien.')}${mx('¡{V:Estoy}!', 'Je suis là !')}</div></div>
+    <div class="btn-row" style="margin:4px 0 14px">${tBtn('serestar', 'S’entraîner : soy ou estoy ?')}</div>
+    <div class="box"><h3>Le tableau du cours</h3><table class="tbl">
+      <tr><td>Je me trouve en 5e</td><td>${sHTML('({O:yo}) {V:estoy} en primero de ESO')}</td></tr><tr><td>Je me sens…</td><td>${sHTML('({O:yo}) {V:estoy}…')}</td></tr>
+      <tr><td>Je suis…</td><td>${sHTML('({O:yo}) {V:soy}…')}</td></tr><tr><td>Je m’appelle…</td><td>${sHTML('({O:yo}) {P:me} {V:llamo}…')}</td></tr><tr><td>J’ai…</td><td>${sHTML('({O:yo}) {V:tengo}…')}</td></tr></table></div>`;
+  if (k === 'preguntas') return bar('Les mots-questions', back) + `<div class="note" style="margin-bottom:12px">💡 Les mots-questions ont toujours un <b>accent</b> : cómo, quién, cuál, qué, dónde.</div>
+    <div class="btn-row" style="margin:0 0 12px">${tBtn('preguntas', 'S’entraîner sur tous')}</div>
+    <div class="stack">${QWS.map(([w, f, ex]) => `<div class="qrow"><div class="qw"><span class="w q">¿${esc(w)}?</span><small>${esc(f)}</small></div><div class="qx">${mx(ex, EXFR[ex] || '')}</div>${tBtn('preg:' + w, '')}</div>`).join('')}</div>`;
+  if (k === 'palabras') return bar('Les petits mots', back) + `<div class="two">
+    ${Object.entries(PAL).map(([id, [t, list]]) => `<div class="box"><h3>${t}</h3><table class="tbl">${list.map(([fr, es]) => `<tr><td>${esc(fr)}</td><td><b>${esc(es)}</b></td></tr>`).join('')}</table>${tBtn('pal:' + id)}</div>`).join('')}
+    <div class="box"><h3>tú ou tu ?</h3>${mx('¿Y tú?', 'Et toi ?')}<p class="muted" style="margin:0 0 6px"><b>tú</b> (avec accent) = toi, tu</p>${mx('{P:tu} nombre', 'ton prénom')}<p class="muted" style="margin:0 0 6px"><b>tu</b> (sans accent) = ton, ta</p>${tBtn('pal:tutu')}</div></div>`;
+  if (k === 'alfabeto') return bar('L’alphabet', back) + `<div class="btn-row" style="margin:0 0 12px">${visible(getLesson('alfabeto')) ? `<button class="btn ghost sm tbtn" data-act="astart" data-k="mix" data-l="alfabeto">🎯 S’entraîner sur les lettres</button>` : ''}</div>` + alfaBlock();
+  if (k === 'escribir') return bar('Bien écrire', back) + `<div class="btn-row" style="margin:0 0 12px">${tBtn('escribir', 'S’entraîner à bien écrire')}</div><div class="two">
+    <div class="box"><h3>¿ ¡ à l’envers au début</h3><p>On ouvre la question avec <b>¿</b> et l’exclamation avec <b>¡</b>.</p>${mx('¿{Q:Qué} tal?', 'Ça va ?')}${mx('¡Hola!', 'Salut !')}</div>
+    <div class="box"><h3>Les accents</h3><p>Les mots-questions ont un accent :</p>${mx('¿{Q:Cómo}? ¿{Q:Quién}? ¿{Q:Cuál}? ¿{Q:Qué}?', 'Comment ? Qui ? Quel ? Que ?')}<p><b>tú</b> = toi · <b>tu</b> = ton, ta</p></div>
+    <div class="box"><h3>La date</h3><p>Jour, nombre (en lettres) <b>de</b> mois — sans majuscule :</p>${mx('Fecha: jueves, 8 (ocho) de octubre', 'Date : jeudi 8 octobre')}<button class="btn ghost sm" data-go="fecha">${I.cal} La date d’aujourd’hui</button></div>
+    <div class="box"><h3>Fille ou garçon</h3>${mx('un chico → una chica', 'un garçon → une fille')}${mx('un alumno → una alumna', 'un élève → une élève')}${mx('español → española', 'espagnol → espagnole')}</div></div>`;
+  if (k === 'fechas') return bar('Jours, mois, nombres', back) + `<div class="list">
+    ${visible(getLesson('fecha')) ? `<div class="row"><span class="pic row-ic">📅</span><span class="row-tx"><b>Los días y la fecha</b><small>${DIAS.slice(1).concat('domingo').join(', ')}</small></span><button class="btn ghost sm" data-go="l/fecha">Voir</button><button class="btn ghost sm tbtn" data-act="astart" data-k="mix" data-l="fecha">🎯</button></div>` : ''}
+    ${visible(getLesson('numeros')) ? `<div class="row"><span class="pic row-ic">🔢</span><span class="row-tx"><b>Los números</b><small>uno, dos, tres… treinta y uno</small></span><button class="btn ghost sm" data-go="l/numeros">Voir</button><button class="btn ghost sm tbtn" data-act="astart" data-k="mix" data-l="numeros">🎯</button></div>` : ''}
+    <button class="row" data-go="fecha"><span class="pic row-ic">🗓️</span><span class="row-tx"><b>La date du jour</b><small>${fechaTxt(new Date())}</small></span>${I.next}</button></div>`;
+  return vMemo();
+}
+function verbForm(form, p) {
+  const parts = form.split(' '), core = parts.pop(), pre = parts.length ? `<span class="w p">${esc(parts[0])}</span> ` : '';
+  let inner = esc(core);
+  if (p === 0) { const n = core.endsWith('oy') ? 2 : core.endsWith('o') ? 1 : 0; if (n) inner = esc(core.slice(0, -n)) + `<u>${esc(core.slice(-n))}</u>`; }
+  if (p === 1 && core.endsWith('s')) inner = esc(core.slice(0, -1)) + '<u>s</u>';
+  return `<span class="s">${pre}<span class="w v">${inner}</span></span>`;
+}
+function vVerbo(inf) {
+  const v = VERBOS.find(x => x.inf === inf); if (!v) return vMemo();
+  const rows = v.f.map(([form, fr], p) => `<div class="vr"><div class="pers"><b>${PERS[p]}</b><small>${PERS_FR[p]}</small></div><div><div class="vform">${verbForm(form, p)}</div><div class="fr">${esc(fr)}</div></div>${sayBtn(form)}</div>`).join('');
+  return bar(`${v.inf} · ${esc(v.fr)}`, 'memo/verbos') + (v.sens ? `<p class="intro">${v.inf} = ${esc(v.fr)} : <b>${esc(v.sens)}</b>.</p>` : '') + rows +
+    `<div class="btn-row" style="margin:6px 0 4px">${tBtn('verbo:' + v.inf, `S’entraîner sur « ${v.inf} »`)}</div>
+    <h3 class="sec-t">Dans le cours</h3><div class="stack">${v.ex.map(e => `<div class="srow">${mx(e, EXFR[e] || '')}</div>`).join('')}</div>`;
 }
 
 /* --- S’entraîner --- */
@@ -1526,16 +1680,16 @@ function exW(it, dir) {
   let ds;
   if (it.num) ds = shuffle(poolOf(it).filter(x => x.id !== it.id).sort((a, b) => Math.abs(a.num - it.num) - Math.abs(b.num - it.num)).slice(0, 4)).slice(0, 2);
   else ds = distractors(it, 2, dir === 'es2fr' ? x => x.fr : x => x.es, sameKind(it));
-  const opts = shuffle([it, ...ds]).map(x => ({ok:x === it, html:dir === 'es2fr' ? esc(x.fr) : (x.t === 'p' ? sHTML(x.es) : esc(x.es))}));
+  const opts = shuffle([it, ...ds]).map(x => ({ok:x === it, it:x, html:dir === 'es2fr' ? esc(x.fr) : (x.t === 'p' ? sHTML(x.es) : esc(x.es))}));
   const p = it.img ? `<span class="pic q-pic">${pic(it.img)}</span>` : '';
-  if (dir === 'es2fr') return {type:'choice', ask:`${p}<div class="q-es">${it.t === 'p' ? sHTML(it.es) : esc(it.es)}</div>`, say:speakText(it.es), hint:it.num ? 'Quel est ce nombre ?' : 'Qu’est-ce que ça veut dire ?', opts};
-  return {type:'choice', ask:`${p}<div class="q-fr">${esc(it.fr)}</div>`, hint:it.num ? 'Comment dit-on ce nombre en espagnol ?' : 'Comment dit-on en espagnol ?', opts};
+  if (dir === 'es2fr') return {type:'choice', kind:'w', ask:`${p}<div class="q-es">${it.t === 'p' ? sHTML(it.es) : esc(it.es)}</div>`, say:speakText(it.es), hint:it.num ? 'Quel est ce nombre ?' : 'Qu’est-ce que ça veut dire ?', opts};
+  return {type:'choice', kind:'w', ask:`${p}<div class="q-fr">${esc(it.fr)}</div>`, hint:it.num ? 'Comment dit-on ce nombre en espagnol ?' : 'Comment dit-on en espagnol ?', opts};
 }
 function exQA(it) {
   // jamais comme « mauvaise réponse » la réponse à la même question (ex. « Me llamo Lucas » pour « ¿Cómo te llamas? »)
   const ds = distractors(it, 2, x => x.a.es, x => low(plain(x.q.es)) !== low(plain(it.q.es)));
-  return {type:'choice', ask:`<div class="q-es">${sHTML(it.q.es)}</div>${box(it.id) === 0 ? `<div class="q-sub">${esc(it.q.fr)}</div>` : ''}`,
-    say:speakText(it.q.es), hint:'Choisis la bonne réponse.', opts:shuffle([it, ...ds]).map(x => ({ok:x === it, html:sHTML(x.a.es)}))};
+  return {type:'choice', kind:'qa', ask:`<div class="q-es">${sHTML(it.q.es)}</div>${box(it.id) === 0 ? `<div class="q-sub">${esc(it.q.fr)}</div>` : ''}`,
+    say:speakText(it.q.es), hint:'Choisis la bonne réponse.', opts:shuffle([it, ...ds]).map(x => ({ok:x === it, it:x, html:sHTML(x.a.es)}))};
 }
 const HUECO = {'cómo':['Quién','De dónde','En qué','Cuál'], 'qué':['Quién','Cómo','De dónde'], 'cuál':['Quién','Cómo','De dónde'],
   'quién':['Cómo','Qué','De dónde'], 'en qué':['Quién','Cómo','De dónde'], 'de dónde':['Quién','Cómo','En qué'], 'de qué color':['Quién','De dónde','Cómo']};
@@ -1543,8 +1697,8 @@ function exHueco(it) {
   const qt = parse(it.q.es), gi = qt.findIndex(k => k.r === 'Q');
   const corr = qt[gi].t, lc = low(corr), up = corr.charAt(0) !== lc.charAt(0);
   const others = pickN((HUECO[lc] || ['Quién','Cómo','De dónde']).filter(x => low(x) !== lc), 2).map(x => up ? x : low(x));
-  return {type:'choice', ask:`<div class="q-es"><span class="s">${renderS(qt, {blank:gi})}</span></div><div class="q-sub">${esc(it.q.fr)}</div>`,
-    hint:'Quel mot-question manque ?', opts:shuffle([corr, ...others]).map(x => ({ok:x === corr, html:`<span class="w q">${esc(x)}</span>`}))};
+  return {type:'choice', kind:'hueco', ask:`<div class="q-es"><span class="s">${renderS(qt, {blank:gi})}</span></div><div class="q-sub">${esc(it.q.fr)}</div>`,
+    hint:'Quel mot-question manque ?', opts:shuffle([corr, ...others]).map(x => ({ok:x === corr, w:x, html:`<span class="w q">${esc(x)}</span>`}))};
 }
 function orderable(es) {
   const t = parse(es), ws = t.filter(isWord);
@@ -1578,14 +1732,14 @@ function exVerbo(it) {
   const v = VERBOS.find(x => x.inf === FORMS[low(k.t)].inf), up = k.t.charAt(0) !== low(k.t).charAt(0);
   const forms = [...new Set(v.f.map(x => x[0].split(' ').pop()))];
   const rev = {}; vt.t.forEach((x, i) => { if (i !== vt.i) rev[i] = true; });
-  return {type:'choice', hint:'Quel verbe va dans la case ?',
+  return {type:'choice', kind:'verbo', hint:'Quel verbe va dans la case ?',
     ask:`${it.t === 'qa' ? `<div class="q-sub">Question :</div><div class="q-es" style="font-size:1.4rem">${sHTML(it.q.es)}</div><div class="q-sub">Réponse :</div>` : ''}<div class="q-es"><span class="s">${renderS(vt.t, {cases:true, rev})}</span></div><div class="q-sub">« ${esc(src.fr)} »</div>`,
-    opts:shuffle(forms).map(x => ({ok:low(x) === low(k.t), html:`<span class="w v">${esc(up ? cap(x) : x)}</span>`}))};
+    opts:shuffle(forms).map(x => ({ok:low(x) === low(k.t), w:x, html:`<span class="w v">${esc(up ? cap(x) : x)}</span>`}))};
 }
 function exLetra(it, dir) {
   const ds = pickN(ALFA.filter(a => a[0] !== it.l), 2);
-  if (dir === 'l2n') return {type:'choice', ask:`<div class="q-letter">${it.l.toUpperCase()}</div>`, hint:'Comment s’appelle cette lettre ?', opts:shuffle([[it.l, it.es], ...ds.map(a => [a[0], a[1]])]).map(a => ({ok:a[0] === it.l, html:`la ${esc(a[1])}`}))};
-  return {type:'choice', ask:`<div class="q-es">la ${esc(it.es)}</div>`, say:it.es, hint:'Quelle est cette lettre ?', opts:shuffle([it.l, ...ds.map(a => a[0])]).map(l => ({ok:l === it.l, html:`<b style="font-size:1.6rem">${l.toUpperCase()}</b>`}))};
+  if (dir === 'l2n') return {type:'choice', kind:'letra', ask:`<div class="q-letter">${it.l.toUpperCase()}</div>`, hint:'Comment s’appelle cette lettre ?', opts:shuffle([[it.l, it.es], ...ds.map(a => [a[0], a[1]])]).map(a => ({ok:a[0] === it.l, w:a[0], html:`la ${esc(a[1])}`}))};
+  return {type:'choice', kind:'letra', ask:`<div class="q-es">la ${esc(it.es)}</div>`, say:it.es, hint:'Quelle est cette lettre ?', opts:shuffle([it.l, ...ds.map(a => a[0])]).map(l => ({ok:l === it.l, w:l, html:`<b style="font-size:1.6rem">${l.toUpperCase()}</b>`}))};
 }
 // (sans les drapeaux : sur certains ordinateurs ils s’affichent en lettres, ce qui gênerait le jeu)
 function veoPool() { return lessons().filter(L => (L.id === 'espana' || L.id === 'materias') && visible(L)).flatMap(trainable).filter(x => !/[\u{1F1E6}-\u{1F1FF}]/u.test(x.img || '')).filter(x => (x._l === 'espana' || x._l === 'materias') && x.t === 'w' && x.img && !x.img.startsWith('sw:') && !/clase/.test(x.es)); }
@@ -1594,7 +1748,58 @@ function exVeo(it) {
   const others = [], used = new Set([ini]);
   for (const x of shuffle(veoPool())) { const i2 = initial(x.es); if (x.id !== it.id && !used.has(i2) && x.img !== it.img) { used.add(i2); others.push(x); if (others.length === 3) break; } }
   return {type:'veo', ask:`<div class="veo-q">Veo, veo… una cosita…<br>Empieza por la « <b>${esc(name)}</b> ».</div>`, say:`Veo, veo. Una cosita. Empieza por la ${name}.`,
-    hint:'Touche la bonne image.', opts:shuffle([it, ...others]).map(x => ({ok:x === it, html:pic(x.img), label:x.es})), show:`¡Es ${it.es}!`};
+    hint:'Touche la bonne image.', opts:shuffle([it, ...others]).map(x => ({ok:x === it, it:x, html:pic(x.img), label:x.es})), show:`¡Es ${it.es}!`};
+}
+/* petites séances sur mesure (depuis une leçon, un dialogue ou le Mémo) : elles reviennent là d’où on vient */
+function customSession(key, back, steps) { G.sessXp = 0; return {key, back, steps:shuffle(steps), i:0, ans:null, first:0, total:steps.length, errs:[], date:today(), combo:0}; }
+function startCustom(key, back, steps) { if (!steps.length) { toast('Rien à travailler ici pour l’instant.'); return; } UI.plan = null; SES = customSession(key, back, steps); go('s/' + key); }
+const stepOf = (it, make) => ({kind:'q', it, ex:make(), make});
+// depuis le grand écran d’une leçon : cet élément et ses voisins
+function focoSteps(lid, idx) {
+  const L = getLesson(lid), tr = L.items.map((it, i) => [it, i]).filter(([it]) => it.t !== 'd');
+  const near = tr.sort((a, b) => Math.abs(a[1] - idx) - Math.abs(b[1] - idx)).slice(0, 4).map(([it]) => it);
+  return near.map(it => stepOf(it, () => gen(it)));
+}
+// dialogues : chaque réplique, dans le sens choisi (es → fr ou fr → es)
+function dlgSteps(lid, idx, dir) {
+  const it = getLesson(lid).items[idx], P = it.lines.map((l, i) => ({id:`${it.id}/${i}`, t:'p', es:l.es, fr:l.fr, who:l.w, i}));
+  const uniq = P.filter((x, i) => P.findIndex(y => plain(y.es) === plain(x.es)) === i);
+  return uniq.map(x => stepOf(x, () => {
+    const prev = x.i > 0 ? P[x.i - 1] : null, others = pickN(uniq.filter(y => y !== x && y.fr !== x.fr), 2);
+    const ctx = prev ? `<div class="q-sub">${esc(prev.who)} : ${sHTML(prev.es)}</div>` : '';
+    if (dir === 'fr' && orderable(x.es) && Math.random() < 0.5) { const o = exOrder(x.es, x.fr); o.ask = ctx + `<div class="q-sub">${esc(x.who)} dit :</div>` + o.ask; return o; }
+    const opts = shuffle([x, ...others]).map(y => ({ok:y === x, it:y, html:dir === 'es' ? esc(y.fr) : sHTML(y.es)}));
+    return dir === 'es'
+      ? {type:'choice', kind:'w', ask:`${ctx}<div class="q-sub">${esc(x.who)} dit :</div><div class="q-es">${sHTML(x.es)}</div>`, say:speakText(x.es), hint:'Qu’est-ce que ça veut dire ?', opts}
+      : {type:'choice', kind:'w', ask:`${ctx}<div class="q-sub">${esc(x.who)} veut dire :</div><div class="q-fr">« ${esc(x.fr)} »</div>`, hint:'Comment le dit-il en espagnol ?', opts};
+  }));
+}
+/* « Pourquoi ? » : l’explication montrée quand la réponse est fausse */
+const QMEAN = {'cómo':'comment', 'qué':'que, quoi, quel', 'cuál':'quel, quelle', 'quién':'qui', 'en qué':'dans quel, dans quelle', 'de dónde':'d’où', 'de qué color':'de quelle couleur', 'dónde':'où'};
+const QWHY = {'cómo':'on demande « comment »', 'quién':'on cherche une personne', 'cuál':'on demande « quel, quelle »', 'qué':'on demande « quel » ou « quoi »',
+  'en qué':'on demande « dans quel… »', 'de dónde':'on demande d’où l’on vient', 'de qué color':'on demande une couleur'};
+const esOf = x => x.t === 'qa' ? plain(x.a.es) : x.t === 'l' ? 'la ' + x.es : plain(x.es);
+function why(st, A) {
+  const ex = st.ex, it = st.it, o = A.pick != null && ex.opts ? ex.opts[A.pick] : null, good = ex.opts && ex.opts.find(x => x.ok);
+  if (typeof ex.why === 'function') return ex.why(o);
+  if (ex.type === 'order') {
+    const got = ex.placed.map(c => ex.chips[c].t), j = got.findIndex((w, n) => w !== ex.target[n]);
+    return j < 0 ? '' : `Le mot n° ${j + 1} devait être <b>${esc(ex.target[j])}</b> (tu as mis « ${esc(got[j])} »).${j === 0 ? ' Regarde la majuscule : elle montre le premier mot.' : ''}`;
+  }
+  if (!o) return '';
+  if (ex.kind === 'w' && o.it) return `Tu as choisi <b>${esc(esOf(o.it))}</b> : ça veut dire « ${esc(o.it.fr)} ».<br>La bonne réponse : <b>${esc(esOf(it))}</b> = « ${esc(it.fr)} ».`;
+  if (ex.kind === 'qa' && o.it) {
+    const r = pairQA(parse(it.q.es), parse(it.a.es)).rules;
+    return `Ta réponse va avec une autre question : « ${esc(o.it.q.fr)} ».<br>Ici, on te demande : « ${esc(it.q.fr)} ».${r.length ? `<br>Dans ta réponse, tu parles de toi : ${r.map(x => `${esc(x.from)} → <b>${esc(x.to)}</b>`).join(', ')}.` : ''}`;
+  }
+  if (ex.kind === 'hueco' && good) return `<b>${esc(o.w)}</b> = ${QMEAN[low(o.w)] || ''}.<br>Ici, la question veut dire « ${esc(it.q.fr)} » : ${QWHY[low(good.w)] || ''}, donc <b>${esc(good.w)}</b> (${QMEAN[low(good.w)] || ''}).`;
+  if (ex.kind === 'verbo' && good) {
+    const f1 = FORMS[low(o.w)], f2 = FORMS[low(good.w)]; if (!f1 || !f2) return '';
+    return `<b>${esc(o.w)}</b> = ${esc(f1.fr)} (avec ${PERS[f1.p]}).<br>Ici il faut <b>${esc(good.w)}</b> = ${esc(f2.fr)} (avec ${PERS[f2.p]}).${f2.p === 0 ? ' On parle de soi (yo) : le verbe finit par o ou oy.' : f2.p === 1 ? ' On parle à « tú » : le verbe finit par s.' : ' On parle de quelqu’un d’autre (él, ella).'}`;
+  }
+  if (ex.kind === 'letra') return `${esc(o.w.toUpperCase())} s’appelle « la ${esc(ALFA_NAME[o.w] || '')} ». ${esc(it.l.toUpperCase())} s’appelle « la ${esc(it.es)} ».`;
+  if (ex.type === 'veo' && o.it) return `${esc(o.it.es)} commence par la lettre ${initial(o.it.es).toUpperCase()}. On cherchait la lettre ${initial(it.es).toUpperCase()} : <b>${esc(it.es)}</b>.`;
+  return '';
 }
 function gen(it, easy) {
   const b = easy ? 0 : box(it.id), sens = S.set.sens;
@@ -1655,7 +1860,7 @@ function vSesion(key) {
   const act = key.startsWith('act:') ? key.split(':') : null;
   if (!SES || SES.key !== key) SES = act ? buildActSession(act[1], act[2]) : buildSession(key);
   if (key === '_mision' && (!SES || SES.key !== key)) SES = buildMision();
-  const back = key === '_mision' ? '' : act ? `aprender/${act[2]}` : (getLesson(key) && !key.startsWith('_')) ? `aprender/${key}` : 'entrenar';
+  const back = SES && SES.key === key && SES.back != null ? SES.back : key === '_mision' ? '' : act ? `aprender/${act[2]}` : (getLesson(key) && !key.startsWith('_')) ? `aprender/${key}` : 'entrenar';
   const close = `<button class="ib" data-act="quit" data-back="${back}" aria-label="Arrêter">${I.close}</button>`;
   if (!SES.steps.length) return bar('Apprendre', back) + `<p class="okmsg">Il n’y a rien à travailler ici pour l’instant.</p>`;
   if (SES.i >= SES.steps.length) return key === '_mision' && jeu() ? vFinMision() : vFin(back);
@@ -1693,7 +1898,7 @@ function vSesion(key) {
     const it = st.it;
     const sol = ex.type === 'veo' ? sHTML(ex.show) : ex.type === 'order' ? sHTML(ex.es) : it.t === 'qa' ? sHTML(it.q.es) + '<br>' + sHTML(it.a.es) : it.t === 'l' ? `<b>${it.l.toUpperCase()}</b> = la ${esc(it.es)}` : `${it.t === 'p' ? sHTML(it.es) : `<b>${esc(it.es)}</b>`} = ${esc(it.fr)}`;
     const sayS = ex.type === 'veo' ? speakText(ex.show) : ex.type === 'order' ? ex.say : sayOf(it);
-    h += `<div class="ex" style="padding:0"><div class="fb ${A.ok ? 'ok' : 'ko'}"><div class="fb-t">${A.ok ? I.check + ' ' + okTxt : 'Presque ! La bonne réponse :'}</div><div>${sol}</div>${sayBtn(sayS, 'Écouter')}</div>
+    h += `<div class="ex" style="padding:0"><div class="fb ${A.ok ? 'ok' : 'ko'}"><div class="fb-t">${A.ok ? I.check + ' ' + okTxt : 'Presque ! La bonne réponse :'}</div><div>${sol}</div>${A.ok ? '' : (w => w ? `<div class="why"><b>Pourquoi ?</b> ${w}</div>` : '')(why(st, A))}${sayBtn(sayS, 'Écouter')}</div>
       <div class="cont"><button class="btn wide" data-act="next">Continuer</button></div></div>`;
   } else if (ex.type === 'card') {
     h += ex.open ? `<div class="ex" style="padding:0"><div class="cont"><button class="btn ghost" data-act="card" data-ok="0">${I.redo} Pas encore</button><button class="btn" data-act="card" data-ok="1">${I.check} Je savais</button></div></div>`
@@ -2526,6 +2731,9 @@ const ACT = {
   start(el) { SES = buildSession(el.dataset.k); go('s/' + el.dataset.k); },
   astart(el) { UI.plan = null; startKind(el.dataset.k, el.dataset.l); },
   mision() { SES = buildMision(); go('s/_mision'); },
+  foco(el) { const lid = el.dataset.l, i = +el.dataset.i; startCustom('_foco', `f/${lid}/${i}`, focoSteps(lid, i)); },
+  dtrain(el) { const lid = el.dataset.l, i = +el.dataset.i; startCustom('_dlg', `d/${lid}/${i}`, dlgSteps(lid, i, el.dataset.d)); },
+  mtrain(el) { const k = el.dataset.k; startCustom('_memo', current && current.fn === vVerbo ? `verbo/${k.split(':')[1]}` : location.hash.replace(/^#\//, ''), memoSteps(k)); },
   fifty() {
     const ex = SES.steps[SES.i].ex; if (ex.hid != null || !(S.game.b5050 > 0)) return;
     const wrong = ex.opts.map((o, i) => o.ok ? -1 : i).filter(i => i >= 0);
@@ -2631,7 +2839,10 @@ const ACT = {
   odel(el) { const ex = SES.steps[SES.i].ex; if (SES.ans) return; ex.placed.splice(+el.dataset.j, 1); render(); },
   reveal() { const ex = SES.steps[SES.i].ex; ex.open = true; render(); Voz.say(ex.say); },
   card(el) { const ex = SES.steps[SES.i].ex; ex.open = false; answer(el.dataset.ok === '1'); },
-  again() { const errs = [...new Map(SES.errs.map(e => [e.id, e])).values()]; const k = SES.key; SES = SES.kind ? buildActSession(SES.kind, SES.lid, errs) : buildSession(k, errs); render(); },
+  again() {
+    const errs = [...new Map(SES.errs.map(e => [e.id, e])).values()], k = SES.key;
+    if (SES.back != null) { const mk = it => (SES.steps.find(s => s.it.id === it.id && s.make) || {}).make; if (errs.every(mk)) { SES = customSession(k, SES.back, errs.map(it => ({kind:'q', it, ex:mk(it)(), make:mk(it), retry:true}))); SES.practice = true; render(); return; } }
+    SES = SES.kind ? buildActSession(SES.kind, SES.lid, errs) : buildSession(k, errs); render(); },
   tset(el) { const k = el.dataset.k; S.set[k] = !S.set[k]; save(); render(); },
   sset(el) { S.set[el.dataset.k] = el.dataset.v; save(); render(); },
   etg(el) { const k = el.dataset.k; S.eleve[k] = !S.eleve[k]; save(); render(); },
@@ -2766,6 +2977,7 @@ Voz.init();
   route();
 })();
 window.__esp = {
+  why, memoSteps, focoSteps, dlgSteps,
   llama, gainXP, G:() => G, buildMision, lvlOf, LV, OBJ, CULTURA, tirage,
   av:() => AV, actPool, writeParts, writable, buildAV, ACTS,
   // pour les contrôles : affiche un exercice donné, sans toucher à la progression

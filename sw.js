@@ -1,6 +1,6 @@
 // Garde l’appli sur l’appareil pour qu’elle marche sans internet.
 // Pour publier une nouvelle version : changer le numéro ci-dessous.
-const CACHE = 'espanol5e-v1.4';
+const CACHE = 'espanol5e-v1.5';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
