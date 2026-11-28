@@ -252,6 +252,19 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .fb.ko .fb-t{color:var(--ko)}
 .fb .s{font-size:1.2rem}
 .fb .say{align-self:flex-start}
+.nv-zone{position:relative;width:100%;max-width:660px;height:400px;border-radius:18px;overflow:hidden;margin:8px auto 0;
+  background:radial-gradient(circle at 12% 18%,#fff8 1.2px,transparent 2px),radial-gradient(circle at 64% 9%,#fff9 1px,transparent 2px),radial-gradient(circle at 82% 58%,#fff7 1.2px,transparent 2px),radial-gradient(circle at 33% 72%,#fff6 1px,transparent 2px),radial-gradient(circle at 48% 38%,#fff5 1px,transparent 2px),linear-gradient(#26325a,#3a3f70)}
+.nv-zone::after{content:'';position:absolute;left:0;right:0;bottom:0;height:16%;background:linear-gradient(transparent,#e8a87c55);border-top:2px dashed #ffffff33;pointer-events:none}
+.nv-ship{position:absolute;width:22%;background:none;border:0;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:opacity .4s,transform .4s}
+.nv-ship svg{width:100%;max-width:110px;height:auto}
+.nv-ship .hull{fill:#9a8ee0;stroke:#4b4294}
+.nv-w{background:#fff;color:#1f2a3a;border-radius:10px;padding:3px 10px;font-weight:700;font-size:1.05rem;box-shadow:0 2px 0 #0003;max-width:100%;overflow-wrap:anywhere;text-align:center}
+.nv-ship.bad{opacity:.55}.nv-ship.bad .hull{fill:#c9b9b6;stroke:#8a6d68}.nv-ship.bad .nv-w{background:#fbe9e6;color:#8a2f22}
+.nv-ship.good .nv-w{background:#e6f4ec;color:#1d6b43;box-shadow:0 0 0 3px #2f8a5b}
+.nv-ship.boom{transform:scale(1.12)}.nv-ship.boom .hull{fill:#8fd3ad;stroke:#2f8a5b}
+.nv-ask{text-align:center;margin-top:10px}.nv-ask .q-fr{font-size:1.5rem}
+.nv-msg{min-height:30px;text-align:center;font-size:1.1rem;color:#8a2f22}.nv-msg.ok{color:#1d6b43}
+@media (max-width:560px){.nv-zone{height:330px}.nv-w{font-size:.9rem;padding:2px 6px}}
 .fb-gloss{min-height:0;justify-content:flex-start}
 .fb-gloss .tip{font-size:.85rem}
 .chip.good{border-color:#2f8a5b;background:#e6f4ec}
@@ -490,7 +503,7 @@ input[type=text],select{padding:11px 14px;border:1px solid var(--line2);border-r
    2. Outils de langue       5. Écrans
    3. Données de l’appareil  6. Exercices
    ====================================================================== */
-const VERSION = '1.7 — 28/11/2026';
+const VERSION = '1.8 — 28/11/2026';
 
 /* ---------------------------------------------------------------- 1. COURS */
 const UNIDADES = [
@@ -1214,7 +1227,7 @@ const routes = [
   [/^d\/([^/]+)\/(\d+)$/, vDialogo], [/^entrenar$/, vEntrenar], [/^s\/([^/]+)$/, vSesion], [/^memo$/, vMemo],
   [/^memo\/([^/]+)$/, vMemoSec], [/^verbo\/([^/]+)$/, vVerbo], [/^fecha$/, vFecha], [/^sos$/, vSos], [/^sos\/(\d+)$/, vSosUno],
   [/^ajustes$/, vAjustes], [/^perso$/, vPerso], [/^anadir$/, vAnadir], [/^mios$/, vMios], [/^qr$/, vQR],
-  [/^aprender\/([^/]+)$/, vAprender], [/^album$/, vAlbum], [/^cofre$/, vCofre], [/^act\/(cartes|escribir|asociar)\/([^/]+)$/, vActividad],
+  [/^aprender\/([^/]+)$/, vAprender], [/^album$/, vAlbum], [/^cofre$/, vCofre], [/^act\/(cartes|escribir|asociar|naves)\/([^/]+)$/, vActividad],
 ];
 function go(path) { if (location.hash === '#/' + path) route(); else location.hash = '#/' + path; }
 function route() {
@@ -1337,7 +1350,8 @@ function vFocus(lid, idx) {
   UI.toks = {}; UI.key = key;
   if (it.t === 'w') {
     sayT = it.es;
-    const es = `<div class="big">${esc(it.es)}</div>`;
+    const tw = twin(it), t = parse(it.es);
+    const es = `<div class="big">${tw ? `<span class="s">${renderS(t, {hl:diffHL(t, tw.es)})}</span>` : esc(it.es)}</div>${twinNote(tw)}`;
     body = (it.img ? `<span class="pic xl">${pic(it.img)}</span>` : '') + (frFirst
       ? `<div class="big fr1">${esc(it.fr)}</div><div class="frbox">${UI.es ? es : ''}</div>`
       : `${es}<div class="frbox">${UI.fr && frOk ? `<div class="fr">${esc(it.fr)}</div>` : ''}</div>`);
@@ -1978,8 +1992,11 @@ function vSesion(key) {
   if (SES.i >= SES.steps.length) return key === '_mision' && jeu() ? vFinMision() : vFin(back);
   const st = SES.steps[SES.i];
   // le compteur ne compte que les questions (un écran « Nouveau » n'est pas une question)
-  const N = SES.steps.filter(s => s.kind === 'q').length, n = SES.steps.slice(0, SES.i).filter(s => s.kind === 'q').length;
-  let h = `<div class="ses-top">${close}<div class="ses-prog"><i style="width:${N ? Math.round(100 * n / N) : 0}%"></i></div><span class="ses-n">${st.kind === 'q' ? `Question ${n + 1} / ${N}` : ''}</span></div><div class="ex">`;
+  // une question qui revient après une erreur ne change pas le total : elle s'affiche « À revoir »
+  const isQ = s => s.kind === 'q' && !s.again, N = SES.steps.filter(isQ).length, n = SES.steps.slice(0, SES.i).filter(isQ).length;
+  const allQ = SES.steps.filter(s => s.kind === 'q').length, doneQ = SES.steps.slice(0, SES.i).filter(s => s.kind === 'q').length;
+  const lab = st.kind !== 'q' ? '' : st.again ? 'À revoir' : `Question ${n + 1} / ${N}`;
+  let h = `<div class="ses-top">${close}<div class="ses-prog"><i style="width:${allQ ? Math.round(100 * doneQ / allQ) : 0}%"></i></div><span class="ses-n">${lab}</span></div><div class="ex">`;
   if (st.kind === 'intro') {
     h += `<span class="tag">Nouveau</span>${introOf(st.it, st.fr)}${sayBtn(sayOf(st.it), 'Écouter')}
       ${st.it.note ? `<div class="note">💡 ${esc(st.it.note)}</div>` : ''}</div><div class="cont" style="margin:0 auto"><button class="btn wide" data-act="next">J’ai compris</button></div>`;
@@ -2034,7 +2051,13 @@ function answer(ok, pick) {
   SES.bestCombo = Math.max(SES.bestCombo || 0, SES.combo);
   if (SES.combo > (S.game.best || 0)) S.game.best = SES.combo;
   if (!st.retry) { record(st.it, ok); snapshot(); save(); }
-  if (!ok) SES.steps.push({kind:'q', it:st.it, ex:st.make ? st.make() : gen(st.it, true), make:st.make, retry:true, again:true});
+  if (!ok) {
+    // la question revient plus loin, jamais juste après un élément presque pareil
+    const r = {kind:'q', it:st.it, ex:st.make ? st.make() : gen(st.it, true), make:st.make, retry:true, again:true}, L = SES.steps;
+    let at = L.length;
+    if (similar(r.it, L[at - 1].it)) for (let p = at - 1; p >= SES.i + 2; p--) if (!similar(r.it, L[p - 1].it) && !similar(r.it, L[p].it)) { at = p; break; }
+    L.splice(at, 0, r);
+  }
   render();
   if (ok && canSay()) { const ex = st.ex; Voz.say(ex.type === 'veo' ? speakText(ex.show) : ex.type === 'order' ? ex.say : st.it.t === 'qa' ? speakText(st.it.a.es) : ''); }
 }
@@ -2055,8 +2078,9 @@ const ACTS = [
   {k:'asociar', icon:'🔗', t:'Associer', d:'Relie chaque mot espagnol à son sens.'},
   {k:'verbo', icon:'🔤', t:'Le bon verbe', d:'Choisis la bonne forme du verbe.'},
   {k:'veo', icon:'👀', t:'Veo, veo', d:'Trouve l’image qui commence par la lettre.'},
+  {k:'naves', icon:'🛸', t:'Les vaisseaux', d:'Touche le vaisseau qui porte le bon mot.'},
 ];
-const MIN_N = {mix:1, cartes:1, escribir:1, armar:1, asociar:3, verbo:1, veo:4};
+const MIN_N = {mix:1, cartes:1, escribir:1, armar:1, asociar:3, verbo:1, veo:4, naves:4};
 const nWords = es => parse(es).filter(isWord).length;
 const prioritize = arr => shuffle(arr).sort((a, b) => ((isDue(b.id) ? 1 : 0) - (isDue(a.id) ? 1 : 0)) || (box(a.id) - box(b.id)));
 // ce qu’il faut écrire : l’article (el, la, un…) et « (yo) » sont donnés, la ponctuation aussi
@@ -2071,6 +2095,7 @@ function startKind(k, lid) {
   if (k === 'mix') { SES = buildSession(lid); go('s/' + lid); }
   else if (k === 'veo') { SES = buildSession('_veo'); go('s/_veo'); }
   else if (k === 'armar' || k === 'verbo') { SES = buildActSession(k, lid); go(`s/act:${k}:${lid}`); }
+  else if (k === 'naves' && actPool('naves', getLesson(lid)).length < MIN_N.naves) toast('Les vaisseaux, c’est pour les mots déjà vus. Fais d’abord la « Révision intelligente » de cette leçon.');
   else { AV = buildAV(k, lid); go(`act/${k}/${lid}`); }
 }
 // bouton « exercice suivant » quand l’élève enchaîne plusieurs exercices
@@ -2092,7 +2117,15 @@ function actPool(kind, L) {
   if (kind === 'asociar') return tr.filter(it => it.t === 'w' || (it.t === 'p' && nWords(it.es) <= 4));
   if (kind === 'verbo') return tr.filter(it => (it.t === 'p' || it.t === 'qa') && verbTarget(it.t === 'qa' ? it.a.es : it.es));
   if (kind === 'veo') return ['espana', 'materias', 'veo'].includes(L.id) && veoPool().length >= 4 ? veoPool() : [];
+  if (kind === 'naves') return navesPool(L).filter(it => S.prog[it.id]);   // seulement des mots déjà vus
   return [];
+}
+// « Les vaisseaux » : les mots et petites phrases de la leçon, tels qu'ils sont écrits (jamais de mot inventé)
+// (un seul élément par mot espagnol et par sens français : la bonne réponse doit être unique)
+function navesPool(L) {
+  const es = new Set(), fr = new Set();
+  return trainable(L).filter(it => it.t === 'w' || (it.t === 'p' && nWords(it.es) <= 3)).filter(it => {
+    const e = low(plain(it.es)), f = low(it.fr); if (es.has(e) || fr.has(f)) return false; es.add(e); fr.add(f); return true; });
 }
 function vAprender(lid, q) {
   const L = getLesson(lid);
@@ -2101,7 +2134,7 @@ function vAprender(lid, q) {
   const back = q && q.get('de') === 'entrenar' ? 'entrenar' : `l/${lid}`;
   return bar('Apprendre', back) + `<div class="lh"><span class="pic">${esc(L.icon || '📘')}</span><div style="flex:1"><h2>${esc(L.es)}</h2><p>${k} / ${tr.length} sus</p>${pbar(k, tr.length)}</div></div>
     <p class="muted" style="margin:0 0 12px">Choisis ta façon d’apprendre :</p>
-    <div class="agrid2">${ACTS.map(a => actPool(a.k, L).length < MIN_N[a.k] ? '' :
+    <div class="agrid2">${ACTS.map(a => (a.k === 'naves' ? navesPool(L).length : actPool(a.k, L).length) < MIN_N[a.k] ? '' :
       `<button class="acard${a.k === 'mix' ? ' rec' : ''}" data-act="astart" data-k="${a.k}" data-l="${lid}"><span class="pic">${a.icon}</span><b>${a.t}</b><small>${a.d}</small>${a.k === 'mix' ? '<span class="rbadge">Conseillé</span>' : ''}</button>`).join('')}</div>
     <h3 class="sec-t">Enchaîner plusieurs exercices</h3>
     <div class="box"><p style="margin:0 0 6px">Coche les exercices que tu veux faire, dans l’ordre de la liste :</p>
@@ -2138,11 +2171,63 @@ function buildAV(kind, lid) {
     if (rounds.length > 1 && rounds[rounds.length - 1].length < 2) rounds[rounds.length - 2].push(...rounds.pop());
     return Object.assign(A, {rounds, r:0, total:deck.length, dir:S.set.sens === 'fr' ? 'fr' : 'es', wrong:new Set(), errors:0}, newRound(rounds[0] || []));
   }
+  if (kind === 'naves') {
+    // des mots tous différents (en espagnol et en français), pour que la bonne réponse soit unique
+    const seenEs = new Set(), seenFr = new Set(), all = [];
+    for (const it of prioritize(pool)) { const e = low(plain(it.es)), f = low(it.fr); if (seenEs.has(e) || seenFr.has(f)) continue; seenEs.add(e); seenFr.add(f); all.push(it); }
+    const deck = all.length >= MIN_N.naves ? all.slice(0, 10) : [];   // il faut 4 mots différents pour 4 vaisseaux
+    return Object.assign(A, {all, deck, i:0, total:deck.length, round:deck.length ? navRound(deck[0], all) : null});
+  }
   return A;
 }
+/* « Les vaisseaux » : 4 vaisseaux descendent lentement ; on touche celui qui porte le mot espagnol du sens demandé.
+   Pas de visée, pas de « perdu » : une erreur montre le sens du mot touché ; en bas, on voit la réponse. */
+const NAV_SPEED = {lente:12, normale:24};   // ÷ 10 = % de la hauteur par seconde : lent ≈ 60 s, normal ≈ 30 s pour descendre
+function navRound(it, all) {
+  const others = shuffle(all.filter(x => x.id !== it.id)).slice(0, 3);
+  const opts = shuffle([it, ...others]);
+  return {it, ships:opts.map((x, n) => ({it:x, y:2 + Math.random() * 8, bad:false, boom:false})), tries:0, done:false, ok:false, msg:''};
+}
+const SHIP = `<svg viewBox="0 0 120 64" aria-hidden="true"><ellipse cx="60" cy="27" rx="25" ry="21" fill="#d7eef7" stroke="#47708a" stroke-width="2.5"/><circle cx="52" cy="25" r="3.4" fill="#2b3a4c"/><circle cx="68" cy="25" r="3.4" fill="#2b3a4c"/><path d="M53 33 q7 5 14 0" fill="none" stroke="#2b3a4c" stroke-width="2.2" stroke-linecap="round"/><ellipse class="hull" cx="60" cy="42" rx="55" ry="15" stroke-width="2.5"/><circle cx="30" cy="44" r="4.6" fill="#ffd96b"/><circle cx="60" cy="48" r="4.6" fill="#ffd96b"/><circle cx="90" cy="44" r="4.6" fill="#ffd96b"/></svg>`;
+function vNaves(A) {
+  if (!A.round) return actFin(A, `${A.firstOk} mot${A.firstOk > 1 ? 's' : ''} trouvé${A.firstOk > 1 ? 's' : ''} du premier coup, sur ${A.total}.`, A.res);
+  const R = A.round, sp = S.set.naves === 'normale' ? 'normale' : 'lente';
+  const h = actTop(A, A.i, A.total) + `<div class="ex">
+    <div class="seg" role="group" aria-label="Vitesse"><button class="${sp === 'lente' ? 'on' : ''}" data-act="nspeed" data-v="lente">Lent</button><button class="${sp === 'normale' ? 'on' : ''}" data-act="nspeed" data-v="normale">Normal</button></div>
+    <div class="nv-zone">${R.ships.map((s, n) => `<button class="nv-ship${s.bad ? ' bad' : ''}${s.boom ? ' boom' : ''}${R.done && s.it === R.it ? ' good' : ''}" data-act="nhit" data-i="${n}" style="left:${3 + n * 24.5}%;top:${s.y}%" ${R.done || s.bad ? 'disabled' : ''} aria-label="${esc(plain(s.it.es))}">${SHIP}<span class="nv-w">${esc(plain(s.it.es))}</span></button>`).join('')}</div>
+    <div class="nv-ask"><div class="q-sub">Touche le vaisseau qui veut dire :</div><div class="q-fr">« ${esc(R.it.fr)} »</div></div>
+    <div class="nv-msg${R.ok ? ' ok' : ''}" aria-live="polite">${R.msg}</div></div>`
+    + (R.done ? `<div class="cont"><button class="btn wide" data-act="nnext">Continuer</button></div>` : '');
+  setTimeout(() => navGo(A), 0);
+  return h;
+}
+// la descente : on ne redessine pas l'écran, on bouge seulement les vaisseaux
+function navGo(A) {
+  if (A.loop) return; A.loop = true; let last = performance.now();
+  const tick = now => {
+    const zone = $('.nv-zone');
+    if (AV !== A || !A.round || !zone) { A.loop = false; return; }
+    const R = A.round, dt = Math.min(0.1, (now - last) / 1000); last = now;
+    if (!R.done) {
+      const v = NAV_SPEED[S.set.naves === 'normale' ? 'normale' : 'lente'] / 10;
+      const els = zone.querySelectorAll('.nv-ship');
+      R.ships.forEach((s, n) => { if (!s.bad) { s.y += v * dt; if (els[n]) els[n].style.top = s.y + '%'; } });
+      if (R.ships.some(s => !s.bad && s.y > 74)) {
+        R.done = true; navMiss(A, R);
+        R.msg = `Les vaisseaux sont arrivés en bas. La réponse :<br><b>${esc(plain(R.it.es))}</b> = ${esc(R.it.fr)}`;
+        render();
+      }
+    }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+function navMiss(A, R) { if (R.tries === 0) { record(R.it, false); A.res.push(R.it); snapshot(); save(); } R.tries++; }
 function newRound(items) { return {L:shuffle(items.map(x => x.id)), R:shuffle(items.map(x => x.id)), matched:new Set(), selL:null, selR:null, flash:null}; }
+// le compteur dit ce qu'il compte : « Carte 3 / 10 », « Mot 2 / 8 »…
+const UNIT = {cartes:'Carte', escribir:'Mot', asociar:'Paire', naves:'Question'};
 function actTop(A, done, total) {
-  return `<div class="ses-top"><button class="ib" data-act="aquit" aria-label="Arrêter">${I.close}</button><div class="ses-prog"><i style="width:${total ? Math.round(100 * done / total) : 0}%"></i></div><span class="ses-n">${Math.min(done + (done < total ? 1 : 0), total)} / ${total}</span></div>`;
+  return `<div class="ses-top"><button class="ib" data-act="aquit" aria-label="Arrêter">${I.close}</button><div class="ses-prog"><i style="width:${total ? Math.round(100 * done / total) : 0}%"></i></div><span class="ses-n">${UNIT[A.kind] || ''} ${Math.min(done + (done < total ? 1 : 0), total)} / ${total}</span></div>`;
 }
 function actFin(A, line, list) {
   return `<div class="end"><div class="pic" style="font-size:64px">🎉</div><h2>¡Terminado!</h2><div class="score">${line}</div>
@@ -2152,7 +2237,7 @@ function actFin(A, line, list) {
 function vActividad(kind, lid) {
   if (!AV || AV.key !== kind + ':' + lid) AV = buildAV(kind, lid);
   if (!AV.total) return bar('Apprendre', `aprender/${lid}`) + '<p class="okmsg">Il n’y a rien pour cette activité dans cette leçon.</p>';
-  return kind === 'cartes' ? vCartes(AV) : kind === 'escribir' ? vEscribir(AV) : vAsociar(AV);
+  return kind === 'cartes' ? vCartes(AV) : kind === 'escribir' ? vEscribir(AV) : kind === 'naves' ? vNaves(AV) : vAsociar(AV);
 }
 /* Cartes à retourner */
 function cardSide(it, side) {
@@ -2887,6 +2972,21 @@ const ACT = {
     if (f) { f.classList.toggle('on', A.flip); setTimeout(() => { if (AV === A) render(); }, 460); } else render();
   },
   cdir(el) { AV.dir = el.dataset.d; AV.flip = false; render(); },
+  nspeed(el) { S.set.naves = el.dataset.v; save(); render(); },
+  nhit(el) {
+    const A = AV, R = A && A.round; if (!R || R.done) return;
+    const s = R.ships[+el.dataset.i]; if (!s || s.bad) return;
+    if (s.it === R.it) {
+      if (R.tries === 0) { record(R.it, true); A.firstOk++; snapshot(); save(); }
+      s.boom = true; R.done = true; R.ok = true;
+      R.msg = `¡Bien! <b>${esc(plain(R.it.es))}</b> = ${esc(R.it.fr)}`;
+    } else {
+      navMiss(A, R); s.bad = true;
+      R.msg = `<b>${esc(plain(s.it.es))}</b> = ${esc(s.it.fr)}<br>Cherche encore.`;
+    }
+    render();
+  },
+  nnext() { const A = AV; A.i++; A.round = A.i < A.deck.length ? navRound(A.deck[A.i], A.all) : null; render(); },
   cknow(el) {
     const A = AV, ok = el.dataset.ok === '1', it = A.queue.shift();
     if (!A.seen.has(it.id)) { A.seen.add(it.id); record(it, ok); if (ok) A.knew++; else A.res.push(it); snapshot(); save(); }
@@ -3098,7 +3198,7 @@ Voz.init();
   }
   route();
 })();
-window.__esp = {startCustom, orderable, exOrder, glossFor, twin, spread, similar, diffHL, introOf,
+window.__esp = {navRound, startCustom, orderable, exOrder, glossFor, twin, spread, similar, diffHL, introOf,
   why, memoSteps, focoSteps, dlgSteps,
   llama, gainXP, G:() => G, buildMision, lvlOf, LV, OBJ, CULTURA, tirage,
   av:() => AV, actPool, writeParts, writable, buildAV, ACTS,
